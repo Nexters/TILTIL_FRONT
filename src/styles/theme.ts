@@ -1,5 +1,5 @@
 const colors = {
-  purple: "#8e89ff",
+  purple: '#8e89ff',
 };
 
 const theme = {

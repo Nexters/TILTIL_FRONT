@@ -1,7 +1,7 @@
-import type { NextPage } from "next";
-import { dehydrate, QueryClient, useQuery } from "react-query";
-import { useRecoilState } from "recoil";
-import { tilState } from "states/til";
+import type { NextPage } from 'next';
+import { dehydrate, QueryClient, useQuery } from 'react-query';
+import { useRecoilState } from 'recoil';
+import { tilState } from 'states/til';
 
 // export async function getStaticProps() {
 //   const queryClient = new QueryClient()
@@ -15,10 +15,19 @@ import { tilState } from "states/til";
 // }
 
 const Home: NextPage = () => {
-  const [pageName, setPageName] = useRecoilState(tilState)
-  const { data } = useQuery("");
+  const [pageName, setPageName] = useRecoilState(tilState);
+  const { data } = useQuery('');
 
-  return <div onClick={() => {setPageName('recoil 연결')}}>할일 : {pageName}</div>;
+  return (
+    <button
+      type="button"
+      onClick={() => {
+        setPageName('recoil 연결');
+      }}
+    >
+      할일 : {pageName}
+    </button>
+  );
 };
 
 export default Home;
