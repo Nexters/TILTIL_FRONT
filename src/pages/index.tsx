@@ -1,4 +1,4 @@
-import type { NextPage } from "next";
+import type { NextPage } from "next"
 import { useRecoilState } from "recoil";
 import { tilState } from "states/til";
 
