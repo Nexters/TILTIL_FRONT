@@ -1,5 +1,7 @@
 import type { NextPage } from "next";
 import { dehydrate, QueryClient, useQuery } from "react-query";
+import { useRecoilState } from "recoil";
+import { tilState } from "states/til";
 
 // export async function getStaticProps() {
 //   const queryClient = new QueryClient()
@@ -13,9 +15,10 @@ import { dehydrate, QueryClient, useQuery } from "react-query";
 // }
 
 const Home: NextPage = () => {
+  const [pageName, setPageName] = useRecoilState(tilState)
   const { data } = useQuery("");
 
-  return <div>메인</div>;
+  return <div onClick={() => {setPageName('recoil 연결')}}>할일 : {pageName}</div>;
 };
 
 export default Home;
