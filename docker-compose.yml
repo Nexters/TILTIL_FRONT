@@ -1,0 +1,14 @@
+version: '3.7'
+
+services:
+  tiltil:
+    container_name: tiltil
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - '9000:3000'
+    environment:
+      - NODE_ENV=development
+      - CHOKIDAR_USEPOLLING=true
+    tty: true
