@@ -25,7 +25,7 @@ const Home: NextPage = () => {
         setPageName('recoil 연결');
       }}
     >
-      할일22 : {pageName}
+      LANDING
     </button>
   );
 };
