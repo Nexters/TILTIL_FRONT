@@ -19,13 +19,13 @@ const Wrapper = styled.div`
 `;
 
 const Main = styled.main`
-  ${({ theme: { header, main } }) => {
+  ${({ theme: { header, main, colors } }) => {
     const height = `calc(100vh - ${header.height}px)`;
 
     return css`
       padding: 0 ${main.padding}px;
       height: ${height};
-      background: white;
+      background: ${colors.gray000};
     `;
   }}
 `;
