@@ -14,10 +14,15 @@ const globalStyle = css`
   html,
   body,
   #__next {
-    height: 100%;
     margin: 0;
     padding: 0;
     border: 0;
+  }
+
+  #__next {
+    display: flex;
+    justify-content: center;
+    background: #e5e5e5;
   }
 
   button {
