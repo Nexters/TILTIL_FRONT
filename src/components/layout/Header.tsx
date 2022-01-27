@@ -9,12 +9,12 @@ const Header: React.VFC = () => {
 const Wrapper = styled.header`
   position: sticky;
   top: 0px;
-  background: red;
 
-  ${({ theme: { header } }) => {
+  ${({ theme: { header, colors } }) => {
     return css`
       height: ${header.height}px;
       padding: 0 ${header.padding}px;
+      background: ${colors.gray300};
     `;
   }}
 `;

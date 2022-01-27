@@ -9,6 +9,7 @@ const globalStyle = css`
     -moz-osx-font-smoothing: grayscale;
     -webkit-font-smoothing: antialiased;
     font-smoothing: antialiased;
+    font-family: 'Spoqa Han Sans Neo', 'sans-serif';
   }
 
   html,

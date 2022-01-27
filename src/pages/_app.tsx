@@ -1,5 +1,5 @@
 import { Global, ThemeProvider } from '@emotion/react';
-import Layout from 'components/Layout/Layout';
+import Layout from 'components/layout/Layout';
 import type { AppProps } from 'next/app';
 import React, { useState } from 'react';
 import { Hydrate, QueryClient, QueryClientProvider } from 'react-query';
