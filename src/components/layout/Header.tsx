@@ -1,9 +1,15 @@
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
+import { ArrowLeft } from 'assets';
 import React from 'react';
 
 const Header: React.VFC = () => {
-  return <Wrapper>헤더</Wrapper>;
+  return (
+    <Wrapper>
+      <ArrowLeft />
+      헤더
+    </Wrapper>
+  );
 };
 
 const Wrapper = styled.header`
