@@ -19,11 +19,10 @@ const Wrapper = styled.div`
 `;
 
 const Main = styled.main`
-  ${({ theme: { header, main, colors } }) => {
+  ${({ theme: { header, colors } }) => {
     const height = `calc(100vh - ${header.height}px)`;
 
     return css`
-      padding: 0 ${main.padding}px;
       height: ${height};
       background: ${colors.gray000};
     `;
