@@ -1,26 +1,50 @@
+import { ROUTE } from 'constants/route';
+
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
-import { ArrowLeft } from 'assets';
-import React from 'react';
+import { PathProps } from 'types/common';
 
-const Header: React.VFC = () => {
+import { HeaderProps } from './constants';
+import HeaderTitle from './HeaderTitle';
+import LeftHeader from './LeftHeader';
+
+const Header: React.VFC<HeaderProps> = (props) => {
+  const { pathname } = props;
+
+  if (pathname === ROUTE.main) {
+    return <></>;
+  }
+
   return (
-    <Wrapper>
-      <ArrowLeft />
-      헤더
+    <Wrapper pathname={pathname}>
+      <div>
+        <LeftHeader {...props} />
+      </div>
+      <div>
+        <HeaderTitle {...props} />
+      </div>
+      <div>{/* <RightBtn /> */}</div>
     </Wrapper>
   );
 };
 
-const Wrapper = styled.header`
+const Wrapper = styled.header<PathProps>`
   position: sticky;
   top: 0px;
+  display: flex;
+  justify-content: space-between;
 
-  ${({ theme: { header, colors } }) => {
+  > div {
+    min-width: 24px;
+    display: flex;
+    align-items: center;
+  }
+
+  ${({ theme: { header, colors }, pathname }) => {
     return css`
       height: ${header.height}px;
       padding: 0 ${header.padding}px;
-      background: ${colors.gray300};
+      background: ${pathname === ROUTE.records ? colors.blue90 : colors.gray000};
     `;
   }}
 `;
