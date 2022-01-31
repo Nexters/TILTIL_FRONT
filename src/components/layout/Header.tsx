@@ -7,6 +7,7 @@ import { PathProps } from 'types/common';
 import { HeaderProps } from './constants';
 import HeaderTitle from './HeaderTitle';
 import LeftHeader from './LeftHeader';
+import RightBtn from './RightBtn';
 
 const Header: React.VFC<HeaderProps> = (props) => {
   const { pathname } = props;
@@ -20,10 +21,10 @@ const Header: React.VFC<HeaderProps> = (props) => {
       <div>
         <LeftHeader {...props} />
       </div>
+      <HeaderTitle {...props} />
       <div>
-        <HeaderTitle {...props} />
+        <RightBtn {...props} />
       </div>
-      <div>{/* <RightBtn /> */}</div>
     </Wrapper>
   );
 };
