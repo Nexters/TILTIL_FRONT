@@ -19,7 +19,7 @@ const Header: React.VFC<HeaderProps> = (props) => {
   return (
     <Wrapper pathname={pathname}>
       <div>
-        <LeftBtn {...props} />
+        <LeftBtn pathname={pathname} />
       </div>
       <HeaderTitle {...props} />
       <div>

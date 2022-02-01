@@ -16,6 +16,5 @@ export const HEADER_TITLE = {
   [ROUTE.newRecords]: '암묵지 쌓기',
   [ROUTE.records_detail]: '암묵지 읽기',
 
-  todayRecord: '오늘의 암묵지',
   editRecord: '암묵지 수정',
 } as const;

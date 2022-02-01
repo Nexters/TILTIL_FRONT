@@ -9,22 +9,12 @@ type TitlePath = keyof typeof HEADER_TITLE;
 
 const HeaderTitle: React.VFC<HeaderProps> = ({ pathname, asPath }) => {
   if (pathname in HEADER_TITLE) {
+    // TODO: 암묵지 수정 예외처리
+    const title = /abc/.test(asPath) ? HEADER_TITLE.editRecord : HEADER_TITLE[pathname as TitlePath];
+
     return (
       <div>
-        <Title>
-          {(() => {
-            if (/abc/.test(asPath)) {
-              // TODO: 오늘의 암묵지 예외처리
-              return HEADER_TITLE.todayRecord;
-            }
-            if (/abc/.test(asPath)) {
-              // TODO: 암묵지 수정 예외처리
-              return HEADER_TITLE.editRecord;
-            }
-
-            return HEADER_TITLE[pathname as TitlePath];
-          })()}
-        </Title>
+        <Title>{title}</Title>
       </div>
     );
   }
