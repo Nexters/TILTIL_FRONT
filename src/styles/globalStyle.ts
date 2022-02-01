@@ -23,7 +23,7 @@ const globalStyle = css`
   #__next {
     display: flex;
     justify-content: center;
-    background: #e5e5e5;
+    background-color: #e5e5e5;
   }
 
   button {

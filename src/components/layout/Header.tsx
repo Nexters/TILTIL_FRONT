@@ -50,7 +50,7 @@ const Wrapper = styled.header<PathProps>`
     return css`
       height: ${header.height}px;
       padding: 0 ${header.padding}px;
-      background: ${pathname === ROUTE.records ? colors.blue90 : colors.gray000};
+      background-color: ${pathname === ROUTE.records ? colors.blue90 : colors.gray000};
     `;
   }}
 `;
