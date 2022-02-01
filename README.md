@@ -93,7 +93,6 @@ yarn test
 ## ⛏️ Built Using <a name = "built_using"></a>
 
 - [Next](https://nextjs.org/) - Web Framework
-- [Express](https://expressjs.com/) - Server Framework
 - [Typescript](https://vuejs.org/) - Language
 - [react-query](https://nodejs.org/en/) - Server state
 
