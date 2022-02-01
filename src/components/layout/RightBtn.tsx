@@ -1,10 +1,11 @@
 import { ROUTE } from 'constants/route';
-import React from 'react';
-import { HeaderProps } from './constants';
 
+import styled from '@emotion/styled';
 import { Cancel, More, Share, User } from 'assets';
 import Link from 'next/link';
-import styled from '@emotion/styled';
+import React from 'react';
+
+import { HeaderProps } from './constants';
 
 const RightBtn: React.VFC<HeaderProps> = ({ pathname, asPath }) => {
   switch (pathname) {
@@ -12,20 +13,22 @@ const RightBtn: React.VFC<HeaderProps> = ({ pathname, asPath }) => {
       // TODO: 공유 링크로 접근했을 때 예외처리
       return (
         <Wrapper>
-          <Button type="button">
+          <button type="button">
             <Share />
-          </Button>
-          <Link href="/">
-            <User />
+          </button>
+          <Link href="/" passHref>
+            <a href="replace">
+              <User />
+            </a>
           </Link>
         </Wrapper>
       );
 
     case ROUTE.login:
       return (
-        <Button type="button">
+        <button type="button">
           <Cancel />
-        </Button>
+        </button>
       );
 
     case ROUTE.records_detail:
@@ -34,9 +37,9 @@ const RightBtn: React.VFC<HeaderProps> = ({ pathname, asPath }) => {
         return <></>;
       }
       return (
-        <Button type="button">
+        <button type="button">
           <More />
-        </Button>
+        </button>
       );
 
     default:
@@ -48,10 +51,6 @@ const Wrapper = styled.div`
   display: flex;
   align-items: center;
   column-gap: 18px;
-`;
-
-const Button = styled.button`
-  display: flex;
 `;
 
 export default RightBtn;

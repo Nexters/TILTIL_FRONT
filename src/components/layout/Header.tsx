@@ -39,6 +39,11 @@ const Wrapper = styled.header<PathProps>`
     min-width: 24px;
     display: flex;
     align-items: center;
+
+    button,
+    a {
+      display: flex;
+    }
   }
 
   ${({ theme: { header, colors }, pathname }) => {
