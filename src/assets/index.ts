@@ -1,7 +1,5 @@
-import ArrowLeft from './arrow-left.svg';
-import Cancel from './cancel.svg';
-import More from './more.svg';
-import Share from './share.svg';
-import User from './user.svg';
-
-export { ArrowLeft, Cancel, More, Share, User };
+export { default as ArrowLeft } from './ArrowLeft';
+export { default as Cancel } from './Cancel';
+export { default as More } from './More';
+export { default as Share } from './Share';
+export { default as User } from './User';

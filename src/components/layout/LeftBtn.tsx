@@ -30,8 +30,8 @@ const BtnBack: React.VFC = () => {
   const handleBack = () => router.back();
 
   return (
-    <button type="button" style={{ display: 'flex' }}>
-      <ArrowLeft onClick={handleBack} />
+    <button type="button" onClick={handleBack}>
+      <ArrowLeft />
     </button>
   );
 };
