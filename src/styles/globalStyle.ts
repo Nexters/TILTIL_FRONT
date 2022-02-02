@@ -9,15 +9,21 @@ const globalStyle = css`
     -moz-osx-font-smoothing: grayscale;
     -webkit-font-smoothing: antialiased;
     font-smoothing: antialiased;
+    font-family: 'Spoqa Han Sans Neo', 'sans-serif';
   }
 
   html,
   body,
   #__next {
-    height: 100%;
     margin: 0;
     padding: 0;
     border: 0;
+  }
+
+  #__next {
+    display: flex;
+    justify-content: center;
+    background-color: #e5e5e5;
   }
 
   button {
