@@ -17,16 +17,15 @@ const Button: React.FC<Props> = ({ children, size = 'medium', type = 'button', s
 };
 
 const Wrapper = styled.button<Props>`
-  font-weight: bold;
-
-  text-align: center;
-  background-color: ${({ theme }) => theme.colors.background.primary};
-  color: ${({ theme }) => theme.colors.font.white};
-
-  border-radius: ${({ shape }) => (shape === 'round' ? '12px' : '0px')};
+  width: ${({ fullWidth }) => (fullWidth ? '100%' : 'auto')};
   padding: 12px;
 
-  width: ${({ fullWidth }) => (fullWidth ? '100%' : 'auto')};
+  text-align: center;
+  font-weight: bold;
+
+  border-radius: ${({ shape }) => (shape === 'round' ? '12px' : '0px')};
+  background-color: ${({ theme }) => theme.colors.background.primary};
+  color: ${({ theme }) => theme.colors.font.white};
 
   ${({ size, theme }) => {
     switch (size) {
