@@ -1,5 +1,8 @@
+import { css } from '@emotion/react';
+
 const size = {
-  mobile: 428,
+  mobile: 600,
+  desktop: 744,
 };
 
 const devices = {
@@ -16,9 +19,18 @@ const header = {
   padding: 24,
 };
 
-const colors = {
+const fontSize = {
+  h5: css`
+    font-size: 18px;
+    line-height: 23px;
+    letter-spacing: -0.015em;
+  `,
+};
+
+const palette = {
   // blue
   blue600: '#00398E',
+  blue550: '#0843DB',
   blue500: '#0066FF',
   blue400: '#2C75D8',
   blue300: '#3AA1FF',
@@ -47,12 +59,26 @@ const colors = {
   curious: '#FFD684',
 };
 
+const colors = {
+  font: {
+    primary: palette.blue500,
+    white: palette.gray000,
+  },
+  background: {
+    primary: palette.blue500,
+    disabled: palette.gray300,
+    hover: palette.blue550,
+    global: palette.blueGray200,
+  },
+};
+
 const theme = {
   size,
   devices,
   main,
   header,
   colors,
+  fontSize,
 };
 
 export type ThemeType = typeof theme;
