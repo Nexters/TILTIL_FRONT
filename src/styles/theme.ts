@@ -64,11 +64,15 @@ const colors = {
     primary: palette.blue500,
     white: palette.gray000,
   },
+
   background: {
     primary: palette.blue500,
+    secondary: palette.blue90,
+    white: palette.gray000,
+    global: palette.blueGray200,
+
     disabled: palette.gray300,
     hover: palette.blue550,
-    global: palette.blueGray200,
   },
 };
 
