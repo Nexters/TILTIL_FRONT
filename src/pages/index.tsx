@@ -1,4 +1,5 @@
 import Button from 'components/Button';
+import Layout from 'components/layout/Layout';
 import type { NextPage } from 'next';
 import { dehydrate, QueryClient, useQuery } from 'react-query';
 import { useRecoilState } from 'recoil';
@@ -20,9 +21,11 @@ const Home: NextPage = () => {
   const { data } = useQuery('');
 
   return (
-    <Button disabled fullWidth>
-      오늘의 암묵지 쌓기
-    </Button>
+    <Layout>
+      <Button disabled fullWidth>
+        오늘의 암묵지 쌓기
+      </Button>
+    </Layout>
   );
 };
 

@@ -1,3 +1,4 @@
+import Layout from 'components/layout/Layout';
 import { GetServerSideProps, GetServerSidePropsContext } from 'next';
 import { useRouter } from 'next/router';
 import React from 'react';
@@ -7,7 +8,11 @@ interface Props {
 }
 
 const Profile = ({ id }: Props) => {
-  return <h1>PROFILE {id}</h1>;
+  return (
+    <Layout>
+      <h1>PROFILE {id}</h1>
+    </Layout>
+  );
 };
 
 export async function getServerSideProps({ query }: GetServerSidePropsContext<Pick<Props, 'id'>>) {
