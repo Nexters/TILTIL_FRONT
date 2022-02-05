@@ -1,6 +1,8 @@
 import { css } from '@emotion/react';
 import emotionReset from 'emotion-reset';
 
+import theme from './theme';
+
 const globalStyle = css`
   ${emotionReset}
 
@@ -23,7 +25,7 @@ const globalStyle = css`
   #__next {
     display: flex;
     justify-content: center;
-    background-color: #e5e5e5;
+    background-color: ${theme.colors.blueGray200};
   }
 
   button {

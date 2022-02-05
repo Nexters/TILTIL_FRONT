@@ -1,5 +1,5 @@
 const size = {
-  mobile: 360,
+  mobile: 428,
 };
 
 const devices = {
@@ -38,6 +38,7 @@ const colors = {
   gray200: '#EEEEF4',
   gray100: '#F8F8F8',
   gray000: '#ffffff',
+  blueGray200: '#E4EBF2',
 
   // state
   learn: '#9AD87D',
