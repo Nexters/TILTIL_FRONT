@@ -18,6 +18,13 @@ const globalStyle = css`
     font-family: 'Spoqa Han Sans Neo', 'sans-serif';
   }
 
+  html {
+    background-color: ${theme.colors.background.global};
+    ::-webkit-scrollbar {
+      display: none;
+    }
+  }
+
   html,
   body,
   #__next {
@@ -29,7 +36,6 @@ const globalStyle = css`
   #__next {
     display: flex;
     justify-content: center;
-    background-color: ${theme.colors.background.global};
   }
 
   button {

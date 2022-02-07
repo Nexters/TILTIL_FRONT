@@ -1,6 +1,8 @@
-import Layout from 'components/layout/Layout';
+import { More } from 'assets';
+import Header from 'components/layout/Header';
 import type { GetServerSidePropsContext } from 'next';
 import React from 'react';
+import { PageWrapper } from 'styles/styled';
 
 interface Props {
   recordId?: string;
@@ -8,9 +10,21 @@ interface Props {
 
 const Record = ({ recordId }: Props) => {
   return (
-    <Layout>
-      <h1>Record {recordId}</h1>
-    </Layout>
+    <PageWrapper background="secondary">
+      <Header
+        title="암묵지 읽기"
+        rightBtn={
+          <button type="button">
+            <More />
+          </button>
+        }
+        background="secondary"
+      />
+
+      <main>
+        <h1>Record {recordId}</h1>
+      </main>
+    </PageWrapper>
   );
 };
 

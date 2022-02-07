@@ -1,9 +1,9 @@
 import Button from 'components/Button';
-import Layout from 'components/layout/Layout';
 import type { NextPage } from 'next';
 import { dehydrate, QueryClient, useQuery } from 'react-query';
 import { useRecoilState } from 'recoil';
 import { tilState } from 'states/til';
+import { PageWrapper } from 'styles/styled';
 
 // export async function getStaticProps() {
 //   const queryClient = new QueryClient()
@@ -21,11 +21,14 @@ const Home: NextPage = () => {
   const { data } = useQuery('');
 
   return (
-    <Layout>
-      <Button disabled fullWidth>
-        오늘의 암묵지 쌓기
-      </Button>
-    </Layout>
+    <PageWrapper>
+      <main>
+        비로그인 메인
+        <Button disabled fullWidth>
+          오늘의 암묵지 쌓기
+        </Button>
+      </main>
+    </PageWrapper>
   );
 };
 

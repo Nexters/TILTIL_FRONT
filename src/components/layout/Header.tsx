@@ -1,35 +1,41 @@
-import { ROUTE } from 'constants/route';
-
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
-import { PathProps } from 'types/common';
+import { ArrowLeft } from 'assets';
+import { useRouter } from 'next/router';
+import { ReactNode } from 'react';
+import theme from 'styles/theme';
+import { Background } from 'types/styled';
 
-import { HeaderProps } from './constants';
-import HeaderTitle from './HeaderTitle';
-import LeftBtn from './LeftBtn';
-import RightBtn from './RightBtn';
+interface Props {
+  title?: string;
+  leftBtn?: ReactNode;
+  rightBtn?: ReactNode;
+  background?: Background;
+}
 
-const Header: React.VFC<HeaderProps> = (props) => {
-  const { pathname } = props;
+const Header: React.VFC<Props> = ({ title, leftBtn, rightBtn, background = 'white' }) => {
+  const router = useRouter();
 
-  if (pathname === ROUTE.main) {
-    return <></>;
-  }
+  const handleBack = () => router.back();
 
   return (
-    <Wrapper pathname={pathname}>
+    <Wrapper background={background}>
       <div>
-        <LeftBtn pathname={pathname} />
+        {leftBtn ?? (
+          <button type="button" onClick={handleBack}>
+            <ArrowLeft />
+          </button>
+        )}
       </div>
-      <HeaderTitle {...props} />
-      <div>
-        <RightBtn {...props} />
-      </div>
+
+      <div>{title && <Title>{title}</Title>}</div>
+
+      <div>{rightBtn}</div>
     </Wrapper>
   );
 };
 
-const Wrapper = styled.header<PathProps>`
+const Wrapper = styled.header<Required<Pick<Props, 'background'>>>`
   position: sticky;
   top: 0px;
   display: flex;
@@ -46,13 +52,18 @@ const Wrapper = styled.header<PathProps>`
     }
   }
 
-  ${({ theme: { header, colors }, pathname }) => {
+  ${({ theme: { header }, background }) => {
     return css`
       height: ${header.height}px;
       padding: 0 ${header.padding}px;
-      background-color: ${pathname === ROUTE.records ? colors.background.secondary : colors.background.white};
+      background-color: ${theme.colors.background[background]};
     `;
   }}
+`;
+
+const Title = styled.h1`
+  font-weight: bold;
+  font-size: 18px;
 `;
 
 export default Header;
