@@ -1,12 +1,16 @@
 import { css } from '@emotion/react';
 import emotionReset from 'emotion-reset';
 
+import { boxModel } from './boxModel';
 import theme from './theme';
 
 const globalStyle = css`
-  ${emotionReset}
+  ${emotionReset};
+  ${boxModel('')};
 
-  *, *::after, *::before {
+  *,
+  *::after,
+  *::before {
     box-sizing: border-box;
     -moz-osx-font-smoothing: grayscale;
     -webkit-font-smoothing: antialiased;
@@ -25,7 +29,7 @@ const globalStyle = css`
   #__next {
     display: flex;
     justify-content: center;
-    background-color: ${theme.colors.blueGray200};
+    background-color: ${theme.colors.background.global};
   }
 
   button {

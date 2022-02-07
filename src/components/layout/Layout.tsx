@@ -31,7 +31,7 @@ const Main = styled.main<PathProps>`
 
     return css`
       height: ${height};
-      background-color: ${colors.gray000};
+      background-color: ${colors.background.white};
     `;
   }}
 `;

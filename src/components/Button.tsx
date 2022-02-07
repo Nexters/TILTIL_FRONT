@@ -1,27 +1,49 @@
-// common component example
+import { css } from '@emotion/react';
 import styled from '@emotion/styled';
-import React from 'react';
+import React, { ButtonHTMLAttributes } from 'react';
 
-// name: Props
-interface Props {
-  text: string;
-  num: number;
+interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
+  shape?: 'square' | 'round';
+  size?: 'large' | 'medium' | 'small';
+  fullWidth?: boolean;
 }
 
-// Wrapper
-// arrow function 사용
-// function, method: return type 적어주기
-const Button: React.VFC<Props> = ({ text }) => {
+const Button: React.FC<Props> = ({ children, size = 'medium', type = 'button', shape = 'round', ...rest }) => {
   return (
-    <Wrapper type="button" text={text}>
-      버튼
+    <Wrapper type={type} shape={shape} size={size} {...rest}>
+      {children}
     </Wrapper>
   );
 };
 
-// styled components 위치
-const Wrapper = styled.button<Pick<Props, 'text'>>`
-  color: blue;
+const Wrapper = styled.button<Props>`
+  width: ${({ fullWidth }) => (fullWidth ? '100%' : 'auto')};
+  padding: 12px;
+
+  text-align: center;
+  font-weight: bold;
+
+  border-radius: ${({ shape }) => (shape === 'round' ? '12px' : '0px')};
+  background-color: ${({ theme }) => theme.colors.background.primary};
+  color: ${({ theme }) => theme.colors.font.white};
+
+  ${({ size, theme }) => {
+    switch (size) {
+      default:
+        return css`
+          height: 56px;
+          ${theme.fontSize.h5};
+        `;
+    }
+  }};
+
+  :hover {
+    background-color: ${({ theme }) => theme.colors.background.hover};
+  }
+
+  :disabled {
+    background-color: ${({ theme }) => theme.colors.background.disabled};
+  }
 `;
 
 export default Button;
