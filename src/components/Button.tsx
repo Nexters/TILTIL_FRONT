@@ -24,8 +24,8 @@ const Wrapper = styled.button<Props>`
   font-weight: bold;
 
   border-radius: ${({ shape }) => (shape === 'round' ? '12px' : '0px')};
-  background-color: ${({ theme }) => theme.colors.background.primary};
-  color: ${({ theme }) => theme.colors.font.white};
+  background-color: ${({ theme }) => theme.colors.primary.default};
+  color: ${({ theme }) => theme.colors.text.inverse};
 
   ${({ size, theme }) => {
     switch (size) {
@@ -38,11 +38,11 @@ const Wrapper = styled.button<Props>`
   }};
 
   :hover {
-    background-color: ${({ theme }) => theme.colors.background.hover};
+    background-color: ${({ theme }) => theme.colors.primary.pressed};
   }
 
   :disabled {
-    background-color: ${({ theme }) => theme.colors.background.disabled};
+    background-color: ${({ theme }) => theme.colors.ui.disabled};
   }
 `;
 

@@ -10,7 +10,7 @@ interface Props {
 
 const Record = ({ recordId }: Props) => {
   return (
-    <PageWrapper background="secondary">
+    <PageWrapper background="default">
       <Header
         title="암묵지 읽기"
         rightBtn={
@@ -18,7 +18,7 @@ const Record = ({ recordId }: Props) => {
             <More />
           </button>
         }
-        background="secondary"
+        background="default"
       />
 
       <main>
