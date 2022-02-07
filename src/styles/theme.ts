@@ -1,7 +1,7 @@
 import { css } from '@emotion/react';
 
 const size = {
-  mobile: 600,
+  mobile: 599,
   desktop: 744,
 };
 
@@ -9,14 +9,10 @@ const devices = {
   mobile: `(max-width: ${size.mobile})`,
 };
 
-const main = {
-  width: 744,
-  padding: 16,
-};
-
-const header = {
-  height: 56,
-  padding: 24,
+const padding = {
+  lg: 48,
+  md: 24,
+  sm: 16,
 };
 
 const fontSize = {
@@ -79,8 +75,7 @@ const colors = {
 const theme = {
   size,
   devices,
-  main,
-  header,
+  padding,
   colors,
   fontSize,
 };
