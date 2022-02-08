@@ -1,15 +1,32 @@
 import styled from '@emotion/styled';
+import { useRouter } from 'next/router';
 // import { GetServerSidePropsContext } from 'next';
-import React from 'react';
+import React, { MouseEvent, useMemo } from 'react';
 
 interface Props {
   id: string;
 }
 
-const MENU_TITLES = ['닉네임 변경', '서비스 소개', '로그아웃'];
+interface MenuItem {
+  title: string;
+  onClick?: (e?: MouseEvent<HTMLLIElement>) => void;
+}
 
 const MyPage: React.FC<Props> = () => {
   const userName = '데니스';
+  const router = useRouter();
+
+  const menuItems = useMemo<MenuItem[]>(
+    () => [
+      {
+        title: '닉네임변경',
+        onClick: () => router.push(`${router.pathname}/nickname`),
+      },
+      { title: '서비스 소개', onClick: () => {} },
+      { title: '로그아웃', onClick: () => {} },
+    ],
+    []
+  );
 
   return (
     <Wrapper>
@@ -18,8 +35,8 @@ const MyPage: React.FC<Props> = () => {
         <span>잊지 않고 오셨네요!</span>
       </UserNameWrapper>
       <MenuList>
-        {MENU_TITLES.map((title) => (
-          <li key={title}>
+        {menuItems.map(({ title, onClick }) => (
+          <li key={title} onClick={onClick}>
             {title}
             <span>{'>'}</span>
           </li>
