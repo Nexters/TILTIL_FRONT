@@ -20,9 +20,6 @@ const globalStyle = css`
 
   html {
     background-color: ${theme.colors.background.global};
-    ::-webkit-scrollbar {
-      display: none;
-    }
   }
 
   html,
