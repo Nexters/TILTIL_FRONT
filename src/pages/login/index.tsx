@@ -6,14 +6,7 @@ import { PageWrapper } from 'styles/styled';
 const Login = () => {
   return (
     <PageWrapper>
-      <Header
-        leftBtn={<></>}
-        rightBtn={
-          <button type="button">
-            <Cancel />
-          </button>
-        }
-      />
+      <Header rightButton="cancel" />
       <main>LOGIN</main>
     </PageWrapper>
   );

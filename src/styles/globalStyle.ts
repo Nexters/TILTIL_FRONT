@@ -3,6 +3,7 @@ import emotionReset from 'emotion-reset';
 
 import { boxModel } from './boxModel';
 import theme from './theme';
+import typography from './typography';
 
 const globalStyle = css`
   ${emotionReset};
@@ -20,6 +21,25 @@ const globalStyle = css`
 
   html {
     background-color: ${theme.colors.background.global};
+  }
+
+  h1 {
+    ${typography.h1};
+  }
+  h2 {
+    ${typography.h2};
+  }
+  h3 {
+    ${typography.h3};
+  }
+  h4 {
+    ${typography.h4};
+  }
+  h5 {
+    ${typography.h5};
+  }
+  h6 {
+    ${typography.h6};
   }
 
   html,

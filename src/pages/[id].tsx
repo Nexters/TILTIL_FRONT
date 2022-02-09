@@ -13,21 +13,7 @@ interface Props {
 const Profile = ({ id }: Props) => {
   return (
     <PageWrapper>
-      <Header
-        leftBtn={<></>}
-        rightBtn={
-          <Wrapper>
-            <button type="button">
-              <Share />
-            </button>
-            <Link href="/" passHref>
-              <a href="replace">
-                <User />
-              </a>
-            </Link>
-          </Wrapper>
-        }
-      />
+      <Header rightButton="user" />
 
       <main>
         <h1>PROFILE {id}</h1>

@@ -1,6 +1,6 @@
 import { css } from '@emotion/react';
 
-const typo = {
+const typography = {
   h1: css`
     font-family: GmarketSansBold;
     font-size: 24px;
@@ -138,4 +138,4 @@ const typo = {
   `,
 };
 
-export default typo;
+export default typography;

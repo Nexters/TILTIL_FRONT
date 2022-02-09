@@ -1,17 +1,19 @@
 import styled from '@emotion/styled';
-import { ArrowLeft } from 'assets';
+import { Icon, IconName } from 'components/icon/Icon';
 import { useRouter } from 'next/router';
-import { ReactNode } from 'react';
 import { Background } from 'types/styled';
 
-interface Props {
-  title?: string;
-  leftBtn?: ReactNode;
-  rightBtn?: ReactNode;
-  background?: Background;
+export interface HeaderProps {
+  title: string;
+  leftButton: IconName;
+  rightButton: IconName;
+  background: Background;
 }
 
-const Header: React.VFC<Props> = ({ title, leftBtn, rightBtn, background = 'white' }) => {
+type Props = Partial<HeaderProps>;
+type WrapperProps = Required<Pick<HeaderProps, 'background'>>;
+
+const Header: React.VFC<Props> = ({ title, leftButton, rightButton = 'more', background = 'white' }) => {
   const router = useRouter();
 
   const handleBack = () => router.back();
@@ -19,21 +21,23 @@ const Header: React.VFC<Props> = ({ title, leftBtn, rightBtn, background = 'whit
   return (
     <Wrapper background={background}>
       <div>
-        {leftBtn ?? (
+        {leftButton ?? (
           <button type="button" onClick={handleBack}>
-            <ArrowLeft />
+            <Icon name="arrow" />
           </button>
         )}
       </div>
 
       <div>{title && <Title>{title}</Title>}</div>
 
-      <div>{rightBtn}</div>
+      <div>
+        <Icon name={rightButton} />
+      </div>
     </Wrapper>
   );
 };
 
-const Wrapper = styled.header<Required<Pick<Props, 'background'>>>`
+const Wrapper = styled.header<WrapperProps>`
   position: sticky;
   top: 0px;
   display: flex;
@@ -56,7 +60,7 @@ const Wrapper = styled.header<Required<Pick<Props, 'background'>>>`
 `;
 
 const Title = styled.h1`
-  ${({ theme: { typo } }) => typo.subTitle1};
+  ${({ theme: { typography: typo } }) => typo.subTitle1};
   color: ${({ theme: { colors } }) => colors.text.idle};
 `;
 

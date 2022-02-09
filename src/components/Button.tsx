@@ -2,21 +2,31 @@ import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import React, { ButtonHTMLAttributes } from 'react';
 
-interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
-  shape?: 'square' | 'round';
-  size?: 'large' | 'medium' | 'small';
-  fullWidth?: boolean;
+interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+  shape: 'square' | 'round';
+  size: 'large' | 'medium' | 'small';
+  fullWidth: boolean;
 }
 
-const Button: React.FC<Props> = ({ children, size = 'medium', type = 'button', shape = 'round', ...rest }) => {
+type Props = Partial<ButtonProps>;
+type WrapperProps = Pick<ButtonProps, 'fullWidth' | 'shape' | 'size'>;
+
+const Button: React.FC<Props> = ({
+  fullWidth = false,
+  children,
+  size = 'medium',
+  type = 'button',
+  shape = 'round',
+  ...rest
+}) => {
   return (
-    <Wrapper type={type} shape={shape} size={size} {...rest}>
+    <Wrapper type={type} shape={shape} size={size} fullWidth={fullWidth} {...rest}>
       {children}
     </Wrapper>
   );
 };
 
-const Wrapper = styled.button<Props>`
+const Wrapper = styled.button<WrapperProps>`
   width: ${({ fullWidth }) => (fullWidth ? '100%' : 'auto')};
   padding: 12px;
 
@@ -32,7 +42,7 @@ const Wrapper = styled.button<Props>`
       default:
         return css`
           height: 56px;
-          ${theme.typo.h5};
+          ${theme.typography.h5};
         `;
     }
   }};

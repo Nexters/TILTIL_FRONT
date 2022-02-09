@@ -11,15 +11,7 @@ interface Props {
 const Record = ({ recordId }: Props) => {
   return (
     <PageWrapper background="default">
-      <Header
-        title="암묵지 읽기"
-        rightBtn={
-          <button type="button">
-            <More />
-          </button>
-        }
-        background="default"
-      />
+      <Header title="암묵지 읽기" rightButton="more" background="default" />
 
       <main>
         <h1>Record {recordId}</h1>
