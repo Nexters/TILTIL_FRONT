@@ -40,6 +40,12 @@ const typography = {
     letter-spacing: -0.015em;
   `,
 
+  title: css`
+    font-family: GmarketSansMedium;
+    font-size: 18px;
+    line-height: 25px;
+    letter-spacing: -0.015em;
+  `,
   subTitle1: css`
     font-family: Spoqa Han Sans Neo;
     font-size: 18px;
@@ -51,6 +57,12 @@ const typography = {
     font-family: Spoqa Han Sans Neo;
     font-size: 18px;
     font-weight: 400;
+    line-height: 25px;
+    letter-spacing: -0.015em;
+  `,
+  subTitle3: css`
+    font-family: GmarketSansBold;
+    font-size: 16px;
     line-height: 25px;
     letter-spacing: -0.015em;
   `,
@@ -79,7 +91,7 @@ const typography = {
   body4: css`
     font-family: Spoqa Han Sans Neo;
     font-size: 14px;
-    font-weight: 400;
+    font-weight: 500;
     line-height: 20px;
     letter-spacing: -0.015em;
   `,
@@ -107,7 +119,7 @@ const typography = {
   `,
   buttonS: css`
     font-family: Spoqa Han Sans Neo;
-    font-weight: 400;
+    font-weight: 500;
     font-size: 14px;
     line-height: 20px;
     letter-spacing: -0.04em;
@@ -115,7 +127,7 @@ const typography = {
 
   listMenu: css`
     font-family: Spoqa Han Sans Neo;
-    font-weight: 400;
+    font-weight: 500;
     font-size: 16px;
     line-height: 22px;
     font-weight: 400;
