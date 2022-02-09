@@ -1,4 +1,4 @@
-import { ArrowLeft, Cancel, More, Share, User, HomeIcon } from 'assets/svgs';
+import { ArrowLeftIcon, CancelIcon, MoreIcon, ShareIcon, UserIcon, HomeIcon } from 'assets/svgs';
 import React, { VFC } from 'react';
 
 export type IconName = keyof typeof ICONS;
@@ -8,11 +8,11 @@ interface IconProps {
 
 const ICONS = {
   home: HomeIcon,
-  arrow: ArrowLeft,
-  cancel: Cancel,
-  more: More,
-  share: Share,
-  user: User,
+  arrow: ArrowLeftIcon,
+  cancel: CancelIcon,
+  more: MoreIcon,
+  share: ShareIcon,
+  user: UserIcon,
 } as const;
 
 export const Icon: VFC<IconProps> = ({ name }) => {

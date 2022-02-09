@@ -1,6 +1,6 @@
-export { default as ArrowLeft } from './ArrowLeft';
-export { default as Cancel } from './Cancel';
-export { default as More } from './More';
-export { default as Share } from './Share';
-export { default as User } from './User';
+export { default as ArrowLeftIcon } from './ArrowLeftIcon';
+export { default as CancelIcon } from './CancelIcon';
+export { default as MoreIcon } from './MoreIcon';
+export { default as ShareIcon } from './ShareIcon';
+export { default as UserIcon } from './UserIcon';
 export { default as HomeIcon } from './HomeIcon';
