@@ -1,5 +1,4 @@
 import styled from '@emotion/styled';
-import { Share, User } from 'assets';
 import Header from 'components/layout/Header';
 import { GetServerSideProps, GetServerSidePropsContext } from 'next';
 import Link from 'next/link';
@@ -13,7 +12,7 @@ interface Props {
 const Profile = ({ id }: Props) => {
   return (
     <PageWrapper>
-      <Header rightButton="user" />
+      <Header rightButton={['share', 'user']} />
 
       <main>
         <h1>PROFILE {id}</h1>
@@ -29,11 +28,5 @@ export async function getServerSideProps({ query }: GetServerSidePropsContext<Pi
     },
   };
 }
-
-const Wrapper = styled.div`
-  display: flex;
-  align-items: center;
-  column-gap: 18px;
-`;
 
 export default Profile;

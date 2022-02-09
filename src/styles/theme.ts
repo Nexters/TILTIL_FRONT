@@ -18,21 +18,12 @@ const padding = {
   sm: 16,
 };
 
-const fontSize = {
-  h5: css`
-    font-size: 18px;
-    line-height: 23px;
-    letter-spacing: -0.015em;
-  `,
-};
-
 const theme = {
   size,
   devices,
   padding,
   typography,
   colors,
-  fontSize,
 };
 
 export type ThemeType = typeof theme;

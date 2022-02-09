@@ -4,8 +4,8 @@ import { PageWrapper } from 'styles/styled';
 
 const Records = () => {
   return (
-    <PageWrapper>
-      <Header title="나의 암묵지" />
+    <PageWrapper background="default">
+      <Header title="나의 암묵지" leftButton="home" background="default" />
       <main>Records</main>
     </PageWrapper>
   );

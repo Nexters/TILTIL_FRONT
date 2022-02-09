@@ -1,4 +1,3 @@
-import { More } from 'assets';
 import Header from 'components/layout/Header';
 import type { GetServerSidePropsContext } from 'next';
 import React from 'react';
@@ -11,7 +10,7 @@ interface Props {
 const Record = ({ recordId }: Props) => {
   return (
     <PageWrapper background="default">
-      <Header title="암묵지 읽기" rightButton="more" background="default" />
+      <Header title="암묵지 읽기" leftButton="home" rightButton={['more']} background="default" />
 
       <main>
         <h1>Record {recordId}</h1>
