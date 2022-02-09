@@ -56,8 +56,8 @@ const Wrapper = styled.header<Required<Pick<Props, 'background'>>>`
 `;
 
 const Title = styled.h1`
-  font-weight: bold;
-  font-size: 18px;
+  ${({ theme: { typo } }) => typo.subTitle1};
+  color: ${({ theme: { colors } }) => colors.text.idle};
 `;
 
 export default Header;

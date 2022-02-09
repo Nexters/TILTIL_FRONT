@@ -1,6 +1,7 @@
 import { css } from '@emotion/react';
 
 import colors from './colors';
+import typo from './typo';
 
 const size = {
   mobile: 599,
@@ -29,6 +30,7 @@ const theme = {
   size,
   devices,
   padding,
+  typo,
   colors,
   fontSize,
 };

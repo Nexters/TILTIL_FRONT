@@ -32,7 +32,7 @@ const Wrapper = styled.button<Props>`
       default:
         return css`
           height: 56px;
-          ${theme.fontSize.h5};
+          ${theme.typo.h5};
         `;
     }
   }};
