@@ -1,16 +1,17 @@
 import { ROUTE } from 'constants/route';
 
 import styled from '@emotion/styled';
-import { Icon, IconName } from 'components/icon/Icon';
+import { Icon, LeftButtonIconName, RightButtonIconName } from 'components/icon/Icon';
 import { useRouter } from 'next/router';
+import { useMemo } from 'react';
 import { Background } from 'types/styled';
 
 import RightButton from './RightButton';
 
 export interface HeaderProps {
   title: string;
-  leftButton: IconName;
-  rightButton: IconName[];
+  leftButton: LeftButtonIconName;
+  rightButton: RightButtonIconName[];
   background: Background;
 }
 
@@ -20,16 +21,17 @@ type WrapperProps = Required<Pick<HeaderProps, 'background'>>;
 const Header: React.VFC<Props> = ({ title, leftButton, rightButton, background = 'white' }) => {
   const router = useRouter();
 
-  const handleLeftButton = () => {
-    if (leftButton === 'home') {
-      router.push(ROUTE.main);
-    }
-  };
+  const leftButtonHandlers = useMemo(
+    () => ({
+      home: () => router.push(ROUTE.main),
+    }),
+    []
+  );
 
   return (
     <Wrapper background={background}>
       {leftButton && (
-        <LeftButton onClick={handleLeftButton}>
+        <LeftButton onClick={leftButtonHandlers[leftButton]}>
           <Icon name={leftButton} />
         </LeftButton>
       )}

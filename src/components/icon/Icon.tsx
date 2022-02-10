@@ -2,6 +2,11 @@ import { ArrowLeftIcon, CancelIcon, MoreIcon, ShareIcon, UserIcon, HomeIcon } fr
 import React, { VFC } from 'react';
 
 export type IconName = keyof typeof ICONS;
+
+// header icon type
+export type LeftButtonIconName = 'home';
+export type RightButtonIconName = 'user' | 'share' | 'more' | 'cancel';
+
 interface IconProps {
   name: IconName;
 }
