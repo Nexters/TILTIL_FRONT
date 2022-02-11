@@ -183,10 +183,10 @@ export interface TilSimpleResponse {
 
 export interface TilStatisticsResponse {
   /** 가장 많이 쓰는 요일 */
-  mostDay?: ("MONDAY" | "TUESDAY" | "WEDNESDAY" | "THURSDAY" | "FRIDAY" | "SATURDAY" | "SUNDAY")[];
+  mostDay?: ('MONDAY' | 'TUESDAY' | 'WEDNESDAY' | 'THURSDAY' | 'FRIDAY' | 'SATURDAY' | 'SUNDAY')[];
 
   /** 가장 많이 쓴 카테고리 */
-  mostTilCategories?: ("LEARN" | "WELL" | "IMPROVE" | "QUESTION")[];
+  mostTilCategories?: ('LEARN' | 'WELL' | 'IMPROVE' | 'QUESTION')[];
 
   /**
    * 연속으로 쓴 일수
@@ -206,9 +206,9 @@ export interface UserDetails {
 }
 
 export type QueryParamsType = Record<string | number, any>;
-export type ResponseFormat = keyof Omit<Body, "body" | "bodyUsed">;
+export type ResponseFormat = keyof Omit<Body, 'body' | 'bodyUsed'>;
 
-export interface FullRequestParams extends Omit<RequestInit, "body"> {
+export interface FullRequestParams extends Omit<RequestInit, 'body'> {
   /** set parameter to `true` for call `securityWorker` for this request */
   secure?: boolean;
   /** request path */
@@ -227,14 +227,12 @@ export interface FullRequestParams extends Omit<RequestInit, "body"> {
   cancelToken?: CancelToken;
 }
 
-export type RequestParams = Omit<FullRequestParams, "body" | "method" | "query" | "path">;
+export type RequestParams = Omit<FullRequestParams, 'body' | 'method' | 'query' | 'path'>;
 
 export interface ApiConfig<SecurityDataType = unknown> {
   baseUrl?: string;
-  baseApiParams?: Omit<RequestParams, "baseUrl" | "cancelToken" | "signal">;
-  securityWorker?: (
-    securityData: SecurityDataType | null,
-  ) => Promise<RequestParams | void> | RequestParams | void;
+  baseApiParams?: Omit<RequestParams, 'baseUrl' | 'cancelToken' | 'signal'>;
+  securityWorker?: (securityData: SecurityDataType | null) => Promise<RequestParams | void> | RequestParams | void;
   customFetch?: typeof fetch;
 }
 
@@ -246,23 +244,23 @@ export interface HttpResponse<D extends unknown, E extends unknown = unknown> ex
 type CancelToken = Symbol | string | number;
 
 export enum ContentType {
-  Json = "application/json",
-  FormData = "multipart/form-data",
-  UrlEncoded = "application/x-www-form-urlencoded",
+  Json = 'application/json',
+  FormData = 'multipart/form-data',
+  UrlEncoded = 'application/x-www-form-urlencoded',
 }
 
 export class HttpClient<SecurityDataType = unknown> {
-  public baseUrl: string = "//54.180.196.43";
+  public baseUrl: string = '//54.180.196.43';
   private securityData: SecurityDataType | null = null;
-  private securityWorker?: ApiConfig<SecurityDataType>["securityWorker"];
+  private securityWorker?: ApiConfig<SecurityDataType>['securityWorker'];
   private abortControllers = new Map<CancelToken, AbortController>();
   private customFetch = (...fetchParams: Parameters<typeof fetch>) => fetch(...fetchParams);
 
   private baseApiParams: RequestParams = {
-    credentials: "same-origin",
+    credentials: 'same-origin',
     headers: {},
-    redirect: "follow",
-    referrerPolicy: "no-referrer",
+    redirect: 'follow',
+    referrerPolicy: 'no-referrer',
   };
 
   constructor(apiConfig: ApiConfig<SecurityDataType> = {}) {
@@ -275,7 +273,7 @@ export class HttpClient<SecurityDataType = unknown> {
 
   private encodeQueryParam(key: string, value: any) {
     const encodedKey = encodeURIComponent(key);
-    return `${encodedKey}=${encodeURIComponent(typeof value === "number" ? value : `${value}`)}`;
+    return `${encodedKey}=${encodeURIComponent(typeof value === 'number' ? value : `${value}`)}`;
   }
 
   private addQueryParam(query: QueryParamsType, key: string) {
@@ -284,31 +282,25 @@ export class HttpClient<SecurityDataType = unknown> {
 
   private addArrayQueryParam(query: QueryParamsType, key: string) {
     const value = query[key];
-    return value.map((v: any) => this.encodeQueryParam(key, v)).join("&");
+    return value.map((v: any) => this.encodeQueryParam(key, v)).join('&');
   }
 
   protected toQueryString(rawQuery?: QueryParamsType): string {
     const query = rawQuery || {};
-    const keys = Object.keys(query).filter((key) => "undefined" !== typeof query[key]);
+    const keys = Object.keys(query).filter((key) => 'undefined' !== typeof query[key]);
     return keys
-      .map((key) =>
-        Array.isArray(query[key])
-          ? this.addArrayQueryParam(query, key)
-          : this.addQueryParam(query, key),
-      )
-      .join("&");
+      .map((key) => (Array.isArray(query[key]) ? this.addArrayQueryParam(query, key) : this.addQueryParam(query, key)))
+      .join('&');
   }
 
   protected addQueryParams(rawQuery?: QueryParamsType): string {
     const queryString = this.toQueryString(rawQuery);
-    return queryString ? `?${queryString}` : "";
+    return queryString ? `?${queryString}` : '';
   }
 
   private contentFormatters: Record<ContentType, (input: any) => any> = {
     [ContentType.Json]: (input: any) =>
-      input !== null && (typeof input === "object" || typeof input === "string")
-        ? JSON.stringify(input)
-        : input,
+      input !== null && (typeof input === 'object' || typeof input === 'string') ? JSON.stringify(input) : input,
     [ContentType.FormData]: (input: any) =>
       Object.keys(input || {}).reduce((formData, key) => {
         const property = input[key];
@@ -316,9 +308,9 @@ export class HttpClient<SecurityDataType = unknown> {
           key,
           property instanceof Blob
             ? property
-            : typeof property === "object" && property !== null
+            : typeof property === 'object' && property !== null
             ? JSON.stringify(property)
-            : `${property}`,
+            : `${property}`
         );
         return formData;
       }, new FormData()),
@@ -373,7 +365,7 @@ export class HttpClient<SecurityDataType = unknown> {
     ...params
   }: FullRequestParams): Promise<HttpResponse<T, E>> => {
     const secureParams =
-      ((typeof secure === "boolean" ? secure : this.baseApiParams.secure) &&
+      ((typeof secure === 'boolean' ? secure : this.baseApiParams.secure) &&
         this.securityWorker &&
         (await this.securityWorker(this.securityData))) ||
       {};
@@ -382,18 +374,15 @@ export class HttpClient<SecurityDataType = unknown> {
     const payloadFormatter = this.contentFormatters[type || ContentType.Json];
     const responseFormat = format || requestParams.format;
 
-    return this.customFetch(
-      `${baseUrl || this.baseUrl || ""}${path}${queryString ? `?${queryString}` : ""}`,
-      {
-        ...requestParams,
-        headers: {
-          ...(type && type !== ContentType.FormData ? { "Content-Type": type } : {}),
-          ...(requestParams.headers || {}),
-        },
-        signal: cancelToken ? this.createAbortSignal(cancelToken) : void 0,
-        body: typeof body === "undefined" || body === null ? null : payloadFormatter(body),
+    return this.customFetch(`${baseUrl || this.baseUrl || ''}${path}${queryString ? `?${queryString}` : ''}`, {
+      ...requestParams,
+      headers: {
+        ...(type && type !== ContentType.FormData ? { 'Content-Type': type } : {}),
+        ...(requestParams.headers || {}),
       },
-    ).then(async (response) => {
+      signal: cancelToken ? this.createAbortSignal(cancelToken) : void 0,
+      body: typeof body === 'undefined' || body === null ? null : payloadFormatter(body),
+    }).then(async (response) => {
       const r = response as HttpResponse<T, E>;
       r.data = null as unknown as T;
       r.error = null as unknown as E;
@@ -445,14 +434,10 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @request GET:/open/users/{userId}/greeting-message
      * @secure
      */
-    getUserGreetingMessageUsingGet: (
-      userId: string,
-      query?: { isShare?: boolean },
-      params: RequestParams = {},
-    ) =>
+    getUserGreetingMessageUsingGet: (userId: string, query?: { isShare?: boolean }, params: RequestParams = {}) =>
       this.request<GreetingMessageResponse, void>({
         path: `/open/users/${userId}/greeting-message`,
-        method: "GET",
+        method: 'GET',
         query: query,
         secure: true,
         ...params,
@@ -470,7 +455,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
     getUserTilStatisticsUsingGet: (userId: string, params: RequestParams = {}) =>
       this.request<TilStatisticsResponse, void>({
         path: `/open/users/${userId}/statistics/til`,
-        method: "GET",
+        method: 'GET',
         secure: true,
         ...params,
       }),
@@ -487,7 +472,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
     getRecentTilLogsUsingGet: (userId: string, params: RequestParams = {}) =>
       this.request<TilRecentLogsResponse, void>({
         path: `/open/users/${userId}/tils/logs/recent`,
-        method: "GET",
+        method: 'GET',
         secure: true,
         ...params,
       }),
@@ -505,7 +490,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
     testOAuthUsingGet: (query?: { token?: string }, params: RequestParams = {}) =>
       this.request<string, void>({
         path: `/test/success`,
-        method: "GET",
+        method: 'GET',
         query: query,
         secure: true,
         ...params,
@@ -524,7 +509,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
     writeTilUsingPost: (tilRequest: TilRequest, params: RequestParams = {}) =>
       this.request<TilDetailResponse, void>({
         path: `/tils`,
-        method: "POST",
+        method: 'POST',
         body: tilRequest,
         secure: true,
         type: ContentType.Json,
@@ -543,7 +528,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
     canWriteTilUsingGet: (params: RequestParams = {}) =>
       this.request<BooleanResponse, void>({
         path: `/tils/can-write`,
-        method: "GET",
+        method: 'GET',
         secure: true,
         ...params,
       }),
@@ -560,7 +545,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
     readMyTilsUsingGet: (query?: { page?: number; size?: number }, params: RequestParams = {}) =>
       this.request<TilPageResponse, void>({
         path: `/tils/me`,
-        method: "GET",
+        method: 'GET',
         query: query,
         secure: true,
         ...params,
@@ -578,7 +563,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
     readTilUsingGet: (tilId: number, params: RequestParams = {}) =>
       this.request<TilDetailResponse, void>({
         path: `/tils/${tilId}`,
-        method: "GET",
+        method: 'GET',
         secure: true,
         ...params,
       }),
@@ -595,7 +580,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
     updateTilUsingPut: (tilId: number, tilRequest: TilRequest, params: RequestParams = {}) =>
       this.request<void, void>({
         path: `/tils/${tilId}`,
-        method: "PUT",
+        method: 'PUT',
         body: tilRequest,
         secure: true,
         type: ContentType.Json,
@@ -614,7 +599,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
     deleteTilUsingDelete: (tilId: number, params: RequestParams = {}) =>
       this.request<void, void>({
         path: `/tils/${tilId}`,
-        method: "DELETE",
+        method: 'DELETE',
         secure: true,
         ...params,
       }),
@@ -633,17 +618,17 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
       query?: {
         accountNonExpired?: boolean;
         accountNonLocked?: boolean;
-        "authorities[0].authority"?: string;
+        'authorities[0].authority'?: string;
         credentialsNonExpired?: boolean;
         enabled?: boolean;
         password?: string;
         username?: string;
       },
-      params: RequestParams = {},
+      params: RequestParams = {}
     ) =>
       this.request<UserDetails, void>({
         path: `/users/me`,
-        method: "GET",
+        method: 'GET',
         query: query,
         secure: true,
         ...params,
