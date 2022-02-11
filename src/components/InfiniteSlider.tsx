@@ -6,7 +6,7 @@ interface Props {
   duration?: number;
 }
 
-const InfiniteSlider = ({ children: childrens, duration, ...props }: PropsWithChildren<Props>) => {
+const InfiniteSlider = ({ children: childrens, duration = 20, ...props }: PropsWithChildren<Props>) => {
   const childrenCount = Children.count(childrens);
 
   return (
@@ -40,9 +40,9 @@ const Lane = styled.div<{ count: number }>`
   width: ${({ count }) => `calc(-140 * ${count} * 2)`};
 `;
 
-const Item = styled.div<{ count: number; duration?: number }>`
+const Item = styled.div<{ count: number } & Required<Pick<Props, 'duration'>>>`
   width: max-content;
-  animation: ${({ count }) => flow(count)} ${({ duration }) => `${duration ? `${duration}s` : '25s'}`} linear infinite;
+  animation: ${({ count }) => flow(count)} ${({ duration }) => `${duration}`} linear infinite;
 `;
 
 export default InfiniteSlider;
