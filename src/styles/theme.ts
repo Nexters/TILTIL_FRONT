@@ -2,12 +2,12 @@ import colors from './colors';
 import typography from './typography';
 
 const size = {
-  mobile: 599,
+  mobile: 600,
   desktop: 744,
 };
 
 const devices = {
-  mobile: `(max-width: ${size.mobile})`,
+  mobile: `(min-width: ${size.mobile}px)`,
 };
 
 const header = {

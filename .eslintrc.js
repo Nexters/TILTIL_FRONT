@@ -15,6 +15,7 @@ module.exports = {
     },
   },
   rules: {
+    'react/destructuring-assignment': 0,
     'no-alert': 0,
     'react/prop-types': 0,
     '@typescript-eslint/explicit-module-boundary-types': 0,

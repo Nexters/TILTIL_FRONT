@@ -51,7 +51,6 @@ const colors = {
     dark: palette.blue600,
     light: palette.blue300,
     extraLight: palette.blue100,
-    pressed: palette.blue550,
   },
 
   background: {
@@ -59,6 +58,8 @@ const colors = {
     gray: palette.gray100,
     white: palette.gray000,
     global: palette.blueGray200,
+    cancel: palette.gray200,
+    pressed: palette.blue550,
   },
 
   ui: {
