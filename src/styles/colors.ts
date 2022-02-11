@@ -1,4 +1,7 @@
-import { css } from '@emotion/react';
+import { Category } from 'constants/common';
+
+import { css, SerializedStyles } from '@emotion/react';
+import { CategoryThemeProps } from 'components/TagButton';
 
 const palette = {
   // blue
@@ -60,6 +63,7 @@ const colors = {
     inputField: palette.blue80,
     divider: palette.gray200,
     skeleton: palette.blueGray200,
+    subdued: palette.gray200,
   },
 
   icon: {
@@ -100,6 +104,29 @@ const colors = {
       box-shadow: 0px 4px 10px rgba(29, 29, 31, 0.12);
     `,
   },
+};
+
+// category Tag, TagButton theme
+type CategoryThemeHandlers = {
+  [status in keyof Category]: (status: CategoryThemeProps['status']) => SerializedStyles;
+};
+export const categoryThemeHandlers: CategoryThemeHandlers = {
+  learn: (status) => css`
+    background-color: ${status === 'fill' ? palette.learnLight : palette.learn};
+    color: ${status === 'fill' ? palette.learn : palette.gray000};
+  `,
+  good: (status) => css`
+    background-color: ${status === 'fill' ? palette.goodLight : palette.good};
+    color: ${status === 'fill' ? palette.good : palette.gray000};
+  `,
+  improve: (status) => css`
+    background-color: ${status === 'fill' ? palette.improveLight : palette.improve};
+    color: ${status === 'fill' ? palette.improve : palette.gray000};
+  `,
+  curious: (status) => css`
+    background-color: ${status === 'fill' ? palette.curiousLight : palette.curious};
+    color: ${status === 'fill' ? palette.curious : palette.gray000};
+  `,
 };
 
 export default colors;
