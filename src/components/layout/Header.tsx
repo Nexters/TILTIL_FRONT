@@ -1,58 +1,85 @@
 import { ROUTE } from 'constants/route';
 
-import { css } from '@emotion/react';
 import styled from '@emotion/styled';
-import { PathProps } from 'types/common';
+import { Icon, LeftButtonIconName, RightButtonIconName } from 'components/icon/Icon';
+import { useRouter } from 'next/router';
+import { useMemo } from 'react';
+import { Background } from 'types/styled';
 
-import { HeaderProps } from './constants';
-import HeaderTitle from './HeaderTitle';
-import LeftBtn from './LeftBtn';
-import RightBtn from './RightBtn';
+import RightButton from './RightButton';
 
-const Header: React.VFC<HeaderProps> = (props) => {
-  const { pathname } = props;
+export interface HeaderProps {
+  title: string;
+  leftButton: LeftButtonIconName;
+  rightButton: RightButtonIconName[];
+  background: Background;
+}
 
-  if (pathname === ROUTE.main) {
-    return <></>;
-  }
+type Props = Partial<HeaderProps>;
+type WrapperProps = Required<Pick<HeaderProps, 'background'>>;
+
+const Header: React.VFC<Props> = ({ title, leftButton, rightButton, background = 'white' }) => {
+  const router = useRouter();
+
+  const leftButtonHandlers = useMemo(
+    () => ({
+      home: () => router.push(ROUTE.main),
+    }),
+    []
+  );
 
   return (
-    <Wrapper pathname={pathname}>
-      <div>
-        <LeftBtn pathname={pathname} />
-      </div>
-      <HeaderTitle {...props} />
-      <div>
-        <RightBtn {...props} />
-      </div>
+    <Wrapper background={background}>
+      {leftButton && (
+        <LeftButton onClick={leftButtonHandlers[leftButton]}>
+          <Icon name={leftButton} />
+        </LeftButton>
+      )}
+
+      {title && <Title>{title}</Title>}
+
+      {rightButton && (
+        <RightButtons>
+          {rightButton.map((button) => (
+            <RightButton key={button} button={button} />
+          ))}
+        </RightButtons>
+      )}
     </Wrapper>
   );
 };
 
-const Wrapper = styled.header<PathProps>`
+const Wrapper = styled.header<WrapperProps>`
   position: sticky;
   top: 0px;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
+  align-items: center;
 
-  > div {
-    min-width: 24px;
+  height: 56px;
+  padding: 0 ${({ theme: { padding } }) => padding.md}px;
+  background-color: ${({ theme: { colors }, background }) => colors.background[background]};
+
+  button {
     display: flex;
-    align-items: center;
-
-    button,
-    a {
-      display: flex;
-    }
   }
+`;
 
-  ${({ theme: { header, colors }, pathname }) => {
-    return css`
-      height: ${header.height}px;
-      padding: 0 ${header.padding}px;
-      background-color: ${pathname === ROUTE.records ? colors.background.secondary : colors.background.white};
-    `;
-  }}
+const LeftButton = styled.button`
+  position: absolute;
+  left: ${({ theme: { padding } }) => padding.md}px;
+`;
+
+const RightButtons = styled.div`
+  position: absolute;
+  right: ${({ theme: { padding } }) => padding.md}px;
+  display: flex;
+  column-gap: ${({ theme: { padding } }) => padding.md}px;
+`;
+
+const Title = styled.h1`
+  ${({ theme: { typography: typo } }) => typo.subTitle1};
+  color: ${({ theme: { colors } }) => colors.text.idle};
 `;
 
 export default Header;

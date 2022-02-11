@@ -1,7 +1,14 @@
+import Header from 'components/layout/Header';
 import React from 'react';
+import { PageWrapper } from 'styles/styled';
 
 const Login = () => {
-  return <h1>LOGIN</h1>;
+  return (
+    <PageWrapper>
+      <Header rightButton={['cancel']} />
+      <main>LOGIN</main>
+    </PageWrapper>
+  );
 };
 
 export default Login;
