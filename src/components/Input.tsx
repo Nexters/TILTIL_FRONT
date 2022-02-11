@@ -1,26 +1,28 @@
 import styled from '@emotion/styled';
 import React, { InputHTMLAttributes } from 'react';
+import colors from 'styles/colors';
 
-interface Props extends InputHTMLAttributes<HTMLInputElement> {
-  value?: string;
+interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
+  background: keyof typeof colors.background;
+  value: string;
 }
 
-const MAX_LENGTH = 8;
+type Props = Partial<InputProps>;
+type WrapperProps = Pick<InputProps, 'background'>;
 
-const Input: React.FC<Props> = ({ value, ...rest }) => {
+const Input: React.FC<Props> = ({ background = 'default', value, maxLength = 8, ...rest }) => {
   return (
-    <Wrapper>
-      <input type="text" value={value} {...rest} />
-      <LengthCounter>{`${value?.length ?? 0} / ${MAX_LENGTH}`}</LengthCounter>
+    <Wrapper background={background}>
+      <input type="text" value={value} maxLength={maxLength} {...rest} />
+      <LengthWrapper>{`${value?.length ?? 0} / ${maxLength}`}</LengthWrapper>
     </Wrapper>
   );
 };
 
-const Wrapper = styled.div`
+const Wrapper = styled.div<WrapperProps>`
   display: flex;
   height: 56px;
-  width: 100%;
-  background-color: ${({ theme }) => theme.colors.background.input};
+  background-color: ${({ theme, background: key }) => theme.colors.background[key]};
   border-radius: 10px;
   align-items: center;
   justify-content: space-between;
@@ -28,20 +30,17 @@ const Wrapper = styled.div`
 
   input {
     display: block;
-    font-size: 16px;
-    line-height: 23px;
-    letter-spacing: -0.015em;
-    background-color: ${({ theme }) => theme.colors.background.input};
+    background-color: inherit;
     border: 0;
+    ${({ theme }) => theme.typography.body2};
+    color: ${({ theme }) => theme.colors.text.idle};
   }
 `;
 
-const LengthCounter = styled.span`
-  color: ${({ theme }) => theme.colors.font.input};
-  font-size: 14px;
-  line-height: 24px;
+const LengthWrapper = styled.span`
+  color: ${({ theme }) => theme.colors.text.placeholder};
+  ${({ theme }) => theme.typography.body4};
   text-align: right;
-  letter-spacing: -0.015em;
 `;
 
 export default Input;
