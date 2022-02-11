@@ -148,6 +148,8 @@ const typography = {
     line-height: 15px;
     letter-spacing: -0.015em;
   `,
-};
+} as const;
+
+export type Typography = keyof typeof typography;
 
 export default typography;
