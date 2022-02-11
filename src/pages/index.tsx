@@ -26,12 +26,10 @@ const Home: NextPage = () => {
   return (
     <PageWrapper>
       <InfiniteSlider duration={16}>
-        {React.Children.toArray(
-          Array.from({ length: 5 }).map(() => {
-            // eslint-disable-next-line react/jsx-key
-            return <Icon name="iceCubes" />;
-          })
-        )}
+        {Array.from({ length: 5 }).map(() => {
+          // eslint-disable-next-line react/jsx-key
+          return <Icon name="iceCubes" />;
+        })}
       </InfiniteSlider>
       <main>
         비로그인 메인

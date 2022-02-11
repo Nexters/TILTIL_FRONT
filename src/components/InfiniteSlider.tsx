@@ -42,7 +42,7 @@ const Lane = styled.div<{ count: number }>`
 
 const Item = styled.div<{ count: number } & Required<Pick<Props, 'duration'>>>`
   width: max-content;
-  animation: ${({ count }) => flow(count)} ${({ duration }) => `${duration}`} linear infinite;
+  animation: ${({ count }) => flow(count)} ${({ duration }) => `${duration}s`} linear infinite;
 `;
 
 export default InfiniteSlider;
