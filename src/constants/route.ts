@@ -7,6 +7,8 @@ export const ROUTE = {
   records: '/records',
   records_detail: '/records/[recordId]',
   newRecords: '/records/new',
+  my: '/my',
+  myNickname: '/my/nickname',
 } as const;
 
 export type Route = ValueOf<typeof ROUTE>;

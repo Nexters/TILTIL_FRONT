@@ -1,3 +1,5 @@
+import { ROUTE } from 'constants/route';
+
 import styled from '@emotion/styled';
 import Header from 'components/layout/Header';
 import { useRouter } from 'next/router';
@@ -21,9 +23,9 @@ const MyPage: React.FC<Props> = () => {
     () => [
       {
         title: '닉네임변경',
-        onClick: () => router.push(`${router.pathname}/nickname`),
+        onClick: () => router.push(ROUTE.myNickname),
       },
-      { title: '서비스 소개', onClick: () => {} },
+      { title: '서비스 소개', onClick: () => router.push(ROUTE.main) },
       { title: '로그아웃', onClick: () => {} },
     ],
     []
