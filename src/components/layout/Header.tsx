@@ -56,7 +56,7 @@ const Wrapper = styled.header<WrapperProps>`
   justify-content: center;
   align-items: center;
 
-  height: 56px;
+  height: ${({ theme: { header } }) => header.desktop}px;
   padding: 0 ${({ theme: { padding } }) => padding.md}px;
   background-color: ${({ theme: { colors }, background }) => colors.background[background]};
 
