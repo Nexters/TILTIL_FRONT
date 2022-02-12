@@ -17,6 +17,7 @@
     "next": "12.0.8",
     "react": "17.0.2",
     "react-dom": "17.0.2",
+    "react-lottie": "^1.2.3",
     "react-query": "^3.34.8",
     "recoil": "^0.5.2"
   },
