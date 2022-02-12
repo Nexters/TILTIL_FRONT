@@ -14,12 +14,28 @@ const RecordsPage = () => {
         <Section>
           <Date>2022년 2월</Date>
           <TILList>
-            <li>
-              <TILItem />
-            </li>
-            <li>
-              <TILItem />
-            </li>
+            {Array(4)
+              .fill(1)
+              .map((_, index) => (
+                // eslint-disable-next-line react/no-array-index-key
+                <li key={index}>
+                  <TILItem />
+                </li>
+              ))}
+          </TILList>
+        </Section>
+
+        <Section>
+          <Date>2022년 3월</Date>
+          <TILList>
+            {Array(4)
+              .fill(1)
+              .map((_, index) => (
+                // eslint-disable-next-line react/no-array-index-key
+                <li key={index}>
+                  <TILItem />
+                </li>
+              ))}
           </TILList>
         </Section>
       </Main>
@@ -44,7 +60,7 @@ const TILList = styled.ul`
   gap: 24px;
 
   ${media.mobile} {
-    grid-template-columns: repeat(auto-fill, 1fr);
+    grid-template-columns: repeat(auto-fill, minmax(312px, 1fr));
     gap: 16px;
   }
 `;
