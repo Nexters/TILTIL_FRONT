@@ -1,12 +1,12 @@
-import { CATEGORY_TEXT, Category } from 'constants/common';
+import { CATEGORY_TEXT } from 'constants/common';
 
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
-import React, { ButtonHTMLAttributes } from 'react';
-import { categoryThemeHandlers } from 'styles/colors';
+import { ButtonHTMLAttributes } from 'react';
+import theme from 'styles/theme';
 
 export interface CategoryThemeProps {
-  category: keyof Category;
+  category: keyof typeof theme.colors.category;
   status: 'fill' | 'active';
 }
 
@@ -16,19 +16,22 @@ export const Tag = styled.span<CategoryThemeProps>`
   border-radius: 6px;
 
   ${({ theme: { typography } }) => typography.caption1}
-  ${({ category, status }) => {
-    return categoryThemeHandlers[category](status);
+  ${({ theme: { colors }, category, status }) => {
+    return css`
+      background-color: ${colors.category[category][status]};
+      color: ${status === 'fill' ? colors.category[category].active : colors.background.white};
+    `;
   }}
 `;
 
 // Category Tag Button
-type Props = CategoryThemeProps & ButtonHTMLAttributes<HTMLButtonElement>;
+type TagButtonProps = CategoryThemeProps & ButtonHTMLAttributes<HTMLButtonElement>;
 
-const TagButton: React.FC<Props> = ({ children, ...rest }) => {
+const TagButton: React.FC<TagButtonProps> = ({ children, ...rest }) => {
   return <Wrapper {...rest}>{CATEGORY_TEXT[rest.category]}</Wrapper>;
 };
 
-const Wrapper = styled.button<Props>`
+const Wrapper = styled.button<TagButtonProps>`
   width: 72px;
   height: 32px;
   border-radius: 8px;
@@ -41,7 +44,10 @@ const Wrapper = styled.button<Props>`
         color: ${colors.text.placeholder};
       `;
 
-    return categoryThemeHandlers[category](status);
+    return css`
+      background-color: ${colors.category[category][status]};
+      color: ${status === 'fill' ? colors.category[category].active : colors.background.white};
+    `;
   }}
 `;
 
