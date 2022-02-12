@@ -7,7 +7,6 @@ class CustomDocument extends Document {
         <Head>
           <link href="/font.css" rel="stylesheet" />
         </Head>
-
         <body>
           <Main />
           <NextScript />

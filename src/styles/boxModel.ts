@@ -250,7 +250,7 @@ export const boxModel = (sizePrefix = ''): SerializedStyles => {
       padding-bottom: 4px;
     }
 
-    ${Array(10)
+    ${Array(12)
       .fill(1)
       .reduce((previousValue, _, currentIndex) => {
         const index = currentIndex - 1;
