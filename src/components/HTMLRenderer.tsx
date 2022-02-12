@@ -16,7 +16,7 @@ interface Replace {
   children: DOMNode[];
 }
 
-const HTMLRenderer = ({ html = '', components = {}, componentOverrides = {} }: Props) => {
+const HTMLRenderer = ({ html = '', components = {} }: Props) => {
   const resolvedComponents = Object.keys(components).reduce(
     (acc, key) => {
       const Comp = components[key] ?? ((props) => React.createElement(key, props));

@@ -16,12 +16,17 @@ const padding = {
   sm: 16,
 };
 
+const zIndex = {
+  header: 999,
+};
+
 const theme = {
   size,
   devices,
   padding,
   typography,
   colors,
+  zIndex,
 };
 
 export type ThemeType = typeof theme;

@@ -37,8 +37,14 @@ const palette = {
 
   curious: '#FFD684',
   curiousLight: '#FFF0D1',
+
+  // purple
+  iris100: '#5D5FEF',
 };
 
+const highLight = {
+  purple: palette.iris100,
+};
 const colors = {
   primary: {
     default: palette.blue500,
@@ -106,6 +112,7 @@ const colors = {
       box-shadow: 0px 4px 10px rgba(29, 29, 31, 0.12);
     `,
   },
+  highLight,
 };
 
 export default colors;

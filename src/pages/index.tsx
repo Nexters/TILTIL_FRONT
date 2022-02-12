@@ -1,44 +1,82 @@
+import styled from '@emotion/styled';
 import Button from 'components/Button';
-import { Icon } from 'components/icon/Icon';
-import InfiniteSlider from 'components/InfiniteSlider';
-import type { NextPage } from 'next';
-import React from 'react';
-import { dehydrate, QueryClient, useQuery } from 'react-query';
-import { useRecoilState } from 'recoil';
-import { tilState } from 'states/til';
+import Header from 'components/layout/Header';
+import { Section } from 'components/Section';
+import { Text } from 'components/Text';
+import type { GetServerSidePropsContext } from 'next';
+import React, { useEffect, useRef, useState } from 'react';
 import { PageWrapper } from 'styles/styled';
+import theme from 'styles/theme';
+import isMobileDetect from 'utils/isMobileDetect';
+import media from 'utils/media';
 
-// export async function getStaticProps() {
-//   const queryClient = new QueryClient()
-//   await queryClient.prefetchQuery('posts', getPosts)
+const Landing = ({ isMobile }: { isMobile: boolean }) => {
+  const ref = useRef<HTMLDivElement>(null);
 
-//   return {
-//     props: {
-//       dehydratedState: dehydrate(queryClient),
-//     },
-//   }
-// }
+  const [width, setWidth] = useState(isMobile ? theme.size.mobile : theme.size.desktop);
 
-const Home: NextPage = () => {
-  const [pageName, setPageName] = useRecoilState(tilState);
-  const { data } = useQuery('');
+  const handleResize = () => {
+    if (ref.current) {
+      setWidth(ref.current.offsetWidth);
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
 
   return (
-    <PageWrapper>
-      <InfiniteSlider duration={16}>
-        {Array.from({ length: 5 }).map(() => {
-          // eslint-disable-next-line react/jsx-key
-          return <Icon name="iceCubes" />;
-        })}
-      </InfiniteSlider>
-      <main>
-        비로그인 메인
-        <Button disabled fullWidth>
-          오늘의 암묵지 쌓기
-        </Button>
-      </main>
+    <PageWrapper ref={ref}>
+      <Header
+        title={
+          <Title>
+            <Text color={theme.colors.highLight.purple}>BING BONG</Text>
+          </Title>
+        }
+      />
+      <Section onClick={() => {}}>
+        <Section.Main />
+        <Section.Slider />
+        <Section.Helper />
+        <Section.Growth />
+        <Section.Phrases />
+      </Section>
+      <Floating size="small" width={width}>
+        오늘부터 암묵지 없애기
+      </Floating>
     </PageWrapper>
   );
 };
 
-export default Home;
+const Title = styled.div`
+  display: flex;
+  justify-content: flex-start;
+  width: 100%;
+`;
+const Floating = styled(Button)<{ width: number }>`
+  position: fixed;
+  width: ${({ width }) => `${width - 48}px`};
+  height: 60px;
+  bottom: 40px;
+  background-color: ${({ theme: { colors } }) => colors.primary.default};
+  left: 50%;
+  transform: translate(-50%, 0);
+  ${media.mobile} {
+    width: ${({ width }) => `${width - 32}px`};
+  }
+`;
+
+export async function getServerSideProps(context: GetServerSidePropsContext) {
+  const isMobile = isMobileDetect(context.req);
+  return {
+    props: {
+      isMobile,
+    },
+  };
+}
+
+export default Landing;

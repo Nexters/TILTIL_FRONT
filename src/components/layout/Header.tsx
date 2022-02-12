@@ -3,13 +3,13 @@ import { ROUTE } from 'constants/route';
 import styled from '@emotion/styled';
 import { Icon, LeftButtonIconName, RightButtonIconName } from 'components/icon/Icon';
 import { useRouter } from 'next/router';
-import { useMemo } from 'react';
+import React, { ReactNode, useMemo } from 'react';
 import { Background } from 'types/styled';
 
 import RightButton from './RightButton';
 
 export interface HeaderProps {
-  title: string;
+  title: ReactNode;
   leftButton: LeftButtonIconName;
   rightButton: RightButtonIconName[];
   background: Background;
@@ -36,7 +36,7 @@ const Header: React.VFC<Props> = ({ title, leftButton, rightButton, background =
         </LeftButton>
       )}
 
-      {title && <Title>{title}</Title>}
+      {React.isValidElement(title) ? title : <Title>{title}</Title>}
 
       {rightButton && (
         <RightButtons>
@@ -63,6 +63,8 @@ const Wrapper = styled.header<WrapperProps>`
   button {
     display: flex;
   }
+
+  z-index: ${({ theme: { zIndex } }) => zIndex.header};
 `;
 
 const LeftButton = styled.button`
