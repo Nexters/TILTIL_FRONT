@@ -27,7 +27,9 @@ export const Tag = styled.span<CategoryThemeProps>`
 `;
 
 // Category Tag Button
-type TagButtonProps = CategoryThemeProps & ButtonHTMLAttributes<HTMLButtonElement>;
+interface TagButtonProps extends CategoryThemeProps, ButtonHTMLAttributes<HTMLButtonElement> {
+  size: 'large' | 'small';
+}
 
 const TagButton: React.FC<TagButtonProps> = ({ children, ...rest }) => {
   return <Wrapper {...rest}>{CATEGORY_TEXT[rest.category]}</Wrapper>;
@@ -35,8 +37,8 @@ const TagButton: React.FC<TagButtonProps> = ({ children, ...rest }) => {
 
 const Wrapper = styled.button<TagButtonProps>`
   ${buttonSmallStyle}
-  width: 72px;
-  height: 32px;
+  width: ${({ size }) => (size === 'large' ? 'min(168px, 100%)' : '72px')};
+  height: ${({ size }) => (size === 'large' ? 42 : 32)}px;
 
   ${({ theme: { typography } }) => typography.buttonS}
   ${({ theme, category, status, disabled }) => {
