@@ -4,6 +4,7 @@ import Input from 'components/Input';
 import Header from 'components/layout/Header';
 // import { GetServerSidePropsContext } from 'next';
 import React, { ChangeEvent, useState } from 'react';
+import { PageWrapper } from 'styles/styled';
 
 interface Props {
   id: string;
@@ -19,28 +20,23 @@ const NicknamePage: React.FC<Props> = () => {
   const handleSubmit = () => {};
 
   return (
-    <Wrapper>
+    <PageWrapper>
       <Header leftButton="home" title="닉네임 변경" />
-      <main>
+      <Contents>
         <Label className="mx-2">닉네임</Label>
         <div className="mt-1 mb-3">
           <Input value={nickname} onChange={handleNicknameChange} />
         </div>
         <Button onClick={handleSubmit}>변경</Button>
-      </main>
-    </Wrapper>
+      </Contents>
+    </PageWrapper>
   );
 };
 
-const Wrapper = styled.div`
-  background-color: ${({ theme }) => theme.colors.background.white};
-  width: 100%;
-
-  main {
-    display: flex;
-    flex-direction: column;
-    padding: 142px 24px 0px 24px;
-  }
+const Contents = styled.main`
+  display: flex;
+  flex-direction: column;
+  padding: 142px 24px 0px 24px;
 `;
 
 const Label = styled.span`

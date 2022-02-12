@@ -5,6 +5,7 @@ import Header from 'components/layout/Header';
 import { useRouter } from 'next/router';
 // import { GetServerSidePropsContext } from 'next';
 import React, { MouseEvent, useMemo } from 'react';
+import { PageWrapper } from 'styles/styled';
 
 interface Props {
   id: string;
@@ -32,9 +33,9 @@ const MyPage: React.FC<Props> = () => {
   );
 
   return (
-    <Wrapper>
+    <PageWrapper>
       <Header leftButton="home" />
-      <main>
+      <Contents>
         <UserNameWrapper className="my-2">
           <span>{nickname} 님!</span>
           <span>잊지 않고 오셨네요!</span>
@@ -47,21 +48,15 @@ const MyPage: React.FC<Props> = () => {
             </li>
           ))}
         </MenuList>
-      </main>
-    </Wrapper>
+      </Contents>
+    </PageWrapper>
   );
 };
 
-const Wrapper = styled.div`
-  width: 100%;
-  height: 100%;
-  background-color: ${({ theme }) => theme.colors.background.white};
-
-  main {
-    display: flex;
-    flex-direction: column;
-    padding: 98px 24px 0px 24px;
-  }
+const Contents = styled.main`
+  display: flex;
+  flex-direction: column;
+  padding: 98px 24px 0px 24px;
 `;
 
 const UserNameWrapper = styled.div`
