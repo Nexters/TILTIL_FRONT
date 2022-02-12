@@ -273,7 +273,7 @@ export class HttpClient<SecurityDataType = unknown> {
       ...params1,
       ...(params2 || {}),
       headers: {
-        ...(this.instance.defaults.headers || {}),
+        ...(this.instance.defaults.headers.common || {}),
         ...(params1.headers || {}),
         ...((params2 && params2.headers) || {}),
       },
