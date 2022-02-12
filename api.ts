@@ -252,7 +252,7 @@ export enum ContentType {
 }
 
 export class HttpClient<SecurityDataType = unknown> {
-  public baseUrl: string = "//54.180.196.43";
+  public baseUrl: string = "//api.bing-bong.today";
   private securityData: SecurityDataType | null = null;
   private securityWorker?: ApiConfig<SecurityDataType>["securityWorker"];
   private abortControllers = new Map<CancelToken, AbortController>();
@@ -429,12 +429,29 @@ export class HttpClient<SecurityDataType = unknown> {
  * @version 1.0
  * @license Apache 2.0 (http://www.apache.org/licenses/LICENSE-2.0)
  * @termsOfService urn:tos
- * @baseUrl //54.180.196.43
+ * @baseUrl //api.bing-bong.today
  * @contact
  *
  * Api Documentation
  */
 export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDataType> {
+  /**
+   * No description
+   *
+   * @tags root-controller
+   * @name WelcomeUsingGet
+   * @summary welcome
+   * @request GET:/
+   * @secure
+   */
+  welcomeUsingGet = (params: RequestParams = {}) =>
+    this.request<string, void>({
+      path: `/`,
+      method: "GET",
+      secure: true,
+      ...params,
+    });
+
   open = {
     /**
      * @description 클라이언트에서 참고할 에러 코드 - 20404, 유저를 찾을 수 없습니다.
