@@ -108,4 +108,6 @@ const colors = {
   },
 };
 
+export type CategoryStatus = keyof typeof colors.category.learn;
+
 export default colors;
