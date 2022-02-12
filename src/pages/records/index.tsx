@@ -33,7 +33,7 @@ const RecordsPage = () => {
               .map((_, index) => (
                 // eslint-disable-next-line react/no-array-index-key
                 <li key={index}>
-                  <TILItem />
+                  <TILItem dimmed />
                 </li>
               ))}
           </TILList>
@@ -60,7 +60,7 @@ const TILList = styled.ul`
   gap: 24px;
 
   ${media.mobile} {
-    grid-template-columns: repeat(auto-fill, minmax(312px, 1fr));
+    grid-template-columns: repeat(3, 1fr)
     gap: 16px;
   }
 `;
