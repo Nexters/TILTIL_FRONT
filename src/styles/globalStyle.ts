@@ -61,6 +61,10 @@ const globalStyle = css`
     border: none;
     outline: none;
     padding: 0;
+
+    :disabled {
+      cursor: default;
+    }
   }
 `;
 

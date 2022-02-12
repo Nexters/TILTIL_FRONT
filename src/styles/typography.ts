@@ -134,14 +134,14 @@ const typography = {
     letter-spacing: -0.04em;
   `,
 
-  cation1: css`
+  caption1: css`
     font-family: Spoqa Han Sans Neo;
     font-weight: 400;
     font-size: 12px;
     line-height: 16px;
     letter-spacing: -0.015em;
   `,
-  cation2: css`
+  caption2: css`
     font-family: Spoqa Han Sans Neo;
     font-weight: 400;
     font-size: 11px;

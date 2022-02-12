@@ -60,6 +60,7 @@ const colors = {
     inputField: palette.blue80,
     divider: palette.gray200,
     skeleton: palette.blueGray200,
+    subdued: palette.gray200,
   },
 
   icon: {
@@ -77,17 +78,22 @@ const colors = {
   },
 
   category: {
-    learnActive: palette.learn,
-    learnFill: palette.learnLight,
-
-    goodActive: palette.good,
-    goodFill: palette.goodLight,
-
-    improveActive: palette.improve,
-    improveFill: palette.improveLight,
-
-    curiousActive: palette.curious,
-    curiousFill: palette.curiousLight,
+    learn: {
+      fill: palette.learnLight,
+      active: palette.learn,
+    },
+    good: {
+      fill: palette.goodLight,
+      active: palette.good,
+    },
+    improve: {
+      fill: palette.improveLight,
+      active: palette.improve,
+    },
+    curious: {
+      fill: palette.curiousLight,
+      active: palette.curious,
+    },
   },
 
   elevation: {
