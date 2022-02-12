@@ -481,6 +481,26 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/react-lottie@npm:^1.2.6":
+  version: 1.2.6
+  resolution: "@types/react-lottie@npm:1.2.6"
+  dependencies:
+    "@types/react": "*"
+  checksum: 7930bad2cc998d62c3be4a0c66edfcbf1d87af6ffca5befa860acec706fd62e6e1e964ecffe88c3ed5a42668606e9ff1f43cc1beff764c679f68aa05166ce746
+  languageName: node
+  linkType: hard
+
+"@types/react@npm:*":
+  version: 17.0.39
+  resolution: "@types/react@npm:17.0.39"
+  dependencies:
+    "@types/prop-types": "*"
+    "@types/scheduler": "*"
+    csstype: ^3.0.2
+  checksum: bf04d3c2894559012710d595553e12b422d3b91cd8f4f7e122d8cb044ba9c2ba17f6e8a4e09581359cc5509ddc59cd8c8fabd6774f3505a40a45393f074d6e6e
+  languageName: node
+  linkType: hard
+
 "@types/react@npm:17.0.38":
   version: 17.0.38
   resolution: "@types/react@npm:17.0.38"
@@ -670,6 +690,7 @@ __metadata:
     "@next/eslint-plugin-next": ^12.0.10
     "@types/node": 17.0.8
     "@types/react": 17.0.38
+    "@types/react-lottie": ^1.2.6
     "@typescript-eslint/eslint-plugin": ^4.22.0
     "@typescript-eslint/parser": ^4.22.0
     emotion: ^11.0.0
