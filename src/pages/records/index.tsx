@@ -1,8 +1,9 @@
 import styled from '@emotion/styled';
 import Header from 'components/layout/Header';
+import EmptyList from 'components/records/EmptyList';
 import TILItem from 'components/records/TILItem';
 import React from 'react';
-import { PageWrapper } from 'styles/styled';
+import { Main, PageWrapper } from 'styles/styled';
 import media from 'utils/media';
 
 const RecordsPage = () => {
@@ -10,7 +11,10 @@ const RecordsPage = () => {
     <PageWrapper background="default">
       <Header title="나의 암묵지" leftButton="home" background="default" />
 
-      <Main className="pt-5">
+      <RecordsMain className="pt-5">
+        {/* TODO: 암묵지 없을 때 pt 없음 */}
+        {/* <EmptyList /> */}
+
         <Section>
           <Date>2022년 2월</Date>
           <TILList>
@@ -38,13 +42,14 @@ const RecordsPage = () => {
               ))}
           </TILList>
         </Section>
-      </Main>
+      </RecordsMain>
     </PageWrapper>
   );
 };
 
-const Main = styled.main`
-  padding: 0 ${({ theme: { padding } }) => padding.md}px;
+const RecordsMain = styled(Main)`
+  display: flex;
+  flex-direction: column;
 `;
 
 const Section = styled.section`

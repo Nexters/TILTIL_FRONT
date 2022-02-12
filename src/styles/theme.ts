@@ -10,6 +10,10 @@ const devices = {
   mobile: `(max-width: ${size.mobile})`,
 };
 
+const header = {
+  desktop: 56,
+};
+
 const padding = {
   lg: 48,
   md: 24,
@@ -23,6 +27,7 @@ const zIndex = {
 const theme = {
   size,
   devices,
+  header,
   padding,
   typography,
   colors,
