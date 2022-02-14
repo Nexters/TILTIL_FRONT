@@ -20,6 +20,8 @@ module.exports = {
     '@typescript-eslint/explicit-module-boundary-types': 0,
     '@typescript-eslint/no-throw-literal': 0,
     '@typescript-eslint/no-use-before-define': 0,
+    'jsx-a11y/click-events-have-key-events': 0,
+    'jsx-a11y/no-noninteractive-element-interactions': 0,
     'react/require-default-props': 0,
     'react/react-in-jsx-scope': 0,
     'react/jsx-props-no-spreading': 0,
