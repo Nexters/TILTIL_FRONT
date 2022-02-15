@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
 import Button from 'components/Button';
+import { Icon } from 'components/icon/Icon';
 import Header from 'components/layout/Header';
 import { Section } from 'components/Section';
 import { Text } from 'components/Text';
@@ -31,13 +32,7 @@ const Landing = ({ isMobile }: { isMobile: boolean }) => {
 
   return (
     <PageWrapper ref={ref}>
-      <Header
-        title={
-          <Title>
-            <Text color={theme.colors.highLight.purple}>BING BONG</Text>
-          </Title>
-        }
-      />
+      <Header leftButton="logo" />
       <Section onClick={() => {}}>
         <Section.Main />
         <Section.Slider />
