@@ -3,6 +3,7 @@ import { ROUTE } from 'constants/route';
 import styled from '@emotion/styled';
 import icebergAnimation from 'assets/lotties/iceUpDown.json';
 import GoogleIcon from 'assets/svgs/GoogleIcon';
+import axios from 'axios';
 import Button from 'components/Button';
 import Header from 'components/layout/Header';
 import { Text } from 'components/Text';
@@ -27,7 +28,7 @@ const MOBILE_MIN_WIDTH = 360;
 
 const LoginPage = ({ token, isMobile }: Props) => {
   const router = useRouter();
-  const [hasToken, setToken] = useState(false);
+  const [hasToken, setToken] = useState(!!token);
   const [ratio, setRatio] = useState(isMobile ? 1 : 2);
 
   const handleResize = () => {
@@ -37,18 +38,15 @@ const LoginPage = ({ token, isMobile }: Props) => {
   };
 
   useEffect(() => {
-    const isStoredToken = !!localStorage.getItem('accessToken');
-    setToken(!!token || isStoredToken);
-
+    const accessToken = token || localStorage.getItem('accessToken');
+    setToken(!!accessToken);
     if (token) {
       localStorage.setItem('accessToken', token);
-      router.push(ROUTE.main);
-    } else if (isStoredToken) {
+    }
+    if (accessToken) {
+      axios.defaults.headers.common.Authorization = `Bearer ${accessToken}`;
       router.push(ROUTE.main);
     }
-  }, []);
-
-  useEffect(() => {
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);
