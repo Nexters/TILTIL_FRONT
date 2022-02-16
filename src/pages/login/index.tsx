@@ -1,6 +1,7 @@
 import { ROUTE } from 'constants/route';
 
 import styled from '@emotion/styled';
+import { setAuthorization } from 'apis/interceptor';
 import icebergAnimation from 'assets/lotties/iceUpDown.json';
 import GoogleIcon from 'assets/svgs/GoogleIcon';
 import axios from 'axios';
@@ -14,7 +15,7 @@ import Lottie from 'react-lottie';
 import { PageWrapper } from 'styles/styled';
 import isMobileDetect from 'utils/isMobileDetect';
 
-const GOOGLE_LOGIN_URL = 'http://api.bing-bong.today/oauth2/authorization/google';
+const GOOGLE_LOGIN_URL = 'https://api.bing-bong.today/oauth2/authorization/google';
 
 interface Props {
   token: string;
@@ -38,13 +39,10 @@ const LoginPage = ({ token, isMobile }: Props) => {
   };
 
   useEffect(() => {
-    const accessToken = token || localStorage.getItem('accessToken');
-    setToken(!!accessToken);
     if (token) {
       localStorage.setItem('accessToken', token);
-    }
-    if (accessToken) {
-      axios.defaults.headers.common.Authorization = `Bearer ${accessToken}`;
+      setAuthorization(token);
+      setToken(true);
       router.push(ROUTE.main);
     }
     window.addEventListener('resize', handleResize);

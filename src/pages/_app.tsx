@@ -1,6 +1,7 @@
 import { ROUTE } from 'constants/route';
 
 import { Global, ThemeProvider } from '@emotion/react';
+import { setAuthorization } from 'apis/interceptor';
 import axios, { AxiosError } from 'axios';
 import type { AppProps } from 'next/app';
 import { useRouter } from 'next/router';
@@ -19,7 +20,11 @@ function MyApp({ Component, pageProps }: AppProps) {
 
   useEffect(() => {
     const token = localStorage.getItem('accessToken');
-    axios.defaults.headers.common.Authorization = `Bearer ${token}`;
+    if (token) {
+      setAuthorization(token);
+    } else {
+      router.push(ROUTE.login);
+    }
     setAuthorized(true);
   }, []);
 

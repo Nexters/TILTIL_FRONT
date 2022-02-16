@@ -2,10 +2,8 @@ import axios from 'axios';
 import { userKeys } from 'queryKeys/userKeys';
 import { useQuery } from 'react-query';
 
-import { Api } from './api';
-
-const api = new Api();
+import api from './interceptor';
 
 export const useFetchMe = () => {
-  return useQuery(userKeys.me, () => axios.get('https://api.bing-bong.today/user/me'));
+  return useQuery(userKeys.me, () => api.users.userUsingGet());
 };

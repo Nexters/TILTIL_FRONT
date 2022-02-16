@@ -1,6 +1,7 @@
 {
   "name": "TILTIL",
   "private": true,
+  "proxy": "https://api.bing-bong.today",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
