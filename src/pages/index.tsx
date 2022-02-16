@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import { Api } from 'apis/api';
 import Button from 'components/Button';
 import Header from 'components/layout/Header';
 import { Section } from 'components/Section';
@@ -10,7 +11,12 @@ import theme from 'styles/theme';
 import isMobileDetect from 'utils/isMobileDetect';
 import media from 'utils/media';
 
+const api = new Api();
 const Landing = ({ isMobile }: { isMobile: boolean }) => {
+  useEffect(() => {
+    api.test.testOAuthUsingGet();
+  }, []);
+
   const ref = useRef<HTMLDivElement>(null);
 
   const [width, setWidth] = useState(isMobile ? theme.size.mobile : theme.size.desktop);
