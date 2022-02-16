@@ -4,6 +4,7 @@ import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import { ButtonHTMLAttributes } from 'react';
 import colors, { CategoryStatus } from 'styles/colors';
+import { dimmedElementStyle } from 'styles/styled';
 
 import { buttonSmallStyle } from './ButtonSmall';
 
@@ -24,6 +25,12 @@ export const Tag = styled.span<CategoryThemeProps>`
       color: ${status === 'fill' ? theme.colors.category[category].active : theme.colors.background.white};
     `;
   }}
+`;
+export const DimmedTag = styled.span`
+  ${dimmedElementStyle}
+  width: 47px;
+  height: 24px;
+  border-radius: 6px;
 `;
 
 // Category Tag Button

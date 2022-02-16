@@ -55,6 +55,12 @@ const globalStyle = css`
     justify-content: center;
   }
 
+  ol,
+  ul,
+  li {
+    list-style: none;
+  }
+
   button {
     cursor: pointer;
     background: none;
