@@ -313,9 +313,9 @@ export class HttpClient<SecurityDataType = unknown> {
     const responseFormat = (format && this.format) || void 0;
 
     if (type === ContentType.FormData && body && body !== null && typeof body === 'object') {
-      requestParams.headers.common = { Accept: '*/*' };
-      requestParams.headers.post = {};
-      requestParams.headers.put = {};
+      // requestParams.headers.common = { Accept: '*/*' };
+      // requestParams.headers.post = {};
+      // requestParams.headers.put = {};
 
       body = this.createFormData(body as Record<string, unknown>);
     }
