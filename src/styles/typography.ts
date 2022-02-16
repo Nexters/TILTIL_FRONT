@@ -102,6 +102,13 @@ const typography = {
     line-height: 20px;
     letter-spacing: -0.015em;
   `,
+  body6: css`
+    font-family: Spoqa Han Sans Neo;
+    font-size: 16px;
+    font-weight: normal;
+    font-style: normal;
+    letter-spacing: -0.015em;
+  `,
 
   buttonL: css`
     font-family: Spoqa Han Sans Neo;

@@ -11,3 +11,4 @@ export { default as EasyWriteIcon } from './EasyWriteIcon';
 export { default as TogetherIcon } from './TogetherIcon';
 export { default as IceCubesIcon } from './IceCubesIcon';
 export { default as EmptyIcon } from './EmptyIcon';
+export { default as CountIcsIcon } from './CountIcsIcon';
