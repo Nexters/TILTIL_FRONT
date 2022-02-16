@@ -1,24 +1,21 @@
 import { ROUTE } from 'constants/route';
 
 import styled from '@emotion/styled';
+import { useFetchMe } from 'apis/users';
 import Header from 'components/layout/Header';
 import { useRouter } from 'next/router';
-// import { GetServerSidePropsContext } from 'next';
 import React, { MouseEvent, useMemo } from 'react';
 import { PageWrapper } from 'styles/styled';
-
-interface Props {
-  id: string;
-}
 
 interface MenuItem {
   title: string;
   onClick?: (e?: MouseEvent<HTMLLIElement>) => void;
 }
 
-const MyPage: React.FC<Props> = () => {
+const MyPage: React.FC = () => {
   const nickname = '데니스';
   const router = useRouter();
+  const me = useFetchMe();
 
   const menuItems = useMemo<MenuItem[]>(
     () => [
@@ -86,13 +83,5 @@ const MenuList = styled.ul`
     height: 56px;
   }
 `;
-
-// export async function getServerSideProps({ query }: GetServerSidePropsContext<Pick<Props, 'id'>>) {
-//   return {
-//     props: {
-//       id: query.id,
-//     },
-//   };
-// }
 
 export default MyPage;

@@ -1,6 +1,11 @@
+import { ROUTE } from 'constants/route';
+
 import { Global, ThemeProvider } from '@emotion/react';
+import { setAuthorization } from 'apis/interceptor';
+import axios, { AxiosError } from 'axios';
 import type { AppProps } from 'next/app';
-import React, { useState } from 'react';
+import { useRouter } from 'next/router';
+import React, { useEffect, useState } from 'react';
 import { Hydrate, QueryClient, QueryClientProvider } from 'react-query';
 import { RecoilRoot } from 'recoil';
 
@@ -10,7 +15,38 @@ import theme from '../styles/theme';
 import '../styles/fonts.css';
 
 function MyApp({ Component, pageProps }: AppProps) {
-  const [queryClient] = useState(() => new QueryClient());
+  const router = useRouter();
+  const [isAuthorized, setAuthorized] = useState(false);
+
+  useEffect(() => {
+    const token = localStorage.getItem('accessToken');
+    if (token) {
+      setAuthorization(token);
+    } else {
+      router.push(ROUTE.login);
+    }
+    setAuthorized(true);
+  }, []);
+
+  const queryClient = new QueryClient({
+    defaultOptions: {
+      queries: {
+        refetchOnWindowFocus: false,
+        refetchOnReconnect: false,
+        retry: false,
+        onError: (error) => {
+          const { response } = error as AxiosError;
+          switch (response?.status) {
+            case 401:
+              router.push(ROUTE.login);
+              break;
+            default:
+            // route error page
+          }
+        },
+      },
+    },
+  });
 
   return (
     <QueryClientProvider client={queryClient}>
@@ -18,7 +54,7 @@ function MyApp({ Component, pageProps }: AppProps) {
         <RecoilRoot>
           <ThemeProvider theme={theme}>
             <Global styles={globalStyle} />
-            <Component {...pageProps} />
+            {isAuthorized && <Component {...pageProps} />}
           </ThemeProvider>
         </RecoilRoot>
       </Hydrate>
