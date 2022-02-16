@@ -4,7 +4,6 @@ import styled from '@emotion/styled';
 import { setAuthorization } from 'apis/interceptor';
 import icebergAnimation from 'assets/lotties/iceUpDown.json';
 import GoogleIcon from 'assets/svgs/GoogleIcon';
-import axios from 'axios';
 import Button from 'components/Button';
 import Header from 'components/layout/Header';
 import { Text } from 'components/Text';
@@ -24,17 +23,17 @@ interface Props {
 
 type TopAreaProp = { height: number };
 
-const ICEBERG_MIN_SIZE = { WIDTH: 170, HEIGHT: 246 };
+const ICEBERG_MIN_SIZE = { WIDTH: 220, HEIGHT: 380 };
 const MOBILE_MIN_WIDTH = 360;
 
 const LoginPage = ({ token, isMobile }: Props) => {
   const router = useRouter();
   const [hasToken, setToken] = useState(!!token);
-  const [ratio, setRatio] = useState(isMobile ? 1 : 2);
+  const [ratio, setRatio] = useState(isMobile ? 1 : 1.5);
 
   const handleResize = () => {
     const criteria = visualViewport.width / MOBILE_MIN_WIDTH;
-    const nextRatio = criteria > 2 ? 2 : criteria;
+    const nextRatio = criteria > 1.5 ? 1.5 : criteria;
     setRatio(nextRatio);
   };
 
@@ -45,6 +44,7 @@ const LoginPage = ({ token, isMobile }: Props) => {
       setToken(true);
       router.push(ROUTE.main);
     }
+
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);
@@ -57,16 +57,16 @@ const LoginPage = ({ token, isMobile }: Props) => {
     !hasToken && (
       <RelativePageWrapper>
         <Header rightButton={['cancel']} />
-        <TopArea height={200 + ratio * 100}>
+        <TopArea height={200 + ratio * 150}>
           <DescriptionWrapper className="mx-3">
-            <Text typography="h2">요즘 잘나가는 사람들의</Text>
-            <Text typography="h2">회고 방법,</Text>
-            <Text typography="h1">BingBong</Text>
+            <span>요즘 잘나가는 사람들의</span>
+            <span>회고 방법,</span>
+            <span>BingBong</span>
           </DescriptionWrapper>
           <IcebergWrapper>
             <LottieWrapper>
               <Lottie
-                style={{ margin: '0 28px' }}
+                style={{ margin: '0 14px' }}
                 width={ICEBERG_MIN_SIZE.WIDTH * ratio}
                 height={ICEBERG_MIN_SIZE.HEIGHT * ratio}
                 options={{
@@ -79,12 +79,15 @@ const LoginPage = ({ token, isMobile }: Props) => {
           </IcebergWrapper>
         </TopArea>
         <BottomArea>
-          <ButtonWrapper>
-            <LoginButton fullWidth onClick={handleLogin}>
-              <GoogleIcon />
-              Google로 계속하기
-            </LoginButton>
-          </ButtonWrapper>
+          <div>
+            <ButtonUpperText>3초만에 회고하러 가기</ButtonUpperText>
+            <ButtonWrapper>
+              <LoginButton fullWidth onClick={handleLogin}>
+                <GoogleIcon />
+                Google로 계속하기
+              </LoginButton>
+            </ButtonWrapper>
+          </div>
         </BottomArea>
       </RelativePageWrapper>
     )
@@ -101,6 +104,14 @@ const DescriptionWrapper = styled.div`
   flex-direction: column;
   margin-top: 71px;
   height: 116px;
+  font-family: GmarketSansMedium;
+  font-size: 24px;
+  line-height: 38px;
+  letter-spacing: -0.04em;
+
+  span:nth-of-type(3) {
+    font-family: GmarketSansBold;
+  }
 `;
 
 const LottieWrapper = styled.div`
@@ -124,19 +135,32 @@ const BottomArea = styled.div`
   display: flex;
   align-items: flex-end;
   background-color: rgba(58, 161, 255, 0.33);
+  div {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
 `;
 
 const LoginButton = styled(Button)`
   justify-content: center;
   align-items: center;
+  ${({ theme }) => theme.typography.buttonL}
   svg {
-    margin: 0 26px;
+    margin-right: 26px;
   }
 `;
 
 const ButtonWrapper = styled.div`
   width: 100%;
-  padding: 18px;
+  padding: 0 18px 18px 18px;
+`;
+
+const ButtonUpperText = styled(Text)`
+  justify-content: center;
+  ${({ theme }) => theme.typography.caption3}
+  color: ${({ theme }) => theme.colors.text.normal};
 `;
 
 export async function getServerSideProps({ query, req }: GetServerSidePropsContext<Pick<Props, 'token'>>) {
