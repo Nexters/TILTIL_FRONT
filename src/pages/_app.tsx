@@ -7,6 +7,8 @@ import { RecoilRoot } from 'recoil';
 import globalStyle from '../styles/globalStyle';
 import theme from '../styles/theme';
 
+import '../styles/fonts.css';
+
 function MyApp({ Component, pageProps }: AppProps) {
   const [queryClient] = useState(() => new QueryClient());
 
