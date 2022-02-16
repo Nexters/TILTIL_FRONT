@@ -13,10 +13,6 @@ export interface BooleanResponse {
   isSuccess: boolean;
 }
 
-export interface GrantedAuthority {
-  authority?: string;
-}
-
 export interface GreetingMessageResponse {
   /** 메시지 내용 */
   content?: string;
@@ -195,14 +191,24 @@ export interface TilStatisticsResponse {
   mostWriteDay?: number;
 }
 
-export interface UserDetails {
-  accountNonExpired?: boolean;
-  accountNonLocked?: boolean;
-  authorities?: GrantedAuthority[];
-  credentialsNonExpired?: boolean;
-  enabled?: boolean;
-  password?: string;
-  username?: string;
+export interface UserResponse {
+  /** Email */
+  email?: string;
+
+  /**
+   * 유저 ID
+   * @format int64
+   */
+  id?: number;
+
+  /** 이름 */
+  name?: string;
+
+  /** 프로필 이미지 */
+  profileImage?: string;
+
+  /** 로그인한 SNS 타입 */
+  providerType?: "GOOGLE" | "FACEBOOK" | "NAVER" | "KAKAO" | "LOCAL";
 }
 
 import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse, ResponseType } from "axios";
@@ -556,15 +562,21 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
       query?: {
         accountNonExpired?: boolean;
         accountNonLocked?: boolean;
+        attributes?: object;
         "authorities[0].authority"?: string;
+        claims?: object;
         credentialsNonExpired?: boolean;
         enabled?: boolean;
+        "idToken.claims"?: object;
+        "idToken.tokenValue"?: string;
+        name?: string;
         password?: string;
+        "userInfo.claims"?: object;
         username?: string;
       },
       params: RequestParams = {},
     ) =>
-      this.request<UserDetails, void>({
+      this.request<UserResponse, void>({
         path: `/users/me`,
         method: "GET",
         query: query,
