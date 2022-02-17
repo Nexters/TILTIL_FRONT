@@ -1,23 +1,31 @@
 import styled from '@emotion/styled';
+import { useFetchMe, useUpdateMe } from 'apis/users';
 import Button from 'components/Button';
 import Input from 'components/Input';
 import Header from 'components/layout/Header';
-// import { GetServerSidePropsContext } from 'next';
-import React, { ChangeEvent, useState } from 'react';
+import React, { ChangeEvent, useEffect, useState } from 'react';
 import { PageWrapper } from 'styles/styled';
 
-interface Props {
-  id: string;
-}
-
-const NicknamePage: React.FC<Props> = () => {
-  const [nickname, setNickname] = useState('데니스');
+const NicknamePage: React.FC = () => {
+  const fetchedMe = useFetchMe();
+  const [nickname, setNickname] = useState('');
+  const updateMeMutation = useUpdateMe();
 
   const handleNicknameChange = (e: ChangeEvent<HTMLInputElement>) => {
     setNickname(e.target.value);
   };
 
-  const handleSubmit = () => {};
+  const handleSubmit = () => {
+    updateMeMutation.mutate(nickname, {
+      onSuccess: () => {
+        alert('닉네임 변경 성공 ');
+      },
+    });
+  };
+
+  useEffect(() => {
+    setNickname(fetchedMe?.data.name ?? '');
+  }, [fetchedMe]);
 
   return (
     <PageWrapper>
@@ -43,13 +51,5 @@ const Label = styled.span`
   ${({ theme }) => theme.typography.body2}
   color: ${({ theme }) => theme.colors.text.subdued}
 `;
-
-// export async function getServerSideProps({ query }: GetServerSidePropsContext<Pick<Props, 'id'>>) {
-//   return {
-//     props: {
-//       id: query.id,
-//     },
-//   };
-// }
 
 export default NicknamePage;

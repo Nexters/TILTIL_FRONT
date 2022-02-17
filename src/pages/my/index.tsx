@@ -13,10 +13,8 @@ interface MenuItem {
 }
 
 const MyPage: React.FC = () => {
-  const nickname = '데니스';
   const router = useRouter();
-  const me = useFetchMe();
-
+  const fetchedMe = useFetchMe();
   const menuItems = useMemo<MenuItem[]>(
     () => [
       {
@@ -26,7 +24,7 @@ const MyPage: React.FC = () => {
       { title: '서비스 소개', onClick: () => router.push(ROUTE.main) },
       { title: '로그아웃', onClick: () => {} },
     ],
-    []
+    [fetchedMe]
   );
 
   return (
@@ -34,7 +32,7 @@ const MyPage: React.FC = () => {
       <Header leftButton="home" />
       <Contents>
         <UserNameWrapper className="my-2">
-          <span>{nickname} 님!</span>
+          <span>{fetchedMe?.data.name} 님!</span>
           <span>잊지 않고 오셨네요!</span>
         </UserNameWrapper>
         <MenuList className="my-2">
