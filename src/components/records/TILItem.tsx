@@ -1,16 +1,25 @@
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
+import { TilSimpleResponse } from 'apis/api';
 import { DimmedTag, Tag } from 'components/TagButton';
 import React from 'react';
 import { dimmedElementStyle } from 'styles/styled';
 import media from 'utils/media';
 
-interface TILItemProps {
+type TILItemProps = TilSimpleResponse & {
   dimmed?: boolean;
-}
+};
 type StyleProps = Pick<TILItemProps, 'dimmed'>;
 
-const TILItem: React.VFC<TILItemProps> = ({ dimmed = false }) => {
+const TILItem: React.VFC<TILItemProps> = ({
+  title,
+  date,
+  hasLearnContent,
+  hasImproveContent,
+  hasWellContent,
+  hasQuestionContent,
+  dimmed = false,
+}) => {
   if (dimmed) {
     return (
       <Wrapper className="p-2" dimmed>
@@ -27,30 +36,39 @@ const TILItem: React.VFC<TILItemProps> = ({ dimmed = false }) => {
 
   return (
     <Wrapper className="p-2">
-      <Date>2022.02.03</Date>
-      <Title>일이삼사오육칠팔구십일이삼사오육칠팔구십일이삼사</Title>
+      <Date>{date}</Date>
+      <Title>{title}</Title>
 
       <TagList>
-        <li>
-          <Tag category="learn" status="active">
-            잘한 점
-          </Tag>
-        </li>
-        <li>
-          <Tag category="good" status="active">
-            배운 점
-          </Tag>
-        </li>
-        <li>
-          <Tag category="improve" status="active">
-            개선할 점
-          </Tag>
-        </li>
-        <li>
-          <Tag category="curious" status="active">
-            궁금한 점
-          </Tag>
-        </li>
+        {/* TODO: Tag text 묶음 */}
+        {hasWellContent && (
+          <li>
+            <Tag category="learn" status="active">
+              잘한 점
+            </Tag>
+          </li>
+        )}
+        {hasLearnContent && (
+          <li>
+            <Tag category="good" status="active">
+              배운 점
+            </Tag>
+          </li>
+        )}
+        {hasImproveContent && (
+          <li>
+            <Tag category="improve" status="active">
+              개선할 점
+            </Tag>
+          </li>
+        )}
+        {hasQuestionContent && (
+          <li>
+            <Tag category="curious" status="active">
+              궁금한 점
+            </Tag>
+          </li>
+        )}
       </TagList>
     </Wrapper>
   );
@@ -124,4 +142,4 @@ const TagList = styled.ul<StyleProps>`
   margin: auto 0 0;
 `;
 
-export default TILItem;
+export default React.memo(TILItem);
