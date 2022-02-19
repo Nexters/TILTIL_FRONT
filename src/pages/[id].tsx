@@ -24,7 +24,7 @@ const Profile = ({ isMobile, id }: Props) => {
     <PageWrapper background="default">
       <Header rightButton={['share', 'user']} />
       <main>
-        <GuideIllust isMobile={isMobile} />
+        <GuideIllust name={me?.data.name} isMobile={isMobile} />
         <MontlyLog />
         <GuideIllust name={me?.data.name} isMobile={isMobile} />
         <MontlyLog total={data?.data.sumOfTil} logs={data?.data.tilLogs} />

@@ -22,9 +22,13 @@ interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
   textColor: CustomColor;
 }
 
-const ButtonSmall: React.FC<Props> = ({ children, ...rest }) => {
-  return <Wrapper {...rest}>{children}</Wrapper>;
-};
+const ButtonSmall: React.FC<Props> = React.forwardRef<HTMLButtonElement, Props>(({ children, ...rest }, ref) => {
+  return (
+    <Wrapper ref={ref} {...rest}>
+      {children}
+    </Wrapper>
+  );
+});
 
 export const buttonSmallStyle = css`
   ${typography.buttonS}
@@ -52,5 +56,7 @@ const Wrapper = styled.button<Props>`
     `;
   }}
 `;
+
+ButtonSmall.displayName = 'ButtonSmall';
 
 export default ButtonSmall;

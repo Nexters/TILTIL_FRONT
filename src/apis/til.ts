@@ -20,6 +20,12 @@ const getTilsPerPage = async (page: number, size: number) => {
   return { tils: data.tils, nextPage: page + 1, hasNext: data.hasNext };
 };
 
+export const readTil = (recordId: number) => {
+  return useQuery(tilKeys.detail(recordId), () => api.tils.readTilUsingGet(recordId), {
+    enabled: !!recordId,
+  });
+};
+
 export const useTilCreateMutation = () => {
   const { toast } = useDialogStore();
   // eslint-disable-next-line consistent-return
@@ -33,6 +39,38 @@ export const useTilCreateMutation = () => {
     }
   };
   return useMutation(create);
+};
+
+export const useTilDeleteMutation = () => {
+  const { toast } = useDialogStore();
+  // eslint-disable-next-line consistent-return
+  const deleteApi = async (id: number) => {
+    try {
+      const { data } = await api.tils.deleteTilUsingDelete(id);
+      toast('암묵지를 삭제했어요.');
+      return data;
+    } catch (error: any) {
+      toast('암묵지 삭제 중 에러가 발생했습니다.');
+      throw new Error(error);
+    }
+  };
+  return useMutation(deleteApi);
+};
+
+export const useTilEditMutation = () => {
+  const { toast } = useDialogStore();
+  // eslint-disable-next-line consistent-return
+  const editApi = async ({ id, tilRequest }: { id: number; tilRequest: TilRequest }) => {
+    try {
+      const { data } = await api.tils.updateTilUsingPut(id, tilRequest);
+      toast('암묵지를 수정했어요.');
+      return data;
+    } catch (error: any) {
+      toast('암묵지 수정 중 에러가 발생했습니다.');
+      throw new Error(error);
+    }
+  };
+  return useMutation(editApi);
 };
 
 export const useCanWriteTilUsingGet = () => {

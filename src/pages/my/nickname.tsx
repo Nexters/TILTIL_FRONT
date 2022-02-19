@@ -1,7 +1,7 @@
 import { ROUTE } from 'constants/route';
 
 import styled from '@emotion/styled';
-import { useFetchMe, useUpdateMe } from 'apis/users';
+import { useFetchMe, useUpdateUserMutation } from 'apis/users';
 import Button from 'components/Button';
 import Input from 'components/Input';
 import Header from 'components/layout/Header';
@@ -13,7 +13,7 @@ import { PageWrapper } from 'styles/styled';
 const NicknamePage: React.FC = () => {
   const me = useFetchMe();
   const [nickname, setNickname] = useState('');
-  const updateMeMutation = useUpdateMe();
+  const updateUserMutation = useUpdateUserMutation();
   const dialog = useDialogStore();
   const router = useRouter();
 
@@ -22,7 +22,7 @@ const NicknamePage: React.FC = () => {
   };
 
   const handleSubmit = () => {
-    updateMeMutation.mutate(nickname, {
+    updateUserMutation.mutate(nickname, {
       onSuccess: () => {
         dialog.toast('닉네임을 변경했어요!');
         router.push(ROUTE.my);
