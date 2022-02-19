@@ -155,6 +155,12 @@ const typography = {
     line-height: 15px;
     letter-spacing: -0.015em;
   `,
+  caption3: css`
+    font-family: Gmarket Sans;
+    font-size: 16px;
+    line-height: 38px;
+    letter-spacing: -0.04em;
+  `,
 } as const;
 
 export type Typography = keyof typeof typography;

@@ -12,9 +12,9 @@ type WrapperProps = Pick<InputProps, 'background'>;
 
 const Input: React.FC<Props> = ({ background = 'default', value, maxLength = 8, ...rest }) => {
   return (
-    <Wrapper background={background}>
+    <Wrapper className={rest.className} background={background}>
       <input type="text" value={value} maxLength={maxLength} {...rest} />
-      <LengthWrapper>{`${value?.length ?? 0} / ${maxLength}`}</LengthWrapper>
+      <LengthWrapper className="mx-1">{`${value?.length ?? 0} / ${maxLength}`}</LengthWrapper>
     </Wrapper>
   );
 };
@@ -30,10 +30,12 @@ const Wrapper = styled.div<WrapperProps>`
 
   input {
     display: block;
+    flex-grow: 1;
     background-color: inherit;
     border: 0;
     ${({ theme }) => theme.typography.body2};
     color: ${({ theme }) => theme.colors.text.idle};
+    flex: 1 1;
   }
 `;
 

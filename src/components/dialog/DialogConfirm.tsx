@@ -28,10 +28,10 @@ export const DialogConfirm: FC<Props> = (props) => {
       RenderContent={() => {
         return (
           <>
-            <Content>
-              <Title>{props.title}</Title>
-              <Description>{props.description}</Description>
-            </Content>
+            <DialogContent>
+              <DialogTitle>{props.title}</DialogTitle>
+              <DialogDescription>{props.description}</DialogDescription>
+            </DialogContent>
             <ButtonWrap>
               <CloseButton
                 shape="square"
@@ -78,17 +78,17 @@ const CloseButton = styled(ConfirmButton)`
   }
 `;
 
-const Content = styled.div`
+export const DialogContent = styled.div`
   padding: 24px 16px 28px;
 `;
 
-const Title = styled.div`
+export const DialogTitle = styled.div`
   ${({ theme }) => theme.typography.subTitle3};
   text-align: center;
   color: ${({ theme }) => theme.colors.text.highlight};
 `;
 
-const Description = styled.div`
+export const DialogDescription = styled.div`
   margin-top: 4px;
   ${({ theme }) => theme.typography.body5};
   text-align: center;

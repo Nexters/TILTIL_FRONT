@@ -1,3 +1,5 @@
+import { platform } from 'os';
+
 import { css } from '@emotion/react';
 
 const palette = {
@@ -82,24 +84,29 @@ const colors = {
     placeholder: palette.gray500,
     disabled: palette.gray300,
     inverse: palette.gray000,
+    normal: palette.gray700,
   },
 
   category: {
     learn: {
       fill: palette.learnLight,
       active: palette.learn,
+      disabled: palette.gray200,
     },
     good: {
       fill: palette.goodLight,
       active: palette.good,
+      disabled: palette.gray200,
     },
     improve: {
       fill: palette.improveLight,
       active: palette.improve,
+      disabled: palette.gray200,
     },
     curious: {
       fill: palette.curiousLight,
       active: palette.curious,
+      disabled: palette.gray200,
     },
   },
 

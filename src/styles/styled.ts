@@ -7,6 +7,8 @@ import globalTheme from './theme';
 // layout
 export const PageWrapper = styled.div<{ background?: Background }>`
   max-width: ${({ theme: { size } }) => size.desktop}px;
+  display: flex;
+  flex-direction: column;
   width: 100%;
   min-height: 100vh;
   height: 100%;

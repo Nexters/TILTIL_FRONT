@@ -14,3 +14,6 @@ export { default as ShareIcon } from './ShareIcon';
 export { default as ThumbUpIcon } from './ThumbUpIcon';
 export { default as TogetherIcon } from './TogetherIcon';
 export { default as UserIcon } from './UserIcon';
+export { default as CloudWithMountainD } from './CloudWithMountainD';
+export { default as CloudWithMountainM } from './CloudWithMountainM';
+export { default as Info } from './Info';
