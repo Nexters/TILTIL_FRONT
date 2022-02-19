@@ -1,22 +1,13 @@
-import Header from 'components/layout/Header';
+import ReadRecordPage from 'components/records/detail/ReadRecodPage';
 import type { GetServerSidePropsContext } from 'next';
 import React from 'react';
-import { PageWrapper } from 'styles/styled';
 
 interface Props {
   recordId?: string;
 }
 
-const Record = ({ recordId }: Props) => {
-  return (
-    <PageWrapper background="default">
-      <Header title="암묵지 읽기" leftButton="home" rightButton={['more']} background="default" />
-
-      <main>
-        <h1>Record {recordId}</h1>
-      </main>
-    </PageWrapper>
-  );
+const RecordPage = ({ recordId }: Props) => {
+  return <ReadRecordPage />;
 };
 
 export async function getServerSideProps({ params }: GetServerSidePropsContext<Pick<Props, 'recordId'>>) {
@@ -27,4 +18,4 @@ export async function getServerSideProps({ params }: GetServerSidePropsContext<P
   };
 }
 
-export default Record;
+export default RecordPage;

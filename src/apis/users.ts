@@ -1,9 +1,17 @@
-import axios from 'axios';
-import { userKeys } from 'queryKeys/userKeys';
-import { useQuery } from 'react-query';
+import { meKeys } from 'queryKeys/meKeys';
+import { useMutation, useQuery } from 'react-query';
 
 import api from './interceptor';
 
 export const useFetchMe = () => {
-  return useQuery(userKeys.me, () => api.users.userUsingGet());
+  const { data } = useQuery(meKeys.all, () => api.users.userUsingGet());
+  return data;
+};
+
+export const useUpdateMe = () => {
+  return useMutation((name: string) =>
+    api.users.updateUsingPut({
+      name,
+    })
+  );
 };

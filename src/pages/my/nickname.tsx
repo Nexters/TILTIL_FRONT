@@ -1,23 +1,38 @@
+import { ROUTE } from 'constants/route';
+
 import styled from '@emotion/styled';
+import { useFetchMe, useUpdateMe } from 'apis/users';
 import Button from 'components/Button';
 import Input from 'components/Input';
 import Header from 'components/layout/Header';
-// import { GetServerSidePropsContext } from 'next';
-import React, { ChangeEvent, useState } from 'react';
+import { useRouter } from 'next/router';
+import React, { ChangeEvent, useEffect, useState } from 'react';
+import { useDialogStore } from 'states/dialogStore';
 import { PageWrapper } from 'styles/styled';
 
-interface Props {
-  id: string;
-}
-
-const NicknamePage: React.FC<Props> = () => {
-  const [nickname, setNickname] = useState('데니스');
+const NicknamePage: React.FC = () => {
+  const me = useFetchMe();
+  const [nickname, setNickname] = useState('');
+  const updateMeMutation = useUpdateMe();
+  const dialog = useDialogStore();
+  const router = useRouter();
 
   const handleNicknameChange = (e: ChangeEvent<HTMLInputElement>) => {
     setNickname(e.target.value);
   };
 
-  const handleSubmit = () => {};
+  const handleSubmit = () => {
+    updateMeMutation.mutate(nickname, {
+      onSuccess: () => {
+        dialog.toast('닉네임을 변경했어요!');
+        router.push(ROUTE.my);
+      },
+    });
+  };
+
+  useEffect(() => {
+    setNickname(me?.data.name ?? '');
+  }, [me]);
 
   return (
     <PageWrapper>
@@ -27,7 +42,9 @@ const NicknamePage: React.FC<Props> = () => {
         <div className="mt-1 mb-3">
           <Input value={nickname} onChange={handleNicknameChange} />
         </div>
-        <Button onClick={handleSubmit}>변경</Button>
+        <Button disabled={!nickname || nickname === me?.data.name} onClick={handleSubmit}>
+          변경
+        </Button>
       </Contents>
     </PageWrapper>
   );
@@ -43,13 +60,5 @@ const Label = styled.span`
   ${({ theme }) => theme.typography.body2}
   color: ${({ theme }) => theme.colors.text.subdued}
 `;
-
-// export async function getServerSideProps({ query }: GetServerSidePropsContext<Pick<Props, 'id'>>) {
-//   return {
-//     props: {
-//       id: query.id,
-//     },
-//   };
-// }
 
 export default NicknamePage;

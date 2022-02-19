@@ -36,7 +36,7 @@ const RecordsPage: React.VFC = () => {
     <PageWrapper background="default">
       <Header title="나의 암묵지" leftButton="home" background="default" />
 
-      <RecordsMain>
+      <RecordsMain padding="md">
         {(() => {
           if (isLoading) {
             return (
