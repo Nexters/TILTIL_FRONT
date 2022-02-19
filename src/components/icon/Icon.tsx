@@ -17,6 +17,10 @@ import {
   CloudWithMountainD,
   CloudWithMountainM,
   Info,
+  ChartIcon,
+  FireIcon,
+  GoodIcon,
+  WriteIcon,
 } from 'assets/svgs';
 import EditIcon from 'assets/svgs/EditIcon';
 import React, { VFC } from 'react';
@@ -51,6 +55,10 @@ const ICONS = {
   cloudWithMountainD: CloudWithMountainD,
   cloudWithMountainM: CloudWithMountainM,
   info: Info,
+  chart: ChartIcon,
+  fire: FireIcon,
+  good: GoodIcon,
+  write: WriteIcon,
 } as const;
 
 export const Icon: VFC<IconProps> = ({ name, className, ...rest }) => {

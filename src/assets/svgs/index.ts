@@ -19,3 +19,7 @@ export { default as CloudWithMountainM } from './CloudWithMountainM';
 export { default as Info } from './Info';
 export { default as ErrorIcon } from './ErrorIcon';
 export { default as LockIcon } from './LockIcon';
+export { default as ChartIcon } from './ChartIcon';
+export { default as FireIcon } from './FireIcon';
+export { default as GoodIcon } from './GoodIcon';
+export { default as WriteIcon } from './WriteIcon';
