@@ -48,7 +48,10 @@ const Wrapper = styled.button<WrapperProps>`
   }};
 
   :hover {
-    background-color: ${({ theme }) => theme.colors.primary.pressed};
+    background-color: ${({ theme }) => theme.colors.background.pressed};
+  }
+  :active {
+    background-color: ${({ theme }) => theme.colors.background.pressed};
   }
 
   :disabled {
