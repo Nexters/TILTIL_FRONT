@@ -1,51 +1,56 @@
+/* eslint-disable react/no-array-index-key */
+import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import Header from 'components/layout/Header';
 import Tag from 'components/Tag';
 import React from 'react';
 import { Main, PageWrapper } from 'styles/styled';
+import theme from 'styles/theme';
 import media from 'utils/media';
 
+interface StyleProps {
+  dimmed?: boolean;
+}
+
 const ReadRecordPage = () => {
+  const date = undefined;
+  const isLoading = true;
+
   return (
     <PageWrapper background="default">
       <Header title="암묵지 읽기" leftButton="home" rightButton={['more']} background="default" />
 
       <ReadMain>
-        <MainHeader>
-          <Date>2022.01.29</Date>
-          <Title>1월 29일의 회고</Title>
+        <MainHeader dimmed>
+          <div>{date}</div>
+          <h1>{date}</h1>
         </MainHeader>
 
         <Wrapper>
           <ul>
-            <TilItem>
-              <Label>
-                <Tag size="large" category="learn" status="active" />
-              </Label>
-              앱스트랙 공유 링크에 이미지가 보이지 않을 경우, 용량 문제일 수 있으니 슬라이스를 나눠서 올리기
-            </TilItem>
-            <TilItem>
-              <Label>
-                <Tag size="large" category="good" status="active" />
-              </Label>
-              관리자 리디자인을 하면서, 경영지원팀의 목소리를 듣고 리디자인에 반영 - 관리자 리디자인을 하면서 소매업체
-              정보수정 댑스와 브레드크럼 경로에 대해 나의 직관보다는 실제 사용할 경영지원팀과 영업팀에게 먼저 어떤게
-              편하냐고 A/B로 물어본 뒤 해당 부분은 반영했다.
-            </TilItem>
-            <TilItem>
-              <Label>
-                <Tag size="large" category="improve" status="active" />
-              </Label>
-              디자인 전에 모든 기능과 정책은 더블 체크하고, 내가 이해하고 있는 것이 맞는지 오버 커뮤니케이션을 하더라도
-              확실하게 알고 디자인하자. 안그러면 개발 후에 수정해야하는 불상사가 날 수도 있다.
-            </TilItem>
-            <TilItem>
-              <Label>
-                <Tag size="large" category="curious" status="active" />
-              </Label>
-              디자인 전에 모든 기능과 정책은 더블 체크하고, 내가 이해하고 있는 것이 맞는지 오버 커뮤니케이션을 하더라도
-              확실하게 알고 디자인하자. 안그러면 개발 후에 수정해야하는 불상사가 날 수도 있다.
-            </TilItem>
+            {isLoading ? (
+              Array(3)
+                .fill(1)
+                .map((_, index) => (
+                  <TilItem dimmed key={index}>
+                    {Array(3)
+                      .fill(1)
+                      .map((__, _index) => (
+                        // eslint-disable-next-line react/no-array-index-key
+                        <div key={_index} />
+                      ))}
+                  </TilItem>
+                ))
+            ) : (
+              <TilItem>
+                <Label>
+                  <Tag size="large" category="good" status="active" />
+                </Label>
+                관리자 리디자인을 하면서, 경영지원팀의 목소리를 듣고 리디자인에 반영 - 관리자 리디자인을 하면서 소매업체
+                정보수정 댑스와 브레드크럼 경로에 대해 나의 직관보다는 실제 사용할 경영지원팀과 영업팀에게 먼저 어떤게
+                편하냐고 A/B로 물어본 뒤 해당 부분은 반영했다.
+              </TilItem>
+            )}
           </ul>
         </Wrapper>
       </ReadMain>
@@ -53,28 +58,49 @@ const ReadRecordPage = () => {
   );
 };
 
+const dimmedStyle = css`
+  height: 22px;
+  border-radius: 4px;
+  background-color: ${theme.colors.ui.skeleton};
+`;
+
 const ReadMain = styled(Main)`
   display: flex;
   flex-direction: column;
 `;
 
-const MainHeader = styled.header`
+const MainHeader = styled.header<StyleProps>`
   padding: 40px ${({ theme: { padding } }) => padding.md}px 19px;
 
   ${media.mobile} {
     padding: 40px ${({ theme: { padding } }) => padding.md}px 24px;
   }
-`;
 
-const Date = styled.div`
-  ${({ theme: { typography } }) => typography.body4}
-  color: ${({ theme: { colors } }) => colors.text.subdued};
-`;
+  h1 {
+    ${({ theme: { typography } }) => typography.h1}
+    padding-top: 12px;
+    color: ${({ theme: { colors } }) => colors.text.highlight};
+  }
 
-const Title = styled.h2`
-  ${({ theme: { typography } }) => typography.h1}
-  padding-top: 12px;
-  color: ${({ theme: { colors } }) => colors.text.highlight};
+  > div {
+    ${({ theme: { typography } }) => typography.body4}
+    color: ${({ theme: { colors } }) => colors.text.subdued};
+  }
+
+  ${({ dimmed = false }) =>
+    dimmed &&
+    css`
+      h1 {
+        margin-top: 8px;
+        ${dimmedStyle}
+        width: 100%;
+      }
+
+      > div {
+        ${dimmedStyle}
+        width: 74px;
+      }
+    `}
 `;
 
 const Wrapper = styled.section`
@@ -87,7 +113,7 @@ const Wrapper = styled.section`
   }
 `;
 
-const TilItem = styled.li`
+const TilItem = styled.li<StyleProps>`
   ${({ theme: { typography } }) => typography.body2}
 
   position: relative;
@@ -97,6 +123,19 @@ const TilItem = styled.li`
   border-radius: 12px;
   background-color: ${({ theme: { colors } }) => colors.ui.inputField};
   color: ${({ theme: { colors } }) => colors.text.idle};
+
+  > div {
+    ${dimmedStyle}
+  }
+
+  ${({ dimmed = false }) =>
+    dimmed &&
+    css`
+      display: flex;
+      flex-direction: column;
+      row-gap: 8px;
+      padding: 16px 16px 21px;
+    `}
 `;
 
 const Label = styled.span`
