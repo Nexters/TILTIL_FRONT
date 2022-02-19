@@ -43,27 +43,27 @@ const Custom404: React.VFC = () => {
   );
 };
 
-const Title = styled.div`
+export const Title = styled.div`
   display: flex;
   justify-content: flex-start;
   width: 100%;
 `;
 
-const Wrapper = styled.div`
+export const Wrapper = styled.div`
   margin: 124px auto 0;
   display: flex;
   flex-direction: column;
   align-items: center;
 `;
 
-const ErrorTitle = styled.h2`
+export const ErrorTitle = styled.h2`
   ${({ theme: { typography } }) => typography.h2}
   margin: 8px 0 24px;
   color: ${({ theme: { colors } }) => colors.text.highlight};
   text-align: center;
 `;
 
-const Text = styled.p`
+export const Text = styled.p`
   ${({ theme: { typography } }) => typography.body2}
   width: min(280px, 100%);
   color: ${({ theme: { colors } }) => colors.text.idle};
