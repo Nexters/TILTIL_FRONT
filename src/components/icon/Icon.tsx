@@ -1,17 +1,21 @@
+import styled from '@emotion/styled';
 import {
   ArrowLeftIcon,
   CancelIcon,
+  CheckIcon,
+  ComfortableIcon,
+  DeleteIcon,
+  EasyWriteIcon,
+  HomeIcon,
+  IceCubesIcon,
+  LogoIcon,
   MoreIcon,
   ShareIcon,
-  UserIcon,
-  HomeIcon,
-  LogoIcon,
   ThumbUpIcon,
-  ComfortableIcon,
-  EasyWriteIcon,
   TogetherIcon,
-  IceCubesIcon,
+  UserIcon,
 } from 'assets/svgs';
+import EditIcon from 'assets/svgs/EditIcon';
 import React, { VFC } from 'react';
 
 export type IconName = keyof typeof ICONS;
@@ -21,6 +25,7 @@ export type LeftButtonIconName = 'home';
 export type RightButtonIconName = 'user' | 'share' | 'more' | 'cancel';
 
 interface IconProps {
+  className?: string;
   name: IconName;
 }
 
@@ -37,8 +42,16 @@ const ICONS = {
   comfortableIcon: ComfortableIcon,
   easyWriteIcon: EasyWriteIcon,
   togetherIcon: TogetherIcon,
+  check: CheckIcon,
+  delete: DeleteIcon,
+  edit: EditIcon,
 } as const;
 
-export const Icon: VFC<IconProps> = ({ name }) => {
-  return React.createElement(ICONS[name]);
+export const Icon: VFC<IconProps> = ({ name, className }) => {
+  // return React.createElement(ICONS[name]);
+  return <Wrap className={className}>{React.createElement(ICONS[name])}</Wrap>;
 };
+
+const Wrap = styled.div`
+  display: flex;
+`;

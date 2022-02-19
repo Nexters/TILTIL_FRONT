@@ -13,3 +13,4 @@ export interface Authorization {
   token_type: string;
   expires: number;
 }
+export type PartialPick<T, K extends keyof T> = Partial<T> & Pick<T, K>;

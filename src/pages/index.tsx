@@ -1,10 +1,13 @@
 import styled from '@emotion/styled';
 import Button from 'components/Button';
+import { Icon } from 'components/icon/Icon';
+import InfiniteSlider from 'components/InfiniteSlider';
 import Header from 'components/layout/Header';
 import { Section } from 'components/Section';
 import { Text } from 'components/Text';
-import type { GetServerSidePropsContext } from 'next';
+import type { GetServerSidePropsContext, NextPage } from 'next';
 import React, { useEffect, useRef, useState } from 'react';
+import { useQuery } from 'react-query';
 import { PageWrapper } from 'styles/styled';
 import theme from 'styles/theme';
 import isMobileDetect from 'utils/isMobileDetect';
