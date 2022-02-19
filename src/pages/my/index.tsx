@@ -2,9 +2,11 @@ import { ROUTE } from 'constants/route';
 
 import styled from '@emotion/styled';
 import { useFetchMe } from 'apis/users';
+import { DialogConfirm } from 'components/dialog/DialogConfirm';
 import Header from 'components/layout/Header';
 import { useRouter } from 'next/router';
 import React, { MouseEvent, useMemo } from 'react';
+import { useDialogStore } from 'states/dialogStore';
 import { PageWrapper } from 'styles/styled';
 
 interface MenuItem {
@@ -13,9 +15,14 @@ interface MenuItem {
 }
 
 const MyPage: React.FC = () => {
-  const nickname = '데니스';
   const router = useRouter();
   const me = useFetchMe();
+  const dialog = useDialogStore();
+
+  const handleLogout = async () => {
+    localStorage.removeItem('accessToken');
+    router.push(ROUTE.login);
+  };
 
   const menuItems = useMemo<MenuItem[]>(
     () => [
@@ -24,9 +31,21 @@ const MyPage: React.FC = () => {
         onClick: () => router.push(ROUTE.myNickname),
       },
       { title: '서비스 소개', onClick: () => router.push(ROUTE.main) },
-      { title: '로그아웃', onClick: () => {} },
+      {
+        title: '로그아웃',
+        onClick: () => {
+          dialog.open(
+            <DialogConfirm
+              title="우리 다시 만나요 :)"
+              description={`아래의 계정으로 다시 로그인할 수 있습니다. ${me?.data.email}`}
+              confirmLabel="로그아웃"
+              onConfirm={handleLogout}
+            />
+          );
+        },
+      },
     ],
-    []
+    [me]
   );
 
   return (
@@ -34,7 +53,7 @@ const MyPage: React.FC = () => {
       <Header leftButton="home" />
       <Contents>
         <UserNameWrapper className="my-2">
-          <span>{nickname} 님!</span>
+          <span>{me?.data.name} 님!</span>
           <span>잊지 않고 오셨네요!</span>
         </UserNameWrapper>
         <MenuList className="my-2">
@@ -79,6 +98,7 @@ const MenuList = styled.ul`
   li {
     display: flex;
     align-items: center;
+    cursor: pointer;
     justify-content: space-between;
     height: 56px;
   }

@@ -84,6 +84,7 @@ const colors = {
     placeholder: palette.gray500,
     disabled: palette.gray300,
     inverse: palette.gray000,
+    normal: palette.gray700,
   },
 
   category: {
