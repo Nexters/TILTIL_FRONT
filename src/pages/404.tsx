@@ -19,7 +19,7 @@ const Custom404: React.VFC = () => {
           </Title>
         }
       />
-      <Main padding="md">
+      <Main>
         <Wrapper>
           <ErrorIcon />
           <ErrorTitle>페이지 경로가 올바르지 않습니다.</ErrorTitle>
