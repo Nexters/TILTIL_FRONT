@@ -14,11 +14,13 @@ import React, { useEffect, useState } from 'react';
 import Lottie from 'react-lottie';
 import { PageWrapper } from 'styles/styled';
 import theme from 'styles/theme';
+import isMobileDetect from 'utils/isMobileDetect';
 
 const GOOGLE_LOGIN_URL = 'https://api.bing-bong.today/oauth2/authorization/google';
 
 interface Props {
   token: string;
+  isMobileAgent: boolean;
 }
 
 type TopAreaProp = { height: number };
@@ -27,10 +29,10 @@ type DescriptionWrapperProps = { isMobile: boolean };
 const ICEBERG_MIN_SIZE = { WIDTH: 220, HEIGHT: 380 };
 const MOBILE_MIN_WIDTH = 360;
 
-const LoginPage = ({ token }: Props) => {
+const LoginPage: React.VFC<Props> = ({ token, isMobileAgent }) => {
   const router = useRouter();
   const [hasToken, setToken] = useState(!!token);
-  const [isMobile, setMobile] = useState(visualViewport.width < theme.size.mobile);
+  const [isMobile, setMobile] = useState(isMobileAgent);
   const [ratio, setRatio] = useState(isMobile ? 1 : 1.5);
 
   const handleResize = () => {
@@ -42,10 +44,9 @@ const LoginPage = ({ token }: Props) => {
 
   useEffect(() => {
     if (token) {
-      localStorage.setItem('accessToken', token);
       setAuthorization(token);
       setToken(true);
-      router.push(ROUTE.main_login);
+      router.push(ROUTE.home);
     }
 
     window.addEventListener('resize', handleResize);
@@ -56,43 +57,43 @@ const LoginPage = ({ token }: Props) => {
     router.push(`${GOOGLE_LOGIN_URL}?redirect_uri=${window.location.origin}/login`);
   };
 
-  return (
-    !hasToken && (
-      <RelativePageWrapper>
-        <Header rightButton={['cancel']} />
-        <TopArea height={200 + ratio * 150}>
-          <DescriptionWrapper isMobile={isMobile} className="mx-3">
-            <span>요즘 잘나가는 사람들의 회고 방법,</span>
-            <Icon name="logo" />
-          </DescriptionWrapper>
-          <IcebergWrapper>
-            <LottieWrapper>
-              <Lottie
-                style={{ margin: '0 14px' }}
-                width={ICEBERG_MIN_SIZE.WIDTH * ratio}
-                height={ICEBERG_MIN_SIZE.HEIGHT * ratio}
-                options={{
-                  loop: true,
-                  autoplay: true,
-                  animationData: icebergAnimation,
-                }}
-              />
-            </LottieWrapper>
-          </IcebergWrapper>
-        </TopArea>
-        <BottomArea>
-          <div>
-            <ButtonUpperText typography="caption3">빠르게 성장하러 가기</ButtonUpperText>
-            <ButtonWrapper>
-              <LoginButton fullWidth onClick={handleLogin}>
-                <GoogleIcon />
-                Google로 계속하기
-              </LoginButton>
-            </ButtonWrapper>
-          </div>
-        </BottomArea>
-      </RelativePageWrapper>
-    )
+  return hasToken ? (
+    <></>
+  ) : (
+    <RelativePageWrapper>
+      <Header rightButton={['cancel']} />
+      <TopArea height={200 + ratio * 150}>
+        <DescriptionWrapper isMobile={isMobile} className="mx-3">
+          <span>요즘 잘나가는 사람들의 회고 방법,</span>
+          <Icon name="logo" />
+        </DescriptionWrapper>
+        <IcebergWrapper>
+          <LottieWrapper>
+            <Lottie
+              style={{ margin: '0 14px' }}
+              width={ICEBERG_MIN_SIZE.WIDTH * ratio}
+              height={ICEBERG_MIN_SIZE.HEIGHT * ratio}
+              options={{
+                loop: true,
+                autoplay: true,
+                animationData: icebergAnimation,
+              }}
+            />
+          </LottieWrapper>
+        </IcebergWrapper>
+      </TopArea>
+      <BottomArea>
+        <div>
+          <ButtonUpperText typography="caption3">빠르게 성장하러 가기</ButtonUpperText>
+          <ButtonWrapper>
+            <LoginButton fullWidth onClick={handleLogin}>
+              <GoogleIcon />
+              Google로 계속하기
+            </LoginButton>
+          </ButtonWrapper>
+        </div>
+      </BottomArea>
+    </RelativePageWrapper>
   );
 };
 
@@ -162,10 +163,16 @@ const ButtonUpperText = styled(Text)`
   color: ${theme.colors.text.normal};
 `;
 
-export async function getServerSideProps({ query }: GetServerSidePropsContext<Pick<Props, 'token'>>) {
+export async function getServerSideProps({ req, res, query }: GetServerSidePropsContext) {
+  const accessToken = (query.token as string) ?? '';
+  if (accessToken) {
+    res.setHeader('Set-Cookie', `accessToken=${accessToken}; path=/ max-age=3600`);
+  }
+
   return {
     props: {
       token: query.token ?? '',
+      isMobileAgent: isMobileDetect(req),
     },
   };
 }
