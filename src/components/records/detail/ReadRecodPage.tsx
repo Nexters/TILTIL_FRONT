@@ -3,6 +3,7 @@ import Header from 'components/layout/Header';
 import Tag from 'components/Tag';
 import React from 'react';
 import { Main, PageWrapper } from 'styles/styled';
+import media from 'utils/media';
 
 const ReadRecordPage = () => {
   return (
@@ -59,6 +60,10 @@ const ReadMain = styled(Main)`
 
 const MainHeader = styled.header`
   padding: 40px ${({ theme: { padding } }) => padding.md}px 19px;
+
+  ${media.mobile} {
+    padding: 40px ${({ theme: { padding } }) => padding.md}px 24px;
+  }
 `;
 
 const Date = styled.div`
@@ -73,9 +78,13 @@ const Title = styled.h2`
 `;
 
 const Wrapper = styled.section`
-  padding: 40px ${({ theme: { padding } }) => padding.md}px 0;
+  padding: 55px ${({ theme: { padding } }) => padding.md}px 0;
   background-color: ${({ theme: { colors } }) => colors.background.white};
   flex: 1;
+
+  ${media.mobile} {
+    padding: 60px ${({ theme: { padding } }) => padding.md}px 0;
+  }
 `;
 
 const TilItem = styled.li`
