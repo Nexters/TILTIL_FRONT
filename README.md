@@ -107,6 +107,11 @@ yarn test
 
 ## https 적용
 
+/etc/hosts 에 내용 추가
+```
+127.0.0.1       bing-bong.today
+```
+
 ```bash
 brew install mkcert
 mkcert -install
