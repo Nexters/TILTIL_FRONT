@@ -1,12 +1,14 @@
 import styled from '@emotion/styled';
+import { TilRequest } from 'apis/api';
 import { Text } from 'components/Text';
 import dayjs from 'dayjs';
-import { useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import colors from 'styles/colors';
+import theme from 'styles/theme';
 
 import Button from './Button';
 import Input from './Input';
-import TagButton, { Tag } from './TagButton';
+import TagButton from './TagButton';
 import { Textarea } from './Textarea';
 
 type ContentKey = 'learnContent' | 'wellContent' | 'improveContent' | 'questionContent';
@@ -34,7 +36,11 @@ const tagList: { text: string; category: keyof typeof colors.category; contentKe
   },
 ];
 
-export const Form = () => {
+interface Props {
+  onSubmit: (tilRequest: TilRequest) => Promise<void>;
+}
+
+export const Form: FC<Props> = ({ onSubmit }) => {
   const [title, setTitle] = useState('');
   const [activeCategory, setActiveCategory] = useState<ContentKey>('learnContent');
   const [content, setContent] = useState({
@@ -43,8 +49,33 @@ export const Form = () => {
     improveContent: '',
     questionContent: '',
   });
+  const [buttonSize, setButtonSize] = useState<'large' | 'small'>('small');
+
+  const handleResize = () => {
+    if (window.document.body.clientWidth <= theme.size.mobile) {
+      setButtonSize('small');
+    } else {
+      setButtonSize('large');
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener('resize', handleResize);
+    handleResize();
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
+
   return (
-    <>
+    <form
+      className="flex-grow-1 d-flex flex-column"
+      onSubmit={(e) => {
+        e.preventDefault();
+        onSubmit({ title, ...content });
+      }}
+    >
       <div className="mx-3 d-flex flex-grow-1 flex-column">
         <Text className="mt-5" typography="body5" color="subdued">
           {dayjs().format('YYYY.MM.DD')}
@@ -62,12 +93,20 @@ export const Form = () => {
             return (
               <li key={tag.text}>
                 <TagButton
+                  type="button"
                   onClick={() => {
                     setActiveCategory(tag.contentKey);
                   }}
-                  size="large"
+                  size={buttonSize}
                   category={tag.category}
-                  status={activeCategory === tag.contentKey ? 'active' : 'disabled'}
+                  status={
+                    // eslint-disable-next-line no-nested-ternary
+                    activeCategory === tag.contentKey
+                      ? 'active'
+                      : content[tag.contentKey].length > 0
+                      ? 'fill'
+                      : 'disabled'
+                  }
                 >
                   {tag.text}
                 </TagButton>
@@ -86,10 +125,10 @@ export const Form = () => {
           }}
         />
       </div>
-      <Button className="mt-3" fullWidth shape="square">
+      <Button type="submit" className="mt-3" fullWidth shape="square">
         완료
       </Button>
-    </>
+    </form>
   );
 };
 
