@@ -125,7 +125,18 @@ export const Form: FC<Props> = ({ onSubmit }) => {
           }}
         />
       </div>
-      <Button type="submit" className="mt-3" fullWidth shape="square">
+      <Button
+        disabled={
+          title.length === 0 ||
+          Object.values(content).reduce((prev, curr) => {
+            return prev + curr;
+          }, '').length === 0
+        }
+        type="submit"
+        className="mt-3"
+        fullWidth
+        shape="square"
+      >
         완료
       </Button>
     </form>
