@@ -5,7 +5,7 @@ import { useFetchMe } from 'apis/users';
 import { DialogConfirm } from 'components/dialog/DialogConfirm';
 import Header from 'components/layout/Header';
 import { useRouter } from 'next/router';
-import React, { MouseEvent, useMemo } from 'react';
+import React, { MouseEvent, useMemo, useState } from 'react';
 import { useDialogStore } from 'states/dialogStore';
 import { PageWrapper } from 'styles/styled';
 
