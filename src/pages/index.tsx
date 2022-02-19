@@ -45,7 +45,7 @@ const Landing = ({ isMobile }: { isMobile: boolean }) => {
         <Section.Growth />
         <Section.Phrases />
       </Section>
-      <Link href="/records/new">
+      <Link href="/records/new" passHref>
         <Floating size="small" width={width}>
           오늘부터 암묵지 없애기
         </Floating>
