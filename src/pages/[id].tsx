@@ -1,3 +1,4 @@
+import { useFetchMe } from 'apis/users';
 import GuideIllust from 'components/GuideIllust';
 import Header from 'components/layout/Header';
 import MontlyLog from 'components/MontlyLog';
@@ -7,16 +8,17 @@ import { PageWrapper } from 'styles/styled';
 import isMobileDetect from 'utils/isMobileDetect';
 
 interface Props {
-  id?: string;
   isMobile: boolean;
 }
 
-const Profile = ({ id, isMobile }: Props) => {
+const Profile = ({ isMobile }: Props) => {
+  const me = useFetchMe();
+
   return (
     <PageWrapper background="default">
       <Header rightButton={['share', 'user']} />
       <main>
-        <GuideIllust isMobile={isMobile} />
+        <GuideIllust name={me?.data.name} isMobile={isMobile} />
         <MontlyLog />
       </main>
     </PageWrapper>
