@@ -13,6 +13,7 @@ const EmptyList = () => {
 
 const Wrapper = styled.div`
   margin: auto;
+  padding-bottom: ${({ theme: { header } }) => header.desktop}px;
   display: flex;
   flex-direction: column;
   align-items: center;

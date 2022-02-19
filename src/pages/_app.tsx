@@ -7,6 +7,7 @@ import type { AppProps } from 'next/app';
 import { useRouter } from 'next/router';
 import React, { FC, useEffect, useState } from 'react';
 import { Hydrate, QueryClient, QueryClientProvider } from 'react-query';
+import { ReactQueryDevtools } from 'react-query/devtools';
 import { RecoilRoot, useRecoilValue } from 'recoil';
 import { dialogStore } from 'states/dialogStore';
 
@@ -50,6 +51,7 @@ function MyApp({ Component, pageProps }: AppProps) {
 
   return (
     <QueryClientProvider client={queryClient}>
+      <ReactQueryDevtools />
       <Hydrate state={pageProps.dehydratedState}>
         <RecoilRoot>
           <ThemeProvider theme={theme}>

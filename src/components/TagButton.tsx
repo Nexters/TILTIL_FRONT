@@ -4,7 +4,6 @@ import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import { ButtonHTMLAttributes } from 'react';
 import colors, { CategoryStatus } from 'styles/colors';
-import { dimmedElementStyle } from 'styles/styled';
 
 import { buttonSmallStyle } from './ButtonSmall';
 
@@ -13,27 +12,6 @@ export interface CategoryThemeProps {
   status: CategoryStatus;
 }
 
-// Category Tag
-export const Tag = styled.span<CategoryThemeProps>`
-  padding: 4px 6px;
-  border-radius: 6px;
-
-  ${({ theme: { typography } }) => typography.caption1}
-  ${({ theme, category, status }) => {
-    return css`
-      background-color: ${theme.colors.category[category][status]};
-      color: ${status === 'fill' ? theme.colors.category[category].active : theme.colors.background.white};
-    `;
-  }}
-`;
-export const DimmedTag = styled.span`
-  ${dimmedElementStyle}
-  width: 47px;
-  height: 24px;
-  border-radius: 6px;
-`;
-
-// Category Tag Button
 interface TagButtonProps extends CategoryThemeProps, ButtonHTMLAttributes<HTMLButtonElement> {
   size: 'large' | 'small';
 }
