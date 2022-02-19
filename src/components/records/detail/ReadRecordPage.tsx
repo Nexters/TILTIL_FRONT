@@ -4,6 +4,7 @@ import styled from '@emotion/styled';
 import { TilDetailResponse } from 'apis/api';
 import Header from 'components/layout/Header';
 import Tag from 'components/Tag';
+import dayjs from 'dayjs';
 import React from 'react';
 import { Main, PageWrapper } from 'styles/styled';
 import theme from 'styles/theme';
@@ -20,7 +21,6 @@ const ReadRecordPage: React.VFC<Props> = ({
   improveContent,
   questionContent,
   learnContent,
-  updatedAt,
   wellContent,
 }) => {
   return (
@@ -28,8 +28,8 @@ const ReadRecordPage: React.VFC<Props> = ({
       <Header title="암묵지 읽기" leftButton="home" rightButton={['more']} background="default" />
 
       <ReadMain>
-        <MainHeader dimmed>
-          <div>{createAt}</div>
+        <MainHeader dimmed={isLoading}>
+          <div>{dayjs(createAt).format('YYYY.MM.DD')}</div>
           <h1>{title}</h1>
         </MainHeader>
 
@@ -123,8 +123,8 @@ const MainHeader = styled.header<StyledProps>`
     dimmed &&
     css`
       h1 {
-        margin-top: 8px;
         ${dimmedStyle}
+        margin-top: 8px;
         width: 100%;
       }
 
