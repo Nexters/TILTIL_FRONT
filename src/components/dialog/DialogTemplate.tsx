@@ -16,6 +16,7 @@ export interface DialogTemplateProps {
 
   RenderBody: () => ReactElement;
   RenderContent: () => ReactElement;
+  hasCloseButton?: boolean;
 }
 
 type Props = PartialPick<DialogTemplateProps, 'show' | 'close' | 'message'>;
@@ -35,6 +36,7 @@ export const DialogTemplate: FC<Props> = ({
 
   noBackdrop,
   noCloseButton,
+  hasCloseButton,
 
   RenderBody,
   RenderContent,
@@ -102,7 +104,7 @@ export const DialogTemplate: FC<Props> = ({
           </CloseButtonWrap>
         )}
         <DefaultRenderContent />
-        {!!noCloseButton && (
+        {hasCloseButton && (
           <Button size="large" fullWidth onClick={() => close()} shape="square">
             홈으로 가기
           </Button>

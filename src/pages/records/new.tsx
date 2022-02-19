@@ -20,6 +20,7 @@ const NewRecord = () => {
       open(
         <Dialog
           message=""
+          hasCloseButton
           RenderContent={() => (
             <DialogContent>
               <DialogTitle>오늘은 이미 작성했어요!</DialogTitle>
