@@ -101,5 +101,6 @@ yarn test
 - [@zi-gae](https://github.com/zi-gae)
 - [10000peach](https://github.com/1000peach)
 - [Yuni-Q](https://github.com/Yuni-Q)
+- [BuildTheTruth](https://github.com/BuildTheTruth)
 
 프로젝트에 참여한 [contributors](https://github.com/Nexters/TILTIL_FRONT/graphs/contributors) 확인하기
