@@ -1,8 +1,11 @@
+import { ROUTE } from 'constants/route';
+
 import styled from '@emotion/styled';
 import { ErrorIcon } from 'assets/svgs';
 import ButtonSmall from 'components/ButtonSmall';
 import { Icon } from 'components/icon/Icon';
 import Header from 'components/layout/Header';
+import Link from 'next/link';
 import React from 'react';
 import { Main, PageWrapper } from 'styles/styled';
 
@@ -27,9 +30,11 @@ const Custom404: React.VFC = () => {
             올바른 URL을 입력하였는지 확인해주세요.
           </Text>
 
-          <ButtonSmall backgroundColor={['primary', 'default']} textColor={['text', 'inverse']}>
-            홈으로 가기
-          </ButtonSmall>
+          <Link href={ROUTE.main} passHref>
+            <ButtonSmall backgroundColor={['primary', 'default']} textColor={['text', 'inverse']}>
+              홈으로 가기
+            </ButtonSmall>
+          </Link>
         </Wrapper>
       </Main>
     </PageWrapper>
