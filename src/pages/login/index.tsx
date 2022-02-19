@@ -166,7 +166,7 @@ const ButtonUpperText = styled(Text)`
 export async function getServerSideProps({ req, res, query }: GetServerSidePropsContext) {
   const accessToken = (query.token as string) ?? '';
   if (accessToken) {
-    res.setHeader('Set-Cookie', `accessToken=${accessToken}; path=/ max-age=3600`);
+    res.setHeader('Set-Cookie', `accessToken=${accessToken}; path=/; max-age=3600`);
   }
 
   return {
