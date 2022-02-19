@@ -19,13 +19,13 @@ const ReadRecordPage = () => {
           <ul>
             <TilItem>
               <Label>
-                <Tag category="learn" status="active" />
+                <Tag size="large" category="learn" status="active" />
               </Label>
               앱스트랙 공유 링크에 이미지가 보이지 않을 경우, 용량 문제일 수 있으니 슬라이스를 나눠서 올리기
             </TilItem>
             <TilItem>
               <Label>
-                <Tag category="good" status="active" />
+                <Tag size="large" category="good" status="active" />
               </Label>
               관리자 리디자인을 하면서, 경영지원팀의 목소리를 듣고 리디자인에 반영 - 관리자 리디자인을 하면서 소매업체
               정보수정 댑스와 브레드크럼 경로에 대해 나의 직관보다는 실제 사용할 경영지원팀과 영업팀에게 먼저 어떤게
@@ -33,14 +33,14 @@ const ReadRecordPage = () => {
             </TilItem>
             <TilItem>
               <Label>
-                <Tag category="improve" status="active" />
+                <Tag size="large" category="improve" status="active" />
               </Label>
               디자인 전에 모든 기능과 정책은 더블 체크하고, 내가 이해하고 있는 것이 맞는지 오버 커뮤니케이션을 하더라도
               확실하게 알고 디자인하자. 안그러면 개발 후에 수정해야하는 불상사가 날 수도 있다.
             </TilItem>
             <TilItem>
               <Label>
-                <Tag category="curious" status="active" />
+                <Tag size="large" category="curious" status="active" />
               </Label>
               디자인 전에 모든 기능과 정책은 더블 체크하고, 내가 이해하고 있는 것이 맞는지 오버 커뮤니케이션을 하더라도
               확실하게 알고 디자인하자. 안그러면 개발 후에 수정해야하는 불상사가 날 수도 있다.
