@@ -560,23 +560,10 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @request PUT:/users
      * @secure
      */
-    updateUsingPut: (
-      userUpdateRequest: UserUpdateRequest,
-      query?: {
-        accountNonExpired?: boolean;
-        accountNonLocked?: boolean;
-        "authorities[0].authority"?: string;
-        credentialsNonExpired?: boolean;
-        enabled?: boolean;
-        password?: string;
-        username?: string;
-      },
-      params: RequestParams = {},
-    ) =>
+    updateUsingPut: (userUpdateRequest: UserUpdateRequest, params: RequestParams = {}) =>
       this.request<OkResponse, void>({
         path: `/users`,
         method: "PUT",
-        query: query,
         body: userUpdateRequest,
         secure: true,
         type: ContentType.Json,
