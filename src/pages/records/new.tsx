@@ -1,6 +1,7 @@
 import { TilRequest } from 'apis/api';
 import { useCanWriteTilUsingGet, useTilCreateMutation } from 'apis/til';
 import { Dialog } from 'components/dialog/Dialog';
+import { DialogContent, DialogDescription, DialogTitle } from 'components/dialog/DialogConfirm';
 import { Form } from 'components/Form';
 import Header from 'components/layout/Header';
 import { useRouter } from 'next/router';
@@ -16,7 +17,21 @@ const NewRecord = () => {
 
   useEffect(() => {
     if (CanWriteTilUsing?.data?.isSuccess === false) {
-      open(<Dialog message="이미 암묵지를 없앴음" onClose={() => router.replace('/')} />);
+      open(
+        <Dialog
+          message=""
+          RenderContent={() => (
+            <DialogContent>
+              <DialogTitle>오늘은 이미 작성했어요!</DialogTitle>
+              <DialogDescription>
+                암묵지는 내일 다시 키울 수 있어요. 그동안 키운 나의 암묵지를 보러 가볼까요?
+              </DialogDescription>
+            </DialogContent>
+          )}
+          onClose={() => router.replace('/')}
+          noCloseButton
+        />
+      );
     }
   }, [CanWriteTilUsing]);
 

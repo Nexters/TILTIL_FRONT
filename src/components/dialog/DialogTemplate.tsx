@@ -1,5 +1,6 @@
 import { css, keyframes } from '@emotion/react';
 import styled from '@emotion/styled';
+import Button from 'components/Button';
 import { Icon } from 'components/icon/Icon';
 import React, { FC, ReactElement, ReactNode, useEffect, useRef, useState } from 'react';
 import { useDialogStore } from 'states/dialogStore';
@@ -101,6 +102,11 @@ export const DialogTemplate: FC<Props> = ({
           </CloseButtonWrap>
         )}
         <DefaultRenderContent />
+        {!!noCloseButton && (
+          <Button size="large" fullWidth onClick={() => close()} shape="square">
+            홈으로 가기
+          </Button>
+        )}
       </Wrapper>
     );
   };
