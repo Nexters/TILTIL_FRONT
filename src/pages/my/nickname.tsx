@@ -24,7 +24,7 @@ const NicknamePage: React.FC = () => {
   const handleSubmit = () => {
     updateMeMutation.mutate(nickname, {
       onSuccess: () => {
-        dialog.toast('닉네임 변경 성공');
+        dialog.toast('닉네임을 변경했어요!');
         router.push(ROUTE.my);
       },
     });

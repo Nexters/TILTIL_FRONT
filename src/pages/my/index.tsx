@@ -2,9 +2,11 @@ import { ROUTE } from 'constants/route';
 
 import styled from '@emotion/styled';
 import { useFetchMe } from 'apis/users';
+import { DialogConfirm } from 'components/dialog/DialogConfirm';
 import Header from 'components/layout/Header';
 import { useRouter } from 'next/router';
 import React, { MouseEvent, useMemo } from 'react';
+import { useDialogStore } from 'states/dialogStore';
 import { PageWrapper } from 'styles/styled';
 
 interface MenuItem {
@@ -15,6 +17,13 @@ interface MenuItem {
 const MyPage: React.FC = () => {
   const router = useRouter();
   const me = useFetchMe();
+  const dialog = useDialogStore();
+
+  const handleLogout = async () => {
+    localStorage.removeItem('accessToken');
+    router.push(ROUTE.login);
+  };
+
   const menuItems = useMemo<MenuItem[]>(
     () => [
       {
@@ -22,7 +31,19 @@ const MyPage: React.FC = () => {
         onClick: () => router.push(ROUTE.myNickname),
       },
       { title: '서비스 소개', onClick: () => router.push(ROUTE.main) },
-      { title: '로그아웃', onClick: () => {} },
+      {
+        title: '로그아웃',
+        onClick: () => {
+          dialog.open(
+            <DialogConfirm
+              title="우리 다시 만나요 :)"
+              description={`아래의 계정으로 다시 로그인할 수 있습니다. ${me?.data.email}`}
+              confirmLabel="로그아웃"
+              onConfirm={handleLogout}
+            />
+          );
+        },
+      },
     ],
     [me]
   );
