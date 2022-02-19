@@ -5,6 +5,7 @@ import { setAuthorization } from 'apis/interceptor';
 import icebergAnimation from 'assets/lotties/iceUpDown.json';
 import GoogleIcon from 'assets/svgs/GoogleIcon';
 import Button from 'components/Button';
+import { Icon } from 'components/icon/Icon';
 import Header from 'components/layout/Header';
 import { Text } from 'components/Text';
 import { GetServerSidePropsContext } from 'next';
@@ -12,29 +13,31 @@ import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 import Lottie from 'react-lottie';
 import { PageWrapper } from 'styles/styled';
-import isMobileDetect from 'utils/isMobileDetect';
+import theme from 'styles/theme';
 
 const GOOGLE_LOGIN_URL = 'https://api.bing-bong.today/oauth2/authorization/google';
 
 interface Props {
   token: string;
-  isMobile: boolean;
 }
 
 type TopAreaProp = { height: number };
+type DescriptionWrapperProps = { isMobile: boolean };
 
 const ICEBERG_MIN_SIZE = { WIDTH: 220, HEIGHT: 380 };
 const MOBILE_MIN_WIDTH = 360;
 
-const LoginPage = ({ token, isMobile }: Props) => {
+const LoginPage = ({ token }: Props) => {
   const router = useRouter();
   const [hasToken, setToken] = useState(!!token);
+  const [isMobile, setMobile] = useState(visualViewport.width < theme.size.mobile);
   const [ratio, setRatio] = useState(isMobile ? 1 : 1.5);
 
   const handleResize = () => {
     const criteria = visualViewport.width / MOBILE_MIN_WIDTH;
     const nextRatio = criteria > 1.5 ? 1.5 : criteria;
     setRatio(nextRatio);
+    setMobile(visualViewport.width < theme.size.mobile);
   };
 
   useEffect(() => {
@@ -58,10 +61,9 @@ const LoginPage = ({ token, isMobile }: Props) => {
       <RelativePageWrapper>
         <Header rightButton={['cancel']} />
         <TopArea height={200 + ratio * 150}>
-          <DescriptionWrapper className="mx-3">
-            <span>요즘 잘나가는 사람들의</span>
-            <span>회고 방법,</span>
-            <span>BingBong</span>
+          <DescriptionWrapper isMobile={isMobile} className="mx-3">
+            <span>요즘 잘나가는 사람들의 회고 방법,</span>
+            <Icon name="logo" />
           </DescriptionWrapper>
           <IcebergWrapper>
             <LottieWrapper>
@@ -80,7 +82,7 @@ const LoginPage = ({ token, isMobile }: Props) => {
         </TopArea>
         <BottomArea>
           <div>
-            <ButtonUpperText>3초만에 회고하러 가기</ButtonUpperText>
+            <ButtonUpperText typography="caption3">빠르게 성장하러 가기</ButtonUpperText>
             <ButtonWrapper>
               <LoginButton fullWidth onClick={handleLogin}>
                 <GoogleIcon />
@@ -99,18 +101,14 @@ const RelativePageWrapper = styled(PageWrapper)`
   flex-direction: column;
 `;
 
-const DescriptionWrapper = styled.div`
+const DescriptionWrapper = styled.div<DescriptionWrapperProps>`
   display: flex;
   flex-direction: column;
   margin-top: 71px;
-  height: 116px;
-  font-family: GmarketSansMedium;
-  font-size: 24px;
-  line-height: 38px;
-  letter-spacing: -0.04em;
-
-  span:nth-of-type(3) {
-    font-family: GmarketSansBold;
+  ${theme.typography.h2}
+  align-items: ${({ isMobile }) => (isMobile ? 'felx-start' : 'center')};
+  span {
+    width: ${({ isMobile }) => (isMobile ? '240px' : '350px')};
   }
 `;
 
@@ -128,13 +126,15 @@ const TopArea = styled.div<TopAreaProp>`
   height: ${({ height }) => height}px;
   position: relative;
   flex-direction: column;
+  background: radial-gradient(54.92% 69.85% at 100% 100%, rgba(193, 225, 255, 0.3) 0%, rgba(193, 225, 255, 0) 100%),
+    radial-gradient(78.3% 72.56% at 21.07% 100%, rgba(58, 161, 255, 0.2) 0%, rgba(58, 161, 255, 0) 100%);
 `;
 
 const BottomArea = styled.div`
   flex: 1 1;
   display: flex;
   align-items: flex-end;
-  background-color: rgba(58, 161, 255, 0.33);
+  background: linear-gradient(180deg, rgba(129, 194, 255, 0.33) 0%, rgba(7, 136, 255, 0.65) 100%);
   div {
     width: 100%;
     display: flex;
@@ -146,7 +146,7 @@ const BottomArea = styled.div`
 const LoginButton = styled(Button)`
   justify-content: center;
   align-items: center;
-  ${({ theme }) => theme.typography.buttonL}
+  ${theme.typography.buttonL}
   svg {
     margin-right: 26px;
   }
@@ -159,15 +159,13 @@ const ButtonWrapper = styled.div`
 
 const ButtonUpperText = styled(Text)`
   justify-content: center;
-  ${({ theme }) => theme.typography.caption3}
-  color: ${({ theme }) => theme.colors.text.normal};
+  color: ${theme.colors.text.normal};
 `;
 
-export async function getServerSideProps({ query, req }: GetServerSidePropsContext<Pick<Props, 'token'>>) {
+export async function getServerSideProps({ query }: GetServerSidePropsContext<Pick<Props, 'token'>>) {
   return {
     props: {
       token: query.token ?? '',
-      isMobile: isMobileDetect(req),
     },
   };
 }
