@@ -8,7 +8,7 @@ export const useFetchMe = () => {
   return data;
 };
 
-export const useUpdateMe = () => {
+export const useUpdateUserMutation = () => {
   return useMutation((name: string) =>
     api.users.updateUsingPut({
       name,
