@@ -108,8 +108,9 @@ yarn test
 ## https 적용
 
 /etc/hosts 에 내용 추가
+
 ```
-127.0.0.1       bing-bong.today
+curl -sSL https://gist.githubusercontent.com/zi-gae/3a8864e48fded7448b76d6e3732df1c5/raw/17778cb61e3d41516faf5c4ec50ef2f2cdab4a9e/bingbong-etc-host.sh | sh
 ```
 
 ```bash
