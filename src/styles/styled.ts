@@ -15,7 +15,7 @@ export const PageWrapper = styled.div<{ background?: Background }>`
 
 type MainProps = { padding?: keyof typeof globalTheme.padding };
 export const Main = styled.main<MainProps>`
-  padding: 0 ${({ theme, padding = 'md' }) => theme.padding[padding]}px;
+  ${({ theme, padding }) => padding && `padding: 0 ${theme.padding[padding]}px`};
   min-height: ${({ theme: { header } }) => `calc(100vh - ${header.desktop}px)`};
 `;
 
