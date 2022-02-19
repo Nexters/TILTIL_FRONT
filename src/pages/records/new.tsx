@@ -21,6 +21,7 @@ const NewRecord = () => {
         <Dialog
           message=""
           hasCloseButton
+          CloseButtonText="홈으로 가기"
           RenderContent={() => (
             <DialogContent>
               <DialogTitle>오늘은 이미 작성했어요!</DialogTitle>
