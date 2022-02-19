@@ -1,4 +1,4 @@
-import ReadRecordPage from 'components/records/detail/ReadRecodPage';
+import ReadRecordPage from 'components/records/detail/ReadRecordPage';
 import type { GetServerSidePropsContext } from 'next';
 import React from 'react';
 
