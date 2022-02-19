@@ -1,7 +1,8 @@
 import styled from '@emotion/styled';
-import { TilRequest } from 'apis/api';
+import { TilDetailResponse, TilRequest } from 'apis/api';
 import { Text } from 'components/Text';
 import dayjs from 'dayjs';
+import { tilKeys } from 'queryKeys/tilKeys';
 import { FC, useEffect, useState } from 'react';
 import colors from 'styles/colors';
 import theme from 'styles/theme';
@@ -11,7 +12,9 @@ import Input from './Input';
 import TagButton from './TagButton';
 import { Textarea } from './Textarea';
 
-type ContentKey = 'learnContent' | 'wellContent' | 'improveContent' | 'questionContent';
+type TilData = Pick<TilDetailResponse, 'learnContent' | 'wellContent' | 'improveContent' | 'questionContent'>;
+
+type ContentKey = keyof TilData;
 
 const tagList: { text: string; category: keyof typeof colors.category; contentKey: ContentKey }[] = [
   {
@@ -38,16 +41,17 @@ const tagList: { text: string; category: keyof typeof colors.category; contentKe
 
 interface Props {
   onSubmit: (tilRequest: TilRequest) => Promise<void>;
+  tilDetailResponse?: TilDetailResponse;
 }
 
-export const Form: FC<Props> = ({ onSubmit }) => {
-  const [title, setTitle] = useState('');
+export const Form: FC<Props> = ({ onSubmit, tilDetailResponse }) => {
+  const [title, setTitle] = useState(tilDetailResponse?.title || '');
   const [activeCategory, setActiveCategory] = useState<ContentKey>('learnContent');
   const [content, setContent] = useState({
-    learnContent: '',
-    wellContent: '',
-    improveContent: '',
-    questionContent: '',
+    learnContent: tilDetailResponse?.learnContent || '',
+    wellContent: tilDetailResponse?.wellContent || '',
+    improveContent: tilDetailResponse?.improveContent || '',
+    questionContent: tilDetailResponse?.questionContent || '',
   });
   const [buttonSize, setButtonSize] = useState<'large' | 'small'>('small');
 

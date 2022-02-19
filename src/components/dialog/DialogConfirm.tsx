@@ -64,6 +64,8 @@ const ButtonWrap = styled.div`
 
 const ConfirmButton = styled(Button)`
   flex-grow: 1;
+  font-size: 16px;
+  width: 150px;
 `;
 
 const CloseButton = styled(ConfirmButton)`

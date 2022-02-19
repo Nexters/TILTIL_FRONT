@@ -53,6 +53,7 @@ const colors = {
     dark: palette.blue600,
     light: palette.blue300,
     extraLight: palette.blue100,
+    pressed: palette.blue550,
   },
 
   background: {
