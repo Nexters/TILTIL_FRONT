@@ -104,3 +104,11 @@ yarn test
 - [BuildTheTruth](https://github.com/BuildTheTruth)
 
 프로젝트에 참여한 [contributors](https://github.com/Nexters/TILTIL_FRONT/graphs/contributors) 확인하기
+
+## https 적용
+
+```bash
+brew install mkcert
+mkcert -install
+mkcert bing-bong.today "*.bing-bong.today" localhost ::3
+```

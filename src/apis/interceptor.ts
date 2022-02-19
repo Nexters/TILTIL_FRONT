@@ -1,6 +1,35 @@
-import { Api } from './api';
+import { Api, ApiConfig } from './api';
 
-const api = new Api({
+function getCookie(name: string) {
+  const matches = document.cookie.match(
+    // eslint-disable-next-line
+    new RegExp(`(?:^|; )${name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1')}=([^;]*)`)
+  );
+  return matches ? decodeURIComponent(matches[1]) : undefined;
+}
+
+class FrontApi extends Api<unknown> {
+  constructor({ securityWorker, secure, format, ...axiosConfig }: ApiConfig<unknown> = {}) {
+    super({ securityWorker, secure, format, ...axiosConfig });
+    this.instance.interceptors.request.use(
+      function (config) {
+        const accessToken = getCookie('accessToken');
+        // Do something before request is sent
+        if (accessToken) {
+          // eslint-disable-next-line no-param-reassign
+          config.headers.Authorization = `Bearer ${accessToken}`;
+        }
+        return config;
+      },
+      function (error) {
+        // Do something with request error
+        return Promise.reject(error);
+      }
+    );
+  }
+}
+
+const api = new FrontApi({
   baseURL: 'https://api.bing-bong.today',
   headers: {
     'Content-Type': 'application/json',

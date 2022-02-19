@@ -17,15 +17,6 @@ import theme from '../styles/theme';
 
 function MyApp({ Component, pageProps }: AppProps) {
   const router = useRouter();
-  const [isAuthorized, setAuthorized] = useState(false);
-
-  useEffect(() => {
-    const token = localStorage.getItem('accessToken');
-    if (token) {
-      setAuthorization(token);
-    }
-    setAuthorized(true);
-  }, []);
 
   const queryClient = new QueryClient({
     defaultOptions: {
@@ -55,7 +46,9 @@ function MyApp({ Component, pageProps }: AppProps) {
         <RecoilRoot>
           <ThemeProvider theme={theme}>
             <Global styles={globalStyle} />
-            <MyComponent>{isAuthorized && <Component {...pageProps} />}</MyComponent>
+            <MyComponent>
+              <Component {...pageProps} />
+            </MyComponent>
           </ThemeProvider>
         </RecoilRoot>
       </Hydrate>
