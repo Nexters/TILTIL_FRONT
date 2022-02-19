@@ -192,7 +192,7 @@ const GrowthIconwrapper = styled.div`
 `;
 const PhraseWrapper = styled(DefaultSection)`
   height: 401px;
-  background-color: ${({ theme: { colors } }) => colors.background.default};
+  background-color: ${({ theme: { colors } }) => colors.primary.extraLight};
   ${media.mobile} {
     height: 396px;
   }
