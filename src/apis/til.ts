@@ -20,6 +20,12 @@ const getTilsPerPage = async (page: number, size: number) => {
   return { tils: data.tils, nextPage: page + 1, hasNext: data.hasNext };
 };
 
+export const readTil = (recordId: number) => {
+  return useQuery(tilKeys.detail(recordId), () => api.tils.readTilUsingGet(recordId), {
+    enabled: !!recordId,
+  });
+};
+
 export const useTilCreateMutation = () => {
   const { toast } = useDialogStore();
   // eslint-disable-next-line consistent-return

@@ -2,7 +2,6 @@ import { ROUTE } from 'constants/route';
 
 import styled from '@emotion/styled';
 import { Icon, LeftButtonIconName, RightButtonIconName } from 'components/icon/Icon';
-import { loadGetInitialProps } from 'next/dist/shared/lib/utils';
 import { useRouter } from 'next/router';
 import React, { ReactNode, useEffect, useMemo, useState } from 'react';
 import { Background } from 'types/styled';

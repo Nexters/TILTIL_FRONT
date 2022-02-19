@@ -11,20 +11,15 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 type Props = Partial<ButtonProps>;
 type WrapperProps = Pick<ButtonProps, 'fullWidth' | 'shape' | 'size'>;
 
-const Button: React.FC<Props> = ({
-  fullWidth = false,
-  children,
-  size = 'medium',
-  type = 'button',
-  shape = 'round',
-  ...rest
-}) => {
-  return (
-    <Wrapper type={type} shape={shape} size={size} fullWidth={fullWidth} {...rest}>
-      {children}
-    </Wrapper>
-  );
-};
+const Button: React.FC<Props> = React.forwardRef<HTMLButtonElement, Props>(
+  ({ fullWidth = false, children, size = 'medium', type = 'button', shape = 'round', ...rest }, ref) => {
+    return (
+      <Wrapper ref={ref} type={type} shape={shape} size={size} fullWidth={fullWidth} {...rest}>
+        {children}
+      </Wrapper>
+    );
+  }
+);
 
 const Wrapper = styled.button<WrapperProps>`
   width: ${({ fullWidth }) => (fullWidth ? '100%' : 'auto')};
@@ -48,15 +43,14 @@ const Wrapper = styled.button<WrapperProps>`
   }};
 
   :hover {
-    background-color: ${({ theme }) => theme.colors.background.pressed};
-  }
-  :active {
-    background-color: ${({ theme }) => theme.colors.background.pressed};
+    background-color: ${({ theme }) => theme.colors.primary.pressed};
   }
 
   :disabled {
     background-color: ${({ theme }) => theme.colors.ui.disabled};
   }
 `;
+
+Button.displayName = 'Button';
 
 export default Button;

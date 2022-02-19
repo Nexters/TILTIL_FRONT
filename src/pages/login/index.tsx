@@ -45,7 +45,7 @@ const LoginPage = ({ token }: Props) => {
       localStorage.setItem('accessToken', token);
       setAuthorization(token);
       setToken(true);
-      router.push(ROUTE.main);
+      router.push(ROUTE.main_login);
     }
 
     window.addEventListener('resize', handleResize);
