@@ -142,4 +142,7 @@ const TagList = styled.ul`
   li + li {
     margin-left: 8px;
   }
+  button {
+    width: 100% !important;
+  }
 `;
