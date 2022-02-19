@@ -2,8 +2,9 @@ import { ROUTE } from 'constants/route';
 
 import styled from '@emotion/styled';
 import { Icon, LeftButtonIconName, RightButtonIconName } from 'components/icon/Icon';
+import { loadGetInitialProps } from 'next/dist/shared/lib/utils';
 import { useRouter } from 'next/router';
-import React, { ReactNode, useMemo } from 'react';
+import React, { ReactNode, useEffect, useMemo, useState } from 'react';
 import { Background } from 'types/styled';
 
 import RightButton from './RightButton';
@@ -20,6 +21,7 @@ type WrapperProps = Required<Pick<HeaderProps, 'background'>>;
 
 const Header: React.VFC<Props> = ({ title, leftButton, rightButton, background = 'white' }) => {
   const router = useRouter();
+  const [backgroundColor, setBackgroundColor] = useState<Background>(background);
 
   const leftButtonHandlers = useMemo(
     () => ({
@@ -28,8 +30,30 @@ const Header: React.VFC<Props> = ({ title, leftButton, rightButton, background =
     []
   );
 
+  const handleScroll = () => {
+    if (window.scrollY === 0) {
+      if (background === backgroundColor) {
+        return;
+      }
+      setBackgroundColor(background);
+    } else {
+      if (backgroundColor === 'white') {
+        return;
+      }
+      setBackgroundColor('white');
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll);
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, [backgroundColor]);
+
   return (
-    <Wrapper background={background}>
+    <Wrapper background={backgroundColor}>
       {leftButton && (
         <LeftButton onClick={leftButtonHandlers[leftButton]}>
           <Icon name={leftButton} />
