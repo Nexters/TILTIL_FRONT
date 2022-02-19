@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
 import { TilLogResponse } from 'apis/api';
+import Link from 'next/link';
 import React from 'react';
 import theme from 'styles/theme';
 
@@ -30,9 +31,11 @@ const MontlyLog = ({ total = 11, logs = dummy }: Props) => {
             {total} 개
           </Text>
         </Count>
-        <ButtonSmall backgroundColor={['primary', 'extraLight']} textColor={['primary', 'light']}>
-          리스트 보기
-        </ButtonSmall>
+        <Link href="/records">
+          <ButtonSmall backgroundColor={['primary', 'extraLight']} textColor={['primary', 'light']}>
+            리스트 보기
+          </ButtonSmall>
+        </Link>
       </MontlyTitle>
       <CalandarGrapth logs={logs} />
       <Note>

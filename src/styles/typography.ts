@@ -137,7 +137,6 @@ const typography = {
     font-weight: 500;
     font-size: 16px;
     line-height: 22px;
-    font-weight: 400;
     letter-spacing: -0.04em;
   `,
 

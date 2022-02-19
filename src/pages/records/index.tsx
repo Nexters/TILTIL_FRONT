@@ -4,7 +4,8 @@ import { useMyTils } from 'apis/til';
 import Header from 'components/layout/Header';
 import EmptyList from 'components/records/EmptyList';
 import TILItem from 'components/records/TILItem';
-import React, { useEffect, useMemo } from 'react';
+import Link from 'next/link';
+import React, { Fragment, useEffect, useMemo } from 'react';
 import { useInView } from 'react-intersection-observer';
 import { Main, PageWrapper } from 'styles/styled';
 import media from 'utils/media';
@@ -34,7 +35,7 @@ const RecordsPage: React.VFC = () => {
 
   return (
     <PageWrapper background="default">
-      <Header title="나의 암묵지" leftButton="home" background="default" />
+      <Header title="나의 암묵지" leftButton="home" background="default" rightButton={['edit']} />
 
       <RecordsMain padding="md">
         {(() => {
@@ -67,12 +68,14 @@ const RecordsPage: React.VFC = () => {
                   const showMonth = prevMonth !== nextMonth; // month 변화가 있을 때 표시
 
                   return (
-                    <React.Fragment key={til.id}>
+                    <Fragment key={til.id}>
                       {showMonth && <Date>{`${nextYear}년 ${Number(nextMonth)}월`}</Date>}
-                      <li>
-                        <TILItem {...til} />
-                      </li>
-                    </React.Fragment>
+                      <Link href={`/records/${til.id}`}>
+                        <li>
+                          <TILItem {...til} />
+                        </li>
+                      </Link>
+                    </Fragment>
                   );
                 })}
 
