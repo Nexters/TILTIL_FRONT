@@ -40,9 +40,9 @@ const getFontTypography = (typography: Typography) => typographies[typography];
 const StyledSpan = styled.span<WrapperProps>`
   display: ${({ display }) => display};
   color: ${({ color }) => color};
-  font-weight: ${({ fontWeight }) => fontWeight};
   text-align: ${({ textAlign }) => textAlign};
   ${({ typography }) => getFontTypography(typography)};
+  font-weight: ${({ fontWeight }) => fontWeight};
 `;
 
 export { Text };
