@@ -4,7 +4,7 @@ import { useMutation, useQuery } from 'react-query';
 import api from './interceptor';
 
 export const useFetchMe = () => {
-  const { data } = useQuery(userKeys.me, () => api.users.userUsingGet());
+  const { data } = useQuery(userKeys.me(), () => api.users.userUsingGet());
   return data;
 };
 

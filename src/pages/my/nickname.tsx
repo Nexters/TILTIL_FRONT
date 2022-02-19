@@ -1,15 +1,21 @@
+import { ROUTE } from 'constants/route';
+
 import styled from '@emotion/styled';
 import { useFetchMe, useUpdateMe } from 'apis/users';
 import Button from 'components/Button';
 import Input from 'components/Input';
 import Header from 'components/layout/Header';
+import { useRouter } from 'next/router';
 import React, { ChangeEvent, useEffect, useState } from 'react';
+import { useDialogStore } from 'states/dialogStore';
 import { PageWrapper } from 'styles/styled';
 
 const NicknamePage: React.FC = () => {
-  const fetchedMe = useFetchMe();
+  const me = useFetchMe();
   const [nickname, setNickname] = useState('');
   const updateMeMutation = useUpdateMe();
+  const dialog = useDialogStore();
+  const router = useRouter();
 
   const handleNicknameChange = (e: ChangeEvent<HTMLInputElement>) => {
     setNickname(e.target.value);
@@ -18,14 +24,15 @@ const NicknamePage: React.FC = () => {
   const handleSubmit = () => {
     updateMeMutation.mutate(nickname, {
       onSuccess: () => {
-        alert('닉네임 변경 성공 ');
+        dialog.toast('닉네임 변경 성공');
+        router.push(ROUTE.my);
       },
     });
   };
 
   useEffect(() => {
-    setNickname(fetchedMe?.data.name ?? '');
-  }, [fetchedMe]);
+    setNickname(me?.data.name ?? '');
+  }, [me]);
 
   return (
     <PageWrapper>
@@ -35,7 +42,9 @@ const NicknamePage: React.FC = () => {
         <div className="mt-1 mb-3">
           <Input value={nickname} onChange={handleNicknameChange} />
         </div>
-        <Button onClick={handleSubmit}>변경</Button>
+        <Button disabled={!nickname || nickname === me?.data.name} onClick={handleSubmit}>
+          변경
+        </Button>
       </Contents>
     </PageWrapper>
   );
