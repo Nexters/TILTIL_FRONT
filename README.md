@@ -84,7 +84,29 @@ yarn test
 
 ## 🎈 Usage <a name="usage"></a>
 
-이러쿵 저러쿵 사용하시면 됩니다
+### https 적용
+
+/etc/hosts 에 내용 추가
+
+```
+curl -sSL https://gist.githubusercontent.com/zi-gae/3a8864e48fded7448b76d6e3732df1c5/raw/17778cb61e3d41516faf5c4ec50ef2f2cdab4a9e/bingbong-etc-host.sh | sh
+```
+
+.pem 파일 추가
+
+```bash
+brew install mkcert
+mkcert -install
+mkcert bing-bong.today "*.bing-bong.today" localhost ::3
+```
+
+### RUN
+
+실행
+
+```
+yarn dev
+```
 
 ## 🚀 Deployment <a name = "deployment"></a>
 
@@ -104,17 +126,3 @@ yarn test
 - [BuildTheTruth](https://github.com/BuildTheTruth)
 
 프로젝트에 참여한 [contributors](https://github.com/Nexters/TILTIL_FRONT/graphs/contributors) 확인하기
-
-## https 적용
-
-/etc/hosts 에 내용 추가
-
-```
-curl -sSL https://gist.githubusercontent.com/zi-gae/3a8864e48fded7448b76d6e3732df1c5/raw/17778cb61e3d41516faf5c4ec50ef2f2cdab4a9e/bingbong-etc-host.sh | sh
-```
-
-```bash
-brew install mkcert
-mkcert -install
-mkcert bing-bong.today "*.bing-bong.today" localhost ::3
-```
