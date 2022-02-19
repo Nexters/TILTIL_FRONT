@@ -20,7 +20,7 @@ const MyPage: React.FC = () => {
   const dialog = useDialogStore();
 
   const handleLogout = async () => {
-    localStorage.removeItem('accessToken');
+    // localStorage.removeItem('accessToken');
     router.push(ROUTE.login);
   };
 

@@ -14,8 +14,6 @@ import media from 'utils/media';
 const Landing = ({ isMobile }: { isMobile: boolean }) => {
   const ref = useRef<HTMLDivElement>(null);
   const [width, setWidth] = useState(isMobile ? theme.size.mobile : theme.size.desktop);
-  // const me = useFetchMe();
-  // const router = useRouter();
 
   const handleResize = () => {
     if (ref.current) {
@@ -27,13 +25,6 @@ const Landing = ({ isMobile }: { isMobile: boolean }) => {
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);
-
-  // useEffect(() => {
-  //   if (me) {
-  //     const isLoggedIn = !!me.data.id;
-  //     if (isLoggedIn) router.push(`/${me.data.id}`);
-  //   }
-  // }, [me]);
 
   return (
     <PageWrapper ref={ref}>
