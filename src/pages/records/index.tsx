@@ -40,7 +40,7 @@ const RecordsPage: React.VFC = () => {
         {(() => {
           if (isLoading) {
             return (
-              <TILList>
+              <TILList className="mt-8">
                 {Array(PC_TILS_LOADING_CNT)
                   .fill(1)
                   .map((_, index) => (

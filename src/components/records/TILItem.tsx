@@ -1,7 +1,7 @@
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import { TilSimpleResponse } from 'apis/api';
-import { DimmedTag, Tag } from 'components/TagButton';
+import Tag, { DimmedTag } from 'components/Tag';
 import React from 'react';
 import { dimmedElementStyle } from 'styles/styled';
 import media from 'utils/media';
@@ -40,33 +40,24 @@ const TILItem: React.VFC<TILItemProps> = ({
       <Title>{title}</Title>
 
       <TagList>
-        {/* TODO: Tag text 묶음 */}
         {hasWellContent && (
           <li>
-            <Tag category="learn" status="active">
-              잘한 점
-            </Tag>
+            <Tag category="learn" status="active" />
           </li>
         )}
         {hasLearnContent && (
           <li>
-            <Tag category="good" status="active">
-              배운 점
-            </Tag>
+            <Tag category="good" status="active" />
           </li>
         )}
         {hasImproveContent && (
           <li>
-            <Tag category="improve" status="active">
-              개선할 점
-            </Tag>
+            <Tag category="improve" status="active" />
           </li>
         )}
         {hasQuestionContent && (
           <li>
-            <Tag category="curious" status="active">
-              궁금한 점
-            </Tag>
+            <Tag category="curious" status="active" />
           </li>
         )}
       </TagList>
