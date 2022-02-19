@@ -185,10 +185,10 @@ export interface TilSimpleResponse {
 
 export interface TilStatisticsResponse {
   /** 가장 많이 쓰는 요일 */
-  mostDay?: ('MONDAY' | 'TUESDAY' | 'WEDNESDAY' | 'THURSDAY' | 'FRIDAY' | 'SATURDAY' | 'SUNDAY')[];
+  mostDay?: ("MONDAY" | "TUESDAY" | "WEDNESDAY" | "THURSDAY" | "FRIDAY" | "SATURDAY" | "SUNDAY")[];
 
   /** 가장 많이 쓴 카테고리 */
-  mostTilCategories?: ('LEARN' | 'WELL' | 'IMPROVE' | 'QUESTION')[];
+  mostTilCategories?: ("LEARN" | "WELL" | "IMPROVE" | "QUESTION")[];
 
   /**
    * 연속으로 쓴 일수
@@ -214,18 +214,19 @@ export interface UserResponse {
   profileImage?: string;
 
   /** 로그인한 SNS 타입 */
-  providerType?: 'GOOGLE' | 'FACEBOOK' | 'NAVER' | 'KAKAO' | 'LOCAL';
+  providerType?: "GOOGLE" | "FACEBOOK" | "NAVER" | "KAKAO" | "LOCAL";
 }
 
 export interface UserUpdateRequest {
   name: string;
 }
 
-import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse, ResponseType } from 'axios';
+import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse, ResponseType } from "axios";
 
 export type QueryParamsType = Record<string | number, any>;
 
-export interface FullRequestParams extends Omit<AxiosRequestConfig, 'data' | 'params' | 'url' | 'responseType'> {
+export interface FullRequestParams
+  extends Omit<AxiosRequestConfig, "data" | "params" | "url" | "responseType"> {
   /** set parameter to `true` for call `securityWorker` for this request */
   secure?: boolean;
   /** request path */
@@ -240,33 +241,39 @@ export interface FullRequestParams extends Omit<AxiosRequestConfig, 'data' | 'pa
   body?: unknown;
 }
 
-export type RequestParams = Omit<FullRequestParams, 'body' | 'method' | 'query' | 'path'>;
+export type RequestParams = Omit<FullRequestParams, "body" | "method" | "query" | "path">;
 
-export interface ApiConfig<SecurityDataType = unknown> extends Omit<AxiosRequestConfig, 'data' | 'cancelToken'> {
+export interface ApiConfig<SecurityDataType = unknown>
+  extends Omit<AxiosRequestConfig, "data" | "cancelToken"> {
   securityWorker?: (
-    securityData: SecurityDataType | null
+    securityData: SecurityDataType | null,
   ) => Promise<AxiosRequestConfig | void> | AxiosRequestConfig | void;
   secure?: boolean;
   format?: ResponseType;
 }
 
 export enum ContentType {
-  Json = 'application/json',
-  FormData = 'multipart/form-data',
-  UrlEncoded = 'application/x-www-form-urlencoded',
+  Json = "application/json",
+  FormData = "multipart/form-data",
+  UrlEncoded = "application/x-www-form-urlencoded",
 }
 
 export class HttpClient<SecurityDataType = unknown> {
   public instance: AxiosInstance;
   private securityData: SecurityDataType | null = null;
-  private securityWorker?: ApiConfig<SecurityDataType>['securityWorker'];
+  private securityWorker?: ApiConfig<SecurityDataType>["securityWorker"];
   private secure?: boolean;
   private format?: ResponseType;
 
-  constructor({ securityWorker, secure, format, ...axiosConfig }: ApiConfig<SecurityDataType> = {}) {
+  constructor({
+    securityWorker,
+    secure,
+    format,
+    ...axiosConfig
+  }: ApiConfig<SecurityDataType> = {}) {
     this.instance = axios.create({
       ...axiosConfig,
-      baseURL: axiosConfig.baseURL || '//api.bing-bong.today',
+      baseURL: axiosConfig.baseURL || "//api.bing-bong.today",
     });
     this.secure = secure;
     this.format = format;
@@ -277,7 +284,10 @@ export class HttpClient<SecurityDataType = unknown> {
     this.securityData = data;
   };
 
-  private mergeRequestParams(params1: AxiosRequestConfig, params2?: AxiosRequestConfig): AxiosRequestConfig {
+  private mergeRequestParams(
+    params1: AxiosRequestConfig,
+    params2?: AxiosRequestConfig,
+  ): AxiosRequestConfig {
     return {
       ...this.instance.defaults,
       ...params1,
@@ -297,9 +307,9 @@ export class HttpClient<SecurityDataType = unknown> {
         key,
         property instanceof Blob
           ? property
-          : typeof property === 'object' && property !== null
+          : typeof property === "object" && property !== null
           ? JSON.stringify(property)
-          : `${property}`
+          : `${property}`,
       );
       return formData;
     }, new FormData());
@@ -315,15 +325,15 @@ export class HttpClient<SecurityDataType = unknown> {
     ...params
   }: FullRequestParams): Promise<AxiosResponse<T>> => {
     const secureParams =
-      ((typeof secure === 'boolean' ? secure : this.secure) &&
+      ((typeof secure === "boolean" ? secure : this.secure) &&
         this.securityWorker &&
         (await this.securityWorker(this.securityData))) ||
       {};
     const requestParams = this.mergeRequestParams(params, secureParams);
     const responseFormat = (format && this.format) || void 0;
 
-    if (type === ContentType.FormData && body && body !== null && typeof body === 'object') {
-      requestParams.headers.common = { Accept: '*/*' };
+    if (type === ContentType.FormData && body && body !== null && typeof body === "object") {
+      requestParams.headers.common = { Accept: "*/*" };
       requestParams.headers.post = {};
       requestParams.headers.put = {};
 
@@ -333,7 +343,7 @@ export class HttpClient<SecurityDataType = unknown> {
     return this.instance.request({
       ...requestParams,
       headers: {
-        ...(type && type !== ContentType.FormData ? { 'Content-Type': type } : {}),
+        ...(type && type !== ContentType.FormData ? { "Content-Type": type } : {}),
         ...(requestParams.headers || {}),
       },
       params: query,
@@ -367,7 +377,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
   welcomeUsingGet = (params: RequestParams = {}) =>
     this.request<string, void>({
       path: `/`,
-      method: 'GET',
+      method: "GET",
       secure: true,
       ...params,
     });
@@ -382,10 +392,14 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @request GET:/open/users/{userId}/greeting-message
      * @secure
      */
-    getUserGreetingMessageUsingGet: (userId: string, query?: { isShare?: boolean }, params: RequestParams = {}) =>
+    getUserGreetingMessageUsingGet: (
+      userId: string,
+      query?: { isShare?: boolean },
+      params: RequestParams = {},
+    ) =>
       this.request<GreetingMessageResponse, void>({
         path: `/open/users/${userId}/greeting-message`,
-        method: 'GET',
+        method: "GET",
         query: query,
         secure: true,
         ...params,
@@ -403,7 +417,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
     getUserTilStatisticsUsingGet: (userId: string, params: RequestParams = {}) =>
       this.request<TilStatisticsResponse, void>({
         path: `/open/users/${userId}/statistics/til`,
-        method: 'GET',
+        method: "GET",
         secure: true,
         ...params,
       }),
@@ -420,7 +434,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
     getRecentTilLogsUsingGet: (userId: string, params: RequestParams = {}) =>
       this.request<TilRecentLogsResponse, void>({
         path: `/open/users/${userId}/tils/logs/recent`,
-        method: 'GET',
+        method: "GET",
         secure: true,
         ...params,
       }),
@@ -438,7 +452,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
     writeTilUsingPost: (tilRequest: TilRequest, params: RequestParams = {}) =>
       this.request<TilDetailResponse, void>({
         path: `/tils`,
-        method: 'POST',
+        method: "POST",
         body: tilRequest,
         secure: true,
         type: ContentType.Json,
@@ -457,7 +471,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
     canWriteTilUsingGet: (params: RequestParams = {}) =>
       this.request<BooleanResponse, void>({
         path: `/tils/can-write`,
-        method: 'GET',
+        method: "GET",
         secure: true,
         ...params,
       }),
@@ -471,10 +485,13 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @request GET:/tils/me
      * @secure
      */
-    readMyTilsUsingGet: (query?: { page?: number; size?: number; sort?: string[] }, params: RequestParams = {}) =>
+    readMyTilsUsingGet: (
+      query?: { page?: number; size?: number; sort?: string[] },
+      params: RequestParams = {},
+    ) =>
       this.request<TilPageResponse, void>({
         path: `/tils/me`,
-        method: 'GET',
+        method: "GET",
         query: query,
         secure: true,
         ...params,
@@ -492,7 +509,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
     readTilUsingGet: (tilId: number, params: RequestParams = {}) =>
       this.request<TilDetailResponse, void>({
         path: `/tils/${tilId}`,
-        method: 'GET',
+        method: "GET",
         secure: true,
         ...params,
       }),
@@ -509,7 +526,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
     updateTilUsingPut: (tilId: number, tilRequest: TilRequest, params: RequestParams = {}) =>
       this.request<void, void>({
         path: `/tils/${tilId}`,
-        method: 'PUT',
+        method: "PUT",
         body: tilRequest,
         secure: true,
         type: ContentType.Json,
@@ -528,7 +545,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
     deleteTilUsingDelete: (tilId: number, params: RequestParams = {}) =>
       this.request<void, void>({
         path: `/tils/${tilId}`,
-        method: 'DELETE',
+        method: "DELETE",
         secure: true,
         ...params,
       }),
@@ -548,17 +565,17 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
       query?: {
         accountNonExpired?: boolean;
         accountNonLocked?: boolean;
-        'authorities[0].authority'?: string;
+        "authorities[0].authority"?: string;
         credentialsNonExpired?: boolean;
         enabled?: boolean;
         password?: string;
         username?: string;
       },
-      params: RequestParams = {}
+      params: RequestParams = {},
     ) =>
       this.request<OkResponse, void>({
         path: `/users`,
-        method: 'PUT',
+        method: "PUT",
         query: query,
         body: userUpdateRequest,
         secure: true,
@@ -579,17 +596,17 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
       query?: {
         accountNonExpired?: boolean;
         accountNonLocked?: boolean;
-        'authorities[0].authority'?: string;
+        "authorities[0].authority"?: string;
         credentialsNonExpired?: boolean;
         enabled?: boolean;
         password?: string;
         username?: string;
       },
-      params: RequestParams = {}
+      params: RequestParams = {},
     ) =>
       this.request<UserResponse, void>({
         path: `/users/me`,
-        method: 'GET',
+        method: "GET",
         query: query,
         secure: true,
         ...params,
