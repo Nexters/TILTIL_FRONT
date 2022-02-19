@@ -2,7 +2,7 @@ import { ValueOf } from 'types/common';
 
 export const ROUTE = {
   main: '/',
-  home: '/home',
+  logged_main: '/[id]',
   login: '/login',
   records: '/records',
   records_detail: '/records/[recordId]',

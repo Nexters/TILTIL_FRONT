@@ -1,7 +1,5 @@
-import { ROUTE } from 'constants/route';
-
 import styled from '@emotion/styled';
-import { setAuthorization } from 'apis/interceptor';
+import api, { setAuthorization } from 'apis/interceptor';
 import icebergAnimation from 'assets/lotties/iceUpDown.json';
 import GoogleIcon from 'assets/svgs/GoogleIcon';
 import Button from 'components/Button';
@@ -10,8 +8,10 @@ import Header from 'components/layout/Header';
 import { Text } from 'components/Text';
 import { GetServerSidePropsContext } from 'next';
 import { useRouter } from 'next/router';
+import { meKeys } from 'queryKeys/meKeys';
 import React, { useEffect, useState } from 'react';
 import Lottie from 'react-lottie';
+import { QueryClient } from 'react-query';
 import { PageWrapper } from 'styles/styled';
 import theme from 'styles/theme';
 import isMobileDetect from 'utils/isMobileDetect';
@@ -19,7 +19,6 @@ import isMobileDetect from 'utils/isMobileDetect';
 const GOOGLE_LOGIN_URL = 'https://api.bing-bong.today/oauth2/authorization/google';
 
 interface Props {
-  token: string;
   isMobileAgent: boolean;
 }
 
@@ -29,9 +28,8 @@ type DescriptionWrapperProps = { isMobile: boolean };
 const ICEBERG_MIN_SIZE = { WIDTH: 220, HEIGHT: 380 };
 const MOBILE_MIN_WIDTH = 360;
 
-const LoginPage: React.VFC<Props> = ({ token, isMobileAgent }) => {
+const LoginPage: React.VFC<Props> = ({ isMobileAgent }) => {
   const router = useRouter();
-  const [hasToken, setToken] = useState(!!token);
   const [isMobile, setMobile] = useState(isMobileAgent);
   const [ratio, setRatio] = useState(isMobile ? 1 : 1.5);
 
@@ -43,12 +41,6 @@ const LoginPage: React.VFC<Props> = ({ token, isMobileAgent }) => {
   };
 
   useEffect(() => {
-    if (token) {
-      setAuthorization(token);
-      setToken(true);
-      router.push(ROUTE.home);
-    }
-
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);
@@ -57,9 +49,7 @@ const LoginPage: React.VFC<Props> = ({ token, isMobileAgent }) => {
     router.push(`${GOOGLE_LOGIN_URL}?redirect_uri=${window.location.origin}/login`);
   };
 
-  return hasToken ? (
-    <></>
-  ) : (
+  return (
     <RelativePageWrapper>
       <Header rightButton={['cancel']} />
       <TopArea height={200 + ratio * 150}>
@@ -165,13 +155,21 @@ const ButtonUpperText = styled(Text)`
 
 export async function getServerSideProps({ req, res, query }: GetServerSidePropsContext) {
   const accessToken = (query.token as string) ?? '';
+  const queryCache = new QueryClient();
   if (accessToken) {
     res.setHeader('Set-Cookie', `accessToken=${accessToken}; path=/; max-age=3600`);
+    setAuthorization(accessToken);
+    const { data } = await api.users.userUsingGet();
+    return {
+      redirect: {
+        permanent: false,
+        destination: accessToken ? `/${data.id}` : '',
+      },
+    };
   }
 
   return {
     props: {
-      token: query.token ?? '',
       isMobileAgent: isMobileDetect(req),
     },
   };

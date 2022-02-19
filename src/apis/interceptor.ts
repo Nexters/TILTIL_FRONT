@@ -1,6 +1,9 @@
 import { Api, ApiConfig } from './api';
 
 function getCookie(name: string) {
+  if (typeof window === 'undefined') {
+    return undefined;
+  }
   const matches = document.cookie.match(
     // eslint-disable-next-line
     new RegExp(`(?:^|; )${name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1')}=([^;]*)`)
