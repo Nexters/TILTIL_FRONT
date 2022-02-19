@@ -18,3 +18,4 @@ export { default as CloudWithMountainD } from './CloudWithMountainD';
 export { default as CloudWithMountainM } from './CloudWithMountainM';
 export { default as Info } from './Info';
 export { default as ErrorIcon } from './ErrorIcon';
+export { default as LockIcon } from './LockIcon';
