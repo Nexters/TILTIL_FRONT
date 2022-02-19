@@ -14,6 +14,9 @@ import {
   ThumbUpIcon,
   TogetherIcon,
   UserIcon,
+  CloudWithMountainD,
+  CloudWithMountainM,
+  Info,
 } from 'assets/svgs';
 import EditIcon from 'assets/svgs/EditIcon';
 import React, { VFC } from 'react';
@@ -45,6 +48,9 @@ const ICONS = {
   check: CheckIcon,
   delete: DeleteIcon,
   edit: EditIcon,
+  cloudWithMountainD: CloudWithMountainD,
+  cloudWithMountainM: CloudWithMountainM,
+  info: Info,
 } as const;
 
 export const Icon: VFC<IconProps> = ({ name, className }) => {
