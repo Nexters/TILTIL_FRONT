@@ -16,7 +16,7 @@ const RecordsPage: React.VFC = () => {
     delay: 200,
   });
 
-  const { data, status, isFetchingNextPage, hasNextPage, fetchNextPage } = useMyTils(PC_TILS_LOADING_CNT);
+  const { data, isFetchingNextPage, isSuccess, isLoading, hasNextPage, fetchNextPage } = useMyTils(PC_TILS_LOADING_CNT);
 
   // pages data --> til[] 변환
   const tilList = useMemo(() => {
@@ -37,54 +37,57 @@ const RecordsPage: React.VFC = () => {
       <Header title="나의 암묵지" leftButton="home" background="default" />
 
       <RecordsMain>
-        {/* empty TODO: 암묵지 없을 때 pt 없음 */}
-        {/* <EmptyList /> */}
-
-        {/* Loading */}
-        {status === 'loading' && (
-          <TILList>
-            {Array(PC_TILS_LOADING_CNT)
-              .fill(1)
-              .map((_, index) => (
-                // eslint-disable-next-line react/no-array-index-key
-                <li key={index}>
-                  <TILItem dimmed />
-                </li>
-              ))}
-          </TILList>
-        )}
-
-        {/* TIL list */}
-        {!!data?.pages && (
-          <>
-            <TILList>
-              {tilList.map((til, index) => {
-                const [, prevMonth] = tilList[index - 1]?.date?.split('-') || [];
-                const [nextYear, nextMonth] = til.date?.split('-') || [];
-
-                const showMonth = prevMonth !== nextMonth; // month 변화가 있을 때 표시
-
-                return (
-                  <>
-                    {showMonth && <Date>{`${nextYear}년 ${Number(nextMonth)}월`}</Date>}
-                    <li key={til.id}>
-                      <TILItem {...til} />
+        {(() => {
+          if (isLoading) {
+            return (
+              <TILList>
+                {Array(PC_TILS_LOADING_CNT)
+                  .fill(1)
+                  .map((_, index) => (
+                    // eslint-disable-next-line react/no-array-index-key
+                    <li key={index}>
+                      <TILItem dimmed />
                     </li>
-                  </>
-                );
-              })}
+                  ))}
+              </TILList>
+            );
+          }
 
-              {isFetchingNextPage && (
-                <li>
-                  <TILItem dimmed />
-                </li>
-              )}
-            </TILList>
+          if (isSuccess && !tilList.length) {
+            return <EmptyList />;
+          }
 
-            {/* Scroll Observer */}
-            <div ref={ref} />
-          </>
-        )}
+          return (
+            <>
+              <TILList>
+                {tilList.map((til, index) => {
+                  const [, prevMonth] = tilList[index - 1]?.date?.split('-') || [];
+                  const [nextYear, nextMonth] = til.date?.split('-') || [];
+
+                  const showMonth = prevMonth !== nextMonth; // month 변화가 있을 때 표시
+
+                  return (
+                    <React.Fragment key={til.id}>
+                      {showMonth && <Date>{`${nextYear}년 ${Number(nextMonth)}월`}</Date>}
+                      <li>
+                        <TILItem {...til} />
+                      </li>
+                    </React.Fragment>
+                  );
+                })}
+
+                {isFetchingNextPage && (
+                  <li>
+                    <TILItem dimmed />
+                  </li>
+                )}
+              </TILList>
+
+              {/* Scroll Observer */}
+              <div ref={ref} />
+            </>
+          );
+        })()}
       </RecordsMain>
     </PageWrapper>
   );
