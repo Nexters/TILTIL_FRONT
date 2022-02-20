@@ -36,7 +36,7 @@ const NicknamePage: React.FC = () => {
 
   return (
     <PageWrapper>
-      <Header leftButton="home" title="닉네임 변경" />
+      <Header leftButton="home" title="닉네임 변경" me={me?.data} />
       <Contents>
         <Label className="mx-2">닉네임</Label>
         <div className="mt-1 mb-3">
