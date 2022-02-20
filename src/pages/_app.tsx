@@ -31,8 +31,15 @@ function MyApp({ Component, pageProps }: AppProps) {
                   router.push(ROUTE.login);
                   break;
                 }
+                case 403: {
+                  router.replace(ROUTE[403]);
+                  break;
+                }
+                case 404: {
+                  router.replace(ROUTE[404]);
+                  break;
+                }
                 default:
-                // route error page
               }
             },
           },
