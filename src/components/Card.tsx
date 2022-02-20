@@ -43,12 +43,13 @@ const Wrapper = styled.div`
   background-color: ${theme.colors.background.white};
   border-radius: 10px;
   flex-direction: column;
-  overflow: scroll;
+  min-width: fit-content;
 `;
 
 const Title = styled(Text)`
   margin-top: 12px;
   color: ${theme.colors.text.normal};
+  min-width: 175px;
 `;
 
 const Description = styled(Text)`
