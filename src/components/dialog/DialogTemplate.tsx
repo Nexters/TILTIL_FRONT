@@ -44,7 +44,6 @@ export const DialogTemplate: FC<Props> = ({
   RenderBody,
   RenderContent,
 }) => {
-  console.log(show, RenderBody);
   const dialogs = useRecoilValue(dialogStore);
 
   const ref = useRef<HTMLDivElement>(null);
@@ -69,71 +68,119 @@ export const DialogTemplate: FC<Props> = ({
     }
   }, [show]);
 
-  const DefaultRenderBackDrop = (): ReactElement => {
-    return (
-      <Backdrop
-        noBackdrop={!!noBackdrop}
+  return (
+    <div ref={ref} role="dialog" aria-modal="true">
+      <DefaultRenderBackDrop
         show={show}
-        onClick={() => {
-          if (noBackdrop) {
-            return;
-          }
-          close();
+        close={close}
+        message={message}
+        noBackdrop={noBackdrop}
+        noCloseButton={noCloseButton}
+        hasCloseButton={hasCloseButton}
+        CloseButtonText={CloseButtonText}
+        RenderBody={RenderBody}
+        RenderContent={RenderContent}
+      />
+    </div>
+  );
+};
+
+const DefaultRenderContent = ({ RenderContent, message }: any): ReactElement => {
+  if (RenderContent) {
+    return RenderContent();
+  }
+  return <Content>{LineBrakingText(message)}</Content>;
+};
+
+const DefaultRenderBackDrop = ({
+  show,
+  close,
+  message,
+  noBackdrop,
+  noCloseButton,
+  hasCloseButton,
+  CloseButtonText,
+  RenderBody,
+  RenderContent,
+}: any): ReactElement => {
+  return (
+    <Backdrop
+      noBackdrop={!!noBackdrop}
+      show={show}
+      onClick={() => {
+        if (noBackdrop) {
+          return;
+        }
+        close();
+      }}
+    >
+      <button
+        type="button"
+        onClick={(event) => {
+          event.stopPropagation();
         }}
       >
-        <button
-          type="button"
-          onClick={(event) => {
-            event.stopPropagation();
-          }}
-        >
-          <DefaultRenderBody />
-        </button>
-      </Backdrop>
-    );
-  };
+        <DefaultRenderBody
+          show={show}
+          close={close}
+          message={message}
+          noBackdrop={noBackdrop}
+          noCloseButton={noCloseButton}
+          hasCloseButton={hasCloseButton}
+          CloseButtonText={CloseButtonText}
+          RenderBody={RenderBody}
+          RenderContent={RenderContent}
+        />
+      </button>
+    </Backdrop>
+  );
+};
 
-  const DefaultRenderBody = (): ReactElement => {
-    console.log(999);
-
-    if (RenderBody) {
-      return <RenderBody />;
-    }
-    return (
-      <Wrapper show={show}>
-        {!noCloseButton && (
-          <CloseButtonWrap>
-            <button
-              type="button"
-              onClick={() => {
-                close();
-              }}
-            >
-              <Icon className="m-2" name="cancel" />
-            </button>
-          </CloseButtonWrap>
-        )}
-        <DefaultRenderContent />
-        {hasCloseButton && (
-          <Button size="large" fullWidth onClick={() => close()} shape="square">
-            {CloseButtonText}
-          </Button>
-        )}
-      </Wrapper>
-    );
-  };
-
-  const DefaultRenderContent = (): ReactElement => {
-    if (RenderContent) {
-      return <RenderContent />;
-    }
-    return <Content>{LineBrakingText(message)}</Content>;
-  };
-
+const DefaultRenderBody = ({
+  show,
+  close,
+  message,
+  noBackdrop,
+  noCloseButton,
+  hasCloseButton,
+  CloseButtonText,
+  RenderBody,
+  RenderContent,
+}: any): ReactElement => {
+  if (RenderBody) {
+    return RenderBody();
+  }
   return (
-    <div key={111} ref={ref} role="dialog" aria-modal="true">
-      <DefaultRenderBackDrop />
-    </div>
+    <Wrapper show={show}>
+      {!noCloseButton && (
+        <CloseButtonWrap>
+          <button
+            type="button"
+            onClick={() => {
+              close();
+            }}
+          >
+            <Icon className="m-2" name="cancel" />
+          </button>
+        </CloseButtonWrap>
+      )}
+      <DefaultRenderContent
+        show={show}
+        close={close}
+        message={message}
+        noBackdrop={noBackdrop}
+        noCloseButton={noCloseButton}
+        hasCloseButton={hasCloseButton}
+        CloseButtonText={CloseButtonText}
+        RenderBody={RenderBody}
+        RenderContent={RenderContent}
+      />
+      {hasCloseButton && (
+        <Button size="large" fullWidth onClick={() => close()} shape="square">
+          {CloseButtonText}
+        </Button>
+      )}
+    </Wrapper>
   );
 };
 

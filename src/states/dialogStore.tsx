@@ -1,6 +1,6 @@
 import { Toast } from 'components/dialog/Toast';
 import { ReactElement } from 'react';
-import { atom, useRecoilState } from 'recoil';
+import { atom, useSetRecoilState } from 'recoil';
 
 export const dialogStore = atom<{ key: string; jsx: ReactElement }[]>({
   key: 'dialog',
@@ -13,7 +13,7 @@ export const useDialogStore: () => {
   closeAll: () => void;
   toast: (message: string) => void;
 } = () => {
-  const [dialogs, setDialogs] = useRecoilState(dialogStore);
+  const setDialogs = useSetRecoilState(dialogStore);
 
   const open = (jsx: ReactElement) => {
     const id = new Date().getTime();

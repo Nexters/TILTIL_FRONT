@@ -46,8 +46,6 @@ const ShareDialog: React.VFC<ShareDialogProps> = ({ url, onCopy }) => (
 );
 
 const RightButton: React.VFC<Props> = ({ button }) => {
-  console.log(222);
-
   const { open, toast } = useDialogStore();
   const { query, replace, push, asPath } = useRouter();
   const { mutateAsync: deleteTil } = useTilDeleteMutation();
