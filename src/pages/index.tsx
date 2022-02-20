@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import { useFetchMe } from 'apis/users';
 import Button from 'components/Button';
 import Header from 'components/layout/Header';
 import { Section } from 'components/Section';
@@ -14,6 +15,7 @@ import media from 'utils/media';
 const Landing = ({ isMobile }: { isMobile: boolean }) => {
   const ref = useRef<HTMLDivElement>(null);
   const [width, setWidth] = useState(isMobile ? theme.size.mobile : theme.size.desktop);
+  const me = useFetchMe();
 
   const handleResize = () => {
     if (ref.current) {
@@ -42,7 +44,7 @@ const Landing = ({ isMobile }: { isMobile: boolean }) => {
         <Section.Growth />
         <Section.Phrases />
       </Section>
-      <Link href="/login" passHref>
+      <Link href={me?.data.id ? `/${me.data.id}` : '/login'} passHref>
         <Floating width={width}>오늘부터 암묵지 없애기</Floating>
       </Link>
     </PageWrapper>
