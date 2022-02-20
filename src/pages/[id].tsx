@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import { TilRecentLogsResponse, TilStatisticsResponse } from 'apis/api';
 import api from 'apis/interceptor';
-import { useFetchRecentTilLog } from 'apis/opens';
+import { useFetchRecentTilLog, useFetchUserTilStatistics } from 'apis/opens';
 import { useFetchMe } from 'apis/users';
 import Button from 'components/Button';
 import GuideIllust from 'components/GuideIllust';
@@ -24,8 +24,7 @@ interface Props {
 const Profile = ({ isMobile, id }: Props) => {
   const me = useFetchMe();
   const data = useFetchRecentTilLog(id);
-
-  console.log(data);
+  const statistics = useFetchUserTilStatistics(id);
 
   return (
     <PageWrapper background="default">
@@ -33,7 +32,7 @@ const Profile = ({ isMobile, id }: Props) => {
       <main>
         <GuideIllust name={me?.data.name} isMobile={isMobile} />
         <MontlyLog />
-        <RecordStatistics />
+        <RecordStatistics statistics={statistics?.data} />
         <ButtonWrapper>
           <Link href="/records/new" passHref>
             <Button fullWidth>오늘도 암묵지 키우기</Button>
@@ -55,6 +54,10 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
   const userId = Number(context.query.id);
   await queryClient.prefetchQuery(userKeys.recentLog(userId), async () => {
     const { data } = await api.open.getRecentTilLogsUsingGet(userId);
+    return data;
+  });
+  await queryClient.prefetchQuery(userKeys.statistics(userId), async () => {
+    const { data } = await api.open.getUserTilStatisticsUsingGet(userId);
     return data;
   });
 
