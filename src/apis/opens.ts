@@ -1,11 +1,13 @@
+import { userKeys } from 'queryKeys/userKeys';
 import { useQuery } from 'react-query';
 
 import api from './interceptor';
 
-const useFetchRecentTilLog = (id: string) => {
-  const result = useQuery('key', () => api.open.getRecentTilLogsUsingGet(id));
-
+export const useFetchRecentTilLog = (id: string) => {
+  const result = useQuery(userKeys.recentLogs(), () => api.open.getRecentTilLogsUsingGet(id));
   return result;
 };
 
-export { useFetchRecentTilLog };
+export const useFetchUserTilStatistics = (userId: string) => {
+  return useQuery(userKeys.statistics(), () => api.open.getUserTilStatisticsUsingGet(userId));
+};
