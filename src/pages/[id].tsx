@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import { TilRecentLogsResponse, TilStatisticsResponse } from 'apis/api';
 import api from 'apis/interceptor';
 import { useFetchRecentTilLog } from 'apis/opens';
 import { useFetchMe } from 'apis/users';
@@ -16,13 +17,13 @@ import { PageWrapper } from 'styles/styled';
 import isMobileDetect from 'utils/isMobileDetect';
 
 interface Props {
-  id: string;
   isMobile: boolean;
+  statistics: TilStatisticsResponse;
+  logs: TilRecentLogsResponse;
 }
 
-const Profile = ({ isMobile, id }: Props) => {
+const Profile = ({ isMobile, statistics, logs }: Props) => {
   const me = useFetchMe();
-  const { data } = useFetchRecentTilLog(id);
 
   return (
     <PageWrapper background="default">
@@ -46,17 +47,20 @@ const ButtonWrapper = styled.div`
   margin: 0 24px 24px 24px;
 `;
 
-export async function getServerSideProps(context: GetServerSidePropsContext<Pick<Props, 'id'>>) {
+export async function getServerSideProps(context: GetServerSidePropsContext) {
   const isMobile = isMobileDetect(context.req);
-  const queryCache = new QueryClient();
-  const { id } = context.query;
-  await queryCache.prefetchQuery(userKeys.recentLog(`${id}`), () => api.open.getRecentTilLogsUsingGet(`${id}`));
+  // const queryCache = new QueryClient();
+  const userId = context.query.id?.toString() ?? '';
+  // await queryCache.prefetchQuery(userKeys.recentLog(userId), () => api.open.getRecentTilLogsUsingGet(userId));
+  const { data: logs } = await api.open.getRecentTilLogsUsingGet(userId);
+  const { data: statistics } = await api.open.getUserTilStatisticsUsingGet(userId);
 
   return {
     props: {
-      dehydratedState: dehydrate(queryCache),
+      // dehydratedState: dehydrate(queryCache),
       isMobile,
-      id,
+      logs,
+      statistics,
     },
   };
 }

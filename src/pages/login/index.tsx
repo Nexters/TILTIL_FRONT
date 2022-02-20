@@ -74,7 +74,7 @@ const LoginPage: React.VFC<Props> = ({ isMobileAgent }) => {
         <div>
           <ButtonUpperText typography="caption3">빠르게 성장하러 가기</ButtonUpperText>
           <ButtonWrapper>
-            <LoginButton fullWidth onClick={handleLogin}>
+            <LoginButton size="large" fullWidth onClick={handleLogin}>
               <GoogleIcon />
               Google로 계속하기
             </LoginButton>
@@ -135,7 +135,6 @@ const BottomArea = styled.div`
 const LoginButton = styled(Button)`
   justify-content: center;
   align-items: center;
-  ${theme.typography.buttonL}
   svg {
     margin-right: 26px;
   }
