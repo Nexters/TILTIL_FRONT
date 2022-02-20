@@ -65,6 +65,7 @@ const Line = styled.div`
 `;
 
 const IconWrapper = styled.div`
+  overflow: hidden;
   :not(:last-of-type) {
     margin-right: 16px;
   }

@@ -43,6 +43,7 @@ const Wrapper = styled.div`
   background-color: ${theme.colors.background.white};
   border-radius: 10px;
   flex-direction: column;
+  overflow: scroll;
 `;
 
 const Title = styled(Text)`

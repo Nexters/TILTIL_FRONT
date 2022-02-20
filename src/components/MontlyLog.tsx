@@ -31,7 +31,7 @@ const MontlyLog = ({ total = 11, logs = dummy }: Props) => {
             {total} 개
           </Text>
         </Count>
-        <Link href="/records">
+        <Link href="/records" passHref>
           <ButtonSmall backgroundColor={['primary', 'extraLight']} textColor={['primary', 'light']}>
             리스트 보기
           </ButtonSmall>
@@ -55,6 +55,7 @@ const MontlyTils = styled.section`
   justify-content: center;
   align-items: center;
   padding: 0px 48px;
+  overflow: scroll;
 `;
 
 const MontlyTitle = styled.div`
