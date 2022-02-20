@@ -8,11 +8,11 @@ import colors from 'styles/colors';
 import { Main, PageWrapper } from 'styles/styled';
 import media from 'utils/media';
 
-import * as S from '../pages/404';
+import ButtonSmall from '../components/ButtonSmall';
+import { Icon } from '../components/icon/Icon';
+import Header from '../components/layout/Header';
 
-import ButtonSmall from './ButtonSmall';
-import { Icon } from './icon/Icon';
-import Header from './layout/Header';
+import * as S from './404';
 
 const Custom403 = () => {
   return (
