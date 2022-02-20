@@ -18,12 +18,14 @@ import isMobileDetect from 'utils/isMobileDetect';
 
 interface Props {
   isMobile: boolean;
-  statistics: TilStatisticsResponse;
-  logs: TilRecentLogsResponse;
+  id: number;
 }
 
-const Profile = ({ isMobile, statistics, logs }: Props) => {
+const Profile = ({ isMobile, id }: Props) => {
   const me = useFetchMe();
+  const data = useFetchRecentTilLog(id);
+
+  console.log(data);
 
   return (
     <PageWrapper background="default">
@@ -49,18 +51,21 @@ const ButtonWrapper = styled.div`
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
   const isMobile = isMobileDetect(context.req);
-  // const queryCache = new QueryClient();
-  const userId = context.query.id?.toString() ?? '';
-  // await queryCache.prefetchQuery(userKeys.recentLog(userId), () => api.open.getRecentTilLogsUsingGet(userId));
-  const { data: logs } = await api.open.getRecentTilLogsUsingGet(userId);
-  const { data: statistics } = await api.open.getUserTilStatisticsUsingGet(userId);
+  const queryClient = new QueryClient();
+  const userId = Number(context.query.id);
+  await queryClient.prefetchQuery(userKeys.recentLog(userId), async () => {
+    const { data } = await api.open.getRecentTilLogsUsingGet(userId);
+    return data;
+  });
+
+  // const { data: logs } = await api.open.getRecentTilLogsUsingGet(userId);
+  // const { data: statistics } = await api.open.getUserTilStatisticsUsingGet(userId);
 
   return {
     props: {
-      // dehydratedState: dehydrate(queryCache),
+      dehydratedState: dehydrate(queryClient),
       isMobile,
-      logs,
-      statistics,
+      id: userId,
     },
   };
 }

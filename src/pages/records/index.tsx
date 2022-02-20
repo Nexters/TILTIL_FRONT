@@ -1,6 +1,7 @@
 import styled from '@emotion/styled';
 import { TilSimpleResponse } from 'apis/api';
 import { useMyTils } from 'apis/til';
+import { useFetchMe } from 'apis/users';
 import Header from 'components/layout/Header';
 import EmptyList from 'components/records/EmptyList';
 import TILItem from 'components/records/TILItem';
@@ -16,6 +17,8 @@ const RecordsPage: React.VFC = () => {
   const { ref, inView } = useInView({
     delay: 200,
   });
+
+  const me = useFetchMe();
 
   const { data, isFetchingNextPage, isSuccess, isLoading, hasNextPage, fetchNextPage } = useMyTils(PC_TILS_LOADING_CNT);
 
@@ -35,7 +38,7 @@ const RecordsPage: React.VFC = () => {
 
   return (
     <PageWrapper background="default">
-      <Header title="나의 암묵지" leftButton="home" background="default" rightButton={['edit']} />
+      <Header title="나의 암묵지" leftButton="home" background="default" rightButton={['edit']} me={me?.data} />
 
       <RecordsMain padding="md">
         {(() => {

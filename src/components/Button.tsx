@@ -38,13 +38,11 @@ const Wrapper = styled.button<WrapperProps>`
       case 'small': {
         return css`
           ${theme.typography.buttonS}
-          height: 56px;
         `;
       }
       case 'medium': {
         return css`
           ${theme.typography.buttonM};
-          height: 56px;
         `;
       }
       default:

@@ -17,28 +17,29 @@ import theme from '../styles/theme';
 
 function MyApp({ Component, pageProps }: AppProps) {
   const router = useRouter();
-
-  const queryClient = new QueryClient({
-    defaultOptions: {
-      queries: {
-        refetchOnWindowFocus: false,
-        refetchOnReconnect: false,
-        retry: false,
-        onError: (error) => {
-          const { response } = error as AxiosError;
-          switch (response?.status) {
-            case 401: {
-              const isLandingPage = router.pathname === '/';
-              if (!isLandingPage) router.push(ROUTE.login);
-              break;
-            }
-            default:
-            // route error page
-          }
+  const [queryClient] = React.useState(
+    () =>
+      new QueryClient({
+        defaultOptions: {
+          queries: {
+            refetchOnWindowFocus: false,
+            refetchOnReconnect: false,
+            retry: false,
+            onError: (error) => {
+              const { response } = error as AxiosError;
+              switch (response?.status) {
+                case 401: {
+                  router.push(ROUTE.login);
+                  break;
+                }
+                default:
+                // route error page
+              }
+            },
+          },
         },
-      },
-    },
-  });
+      })
+  );
 
   return (
     <QueryClientProvider client={queryClient}>
