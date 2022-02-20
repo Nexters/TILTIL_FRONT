@@ -8,10 +8,8 @@ import Header from 'components/layout/Header';
 import { Text } from 'components/Text';
 import { GetServerSidePropsContext } from 'next';
 import { useRouter } from 'next/router';
-import { meKeys } from 'queryKeys/meKeys';
 import React, { useEffect, useState } from 'react';
 import Lottie from 'react-lottie';
-import { QueryClient } from 'react-query';
 import { PageWrapper } from 'styles/styled';
 import theme from 'styles/theme';
 import isMobileDetect from 'utils/isMobileDetect';
@@ -155,7 +153,6 @@ const ButtonUpperText = styled(Text)`
 
 export async function getServerSideProps({ req, res, query }: GetServerSidePropsContext) {
   const accessToken = (query.token as string) ?? '';
-  const queryCache = new QueryClient();
   if (accessToken) {
     res.setHeader('Set-Cookie', `accessToken=${accessToken}; path=/; max-age=3600`);
     setAuthorization(accessToken);
@@ -163,7 +160,7 @@ export async function getServerSideProps({ req, res, query }: GetServerSideProps
     return {
       redirect: {
         permanent: false,
-        destination: accessToken ? `/${data.id}` : '',
+        destination: `/${data.id}`,
       },
     };
   }

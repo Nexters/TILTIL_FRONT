@@ -8,6 +8,7 @@ import Header from 'components/layout/Header';
 import MontlyLog from 'components/MontlyLog';
 import RecordStatistics from 'components/RecordStatistics';
 import { GetServerSidePropsContext } from 'next';
+import Link from 'next/link';
 import { userKeys } from 'queryKeys/userKeys';
 import React from 'react';
 import { dehydrate, QueryClient } from 'react-query';
@@ -31,7 +32,9 @@ const Profile = ({ isMobile, id }: Props) => {
         <MontlyLog />
         <RecordStatistics />
         <ButtonWrapper>
-          <Button fullWidth>오늘도 암묵지 키우기</Button>
+          <Link href="/records/new" passHref>
+            <Button fullWidth>오늘도 암묵지 키우기</Button>
+          </Link>
         </ButtonWrapper>
       </main>
     </PageWrapper>
@@ -46,9 +49,7 @@ const ButtonWrapper = styled.div`
 export async function getServerSideProps(context: GetServerSidePropsContext<Pick<Props, 'id'>>) {
   const isMobile = isMobileDetect(context.req);
   const queryCache = new QueryClient();
-
   const { id } = context.query;
-
   await queryCache.prefetchQuery(userKeys.recentLog(`${id}`), () => api.open.getRecentTilLogsUsingGet(`${id}`));
 
   return {
