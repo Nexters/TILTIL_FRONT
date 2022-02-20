@@ -43,9 +43,7 @@ const Landing = ({ isMobile }: { isMobile: boolean }) => {
         <Section.Phrases />
       </Section>
       <Link href="/login" passHref>
-        <Floating size="small" width={width}>
-          오늘부터 암묵지 없애기
-        </Floating>
+        <Floating width={width}>오늘부터 암묵지 없애기</Floating>
       </Link>
     </PageWrapper>
   );

@@ -28,7 +28,8 @@ function MyApp({ Component, pageProps }: AppProps) {
           const { response } = error as AxiosError;
           switch (response?.status) {
             case 401: {
-              router.push(ROUTE.login);
+              const isLandingPage = router.pathname === '/';
+              if (!isLandingPage) router.push(ROUTE.login);
               break;
             }
             default:
