@@ -2,8 +2,9 @@ import { css, keyframes } from '@emotion/react';
 import styled from '@emotion/styled';
 import Button from 'components/Button';
 import { Icon } from 'components/icon/Icon';
-import React, { FC, ReactElement, ReactNode, useEffect, useRef, useState } from 'react';
-import { useDialogStore } from 'states/dialogStore';
+import React, { FC, memo, ReactElement, ReactNode, useEffect, useRef, useState } from 'react';
+import { useRecoilValue } from 'recoil';
+import { dialogStore, useDialogStore } from 'states/dialogStore';
 import { PartialPick } from 'types/common';
 
 export interface DialogTemplateProps {
@@ -43,6 +44,9 @@ export const DialogTemplate: FC<Props> = ({
   RenderBody,
   RenderContent,
 }) => {
+  console.log(show, RenderBody);
+  const dialogs = useRecoilValue(dialogStore);
+
   const ref = useRef<HTMLDivElement>(null);
   const { onClosed } = useDialogStore();
   useEffect(() => {
@@ -52,7 +56,9 @@ export const DialogTemplate: FC<Props> = ({
     document.body.style.overflow = 'hidden';
 
     return () => {
-      document.body.style.overflow = 'unset';
+      if (dialogs.length === 1) {
+        document.body.style.overflow = 'unset';
+      }
     };
   }, []);
 
@@ -88,6 +94,8 @@ export const DialogTemplate: FC<Props> = ({
   };
 
   const DefaultRenderBody = (): ReactElement => {
+    console.log(999);
+
     if (RenderBody) {
       return <RenderBody />;
     }
@@ -123,7 +131,7 @@ export const DialogTemplate: FC<Props> = ({
   };
 
   return (
-    <div ref={ref} role="dialog" aria-modal="true">
+    <div key={111} ref={ref} role="dialog" aria-modal="true">
       <DefaultRenderBackDrop />
     </div>
   );

@@ -15,6 +15,7 @@ type WrapProps = Pick<UseDialogReturnType, 'show'>;
 
 export const DialogBottom: FC<Props> = ({ children, ...props }) => {
   const dialogProps = useDialog({ onClose: props.onClose });
+
   return (
     <DialogTemplate
       {...props}

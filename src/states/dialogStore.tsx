@@ -18,12 +18,14 @@ export const useDialogStore: () => {
   const open = (jsx: ReactElement) => {
     const id = new Date().getTime();
     const dialog = { key: `Dialog-${id}`, jsx };
-    setDialogs([...dialogs, dialog]);
+    setDialogs((prevDialog) => [...prevDialog, dialog]);
   };
   const onClosed = (key: string) => {
     setTimeout(() => {
-      const newDialogs = dialogs.filter((dialog) => dialog.key !== key);
-      setDialogs([...newDialogs]);
+      setDialogs((preDialogs) => {
+        const newDialogs = preDialogs.filter((dialog) => dialog.key !== key);
+        return [...newDialogs];
+      });
     }, 200);
   };
   const closeAll = () => {
