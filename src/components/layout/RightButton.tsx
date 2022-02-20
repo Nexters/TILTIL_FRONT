@@ -104,7 +104,9 @@ const RightButton: React.VFC<Props> = ({ button }) => {
           </DialogBottom>
         );
       },
-      cancel: () => {},
+      cancel: () => {
+        replace('/');
+      },
       edit: () => {
         push('/records/new');
       },

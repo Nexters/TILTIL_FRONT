@@ -6,7 +6,6 @@ import api from './interceptor';
 export const useFetchMe = () => {
   const { data } = useQuery(userKeys.me(), () => api.users.userUsingGet(), {
     staleTime: Infinity,
-    cacheTime: Infinity,
   });
   return data;
 };
