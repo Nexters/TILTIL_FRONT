@@ -30,7 +30,7 @@ const MyPage: React.FC = () => {
         title: '닉네임변경',
         onClick: () => router.push(ROUTE.myNickname),
       },
-      { title: '서비스 소개', onClick: () => router.push(ROUTE.main) },
+      { title: '서비스 소개', onClick: () => router.push(ROUTE.landing) },
       {
         title: '로그아웃',
         onClick: () => {
