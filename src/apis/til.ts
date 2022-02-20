@@ -23,6 +23,7 @@ const getTilsPerPage = async (page: number, size: number) => {
 export const readTil = (recordId: number) => {
   return useQuery(tilKeys.detail(recordId), () => api.tils.readTilUsingGet(recordId), {
     enabled: !!recordId,
+    staleTime: Infinity,
   });
 };
 

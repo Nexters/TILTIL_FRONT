@@ -2,6 +2,7 @@
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import { TilDetailResponse } from 'apis/api';
+import { readTil } from 'apis/til';
 import { useFetchMe } from 'apis/users';
 import Header from 'components/layout/Header';
 import Tag from 'components/Tag';

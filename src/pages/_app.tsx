@@ -1,11 +1,10 @@
 import { ROUTE } from 'constants/route';
 
 import { Global, ThemeProvider } from '@emotion/react';
-import { setAuthorization } from 'apis/interceptor';
 import { AxiosError } from 'axios';
 import type { AppProps } from 'next/app';
 import { useRouter } from 'next/router';
-import React, { FC, useEffect, useState } from 'react';
+import React, { FC } from 'react';
 import { Hydrate, QueryClient, QueryClientProvider } from 'react-query';
 import { ReactQueryDevtools } from 'react-query/devtools';
 import { RecoilRoot, useRecoilValue } from 'recoil';
