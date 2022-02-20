@@ -9,5 +9,5 @@ export const useFetchRecentTilLog = (userId: number) => {
 };
 
 export const useFetchUserTilStatistics = (userId: number) => {
-  return useQuery(userKeys.statistics(), () => api.open.getUserTilStatisticsUsingGet(userId));
+  return useQuery(userKeys.statistics(userId), () => api.open.getUserTilStatisticsUsingGet(userId));
 };
