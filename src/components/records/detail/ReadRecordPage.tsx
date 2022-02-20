@@ -1,12 +1,15 @@
 /* eslint-disable react/no-array-index-key */
+import { ROUTE } from 'constants/route';
+
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import { TilDetailResponse } from 'apis/api';
-import { readTil } from 'apis/til';
 import { useFetchMe } from 'apis/users';
+import { ButtonLine } from 'components/ButtonSmall';
 import Header from 'components/layout/Header';
 import Tag from 'components/Tag';
 import dayjs from 'dayjs';
+import Link from 'next/link';
 import React from 'react';
 import { Main, PageWrapper } from 'styles/styled';
 import theme from 'styles/theme';
@@ -88,6 +91,10 @@ const ReadRecordPage: React.VFC<Props> = ({
               </>
             )}
           </ul>
+
+          <Link href={ROUTE.records} passHref>
+            <ButtonLine type="button">다른 암묵지 보기</ButtonLine>
+          </Link>
         </Wrapper>
       </ReadMain>
     </PageWrapper>
@@ -140,12 +147,20 @@ const MainHeader = styled.header<StyledProps>`
 `;
 
 const Wrapper = styled.section`
-  padding: 55px ${({ theme: { padding } }) => padding.md}px 0;
+  padding: 55px ${({ theme: { padding } }) => padding.md}px 40px;
   background-color: ${({ theme: { colors } }) => colors.background.white};
+
   flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  > button {
+    margin: 0 auto;
+  }
 
   ${media.mobile} {
-    padding: 60px ${({ theme: { padding } }) => padding.md}px 0;
+    padding: 60px ${({ theme: { padding } }) => padding.md}px 40px;
   }
 `;
 

@@ -4,6 +4,22 @@ import React, { ButtonHTMLAttributes } from 'react';
 import colors, { CategoryStatus } from 'styles/colors';
 import typography from 'styles/typography';
 
+export const buttonSmallStyle = css`
+  ${typography.buttonS}
+  border-radius: 8px;
+`;
+
+// ButtonLine
+export const ButtonLine = styled.button`
+  ${buttonSmallStyle}
+  width: fit-content;
+  padding: 10px 40px;
+  text-align: center;
+  color: ${({ theme }) => theme.colors.text.idle};
+  border: 1px solid ${({ theme }) => theme.colors.icon.subdued};
+`;
+
+// ButtonSmall
 type CustomColor = [
   keyof typeof colors,
   (
@@ -29,11 +45,6 @@ const ButtonSmall: React.FC<Props> = React.forwardRef<HTMLButtonElement, Props>(
     </Wrapper>
   );
 });
-
-export const buttonSmallStyle = css`
-  ${typography.buttonS}
-  border-radius: 8px;
-`;
 
 const Wrapper = styled.button<Props>`
   ${buttonSmallStyle}
