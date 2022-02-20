@@ -7,6 +7,7 @@ import { Icon } from 'components/icon/Icon';
 import Header from 'components/layout/Header';
 import Link from 'next/link';
 import React from 'react';
+import colors from 'styles/colors';
 import { Main, PageWrapper } from 'styles/styled';
 
 const Custom404: React.VFC = () => {
@@ -15,7 +16,7 @@ const Custom404: React.VFC = () => {
       <Header
         title={
           <Title>
-            <Icon name="logo" width={86} />
+            <Icon name="logo" width={86} fill={colors.icon.idle} />
           </Title>
         }
       />
@@ -59,14 +60,14 @@ export const Wrapper = styled.div`
 export const ErrorTitle = styled.h2`
   ${({ theme: { typography } }) => typography.h2}
   margin: 8px 0 24px;
-  color: ${({ theme: { colors } }) => colors.text.highlight};
+  color: ${({ theme }) => theme.colors.text.highlight};
   text-align: center;
 `;
 
 export const Text = styled.p`
   ${({ theme: { typography } }) => typography.body2}
   width: min(280px, 100%);
-  color: ${({ theme: { colors } }) => colors.text.idle};
+  color: ${({ theme }) => theme.colors.text.idle};
   text-align: center;
 `;
 

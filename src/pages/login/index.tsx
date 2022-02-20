@@ -95,7 +95,7 @@ const DescriptionWrapper = styled.div<DescriptionWrapperProps>`
   flex-direction: column;
   margin-top: 71px;
   ${theme.typography.h2}
-  align-items: ${({ isMobile }) => (isMobile ? 'felx-start' : 'center')};
+  align-items: ${({ isMobile }) => (isMobile ? 'flex-start' : 'center')};
   span {
     width: ${({ isMobile }) => (isMobile ? '240px' : '350px')};
   }

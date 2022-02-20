@@ -4,6 +4,7 @@ import styled from '@emotion/styled';
 import { LockIcon } from 'assets/svgs';
 import Link from 'next/link';
 import React from 'react';
+import colors from 'styles/colors';
 import { Main, PageWrapper } from 'styles/styled';
 import media from 'utils/media';
 
@@ -19,7 +20,7 @@ const Custom403 = () => {
       <Header
         title={
           <S.Title>
-            <Icon name="logo" width={86} />
+            <Icon name="logo" width={86} fill={colors.icon.idle} />
           </S.Title>
         }
       />
