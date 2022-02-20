@@ -50,12 +50,12 @@ const LoginPage: React.VFC<Props> = ({ isMobileAgent }) => {
   return (
     <RelativePageWrapper>
       <Header rightButton={['cancel']} />
-      <TopArea height={200 + ratio * 150}>
+      <TopArea height={245 + ratio * 150}>
         <DescriptionWrapper isMobile={isMobile} className="mx-3">
           <span>요즘 잘나가는 사람들의 회고 방법,</span>
           <Icon name="logo" />
         </DescriptionWrapper>
-        <IcebergWrapper>
+        <IcebergWrapper className="mt-6">
           <LottieWrapper>
             <Lottie
               style={{ margin: '0 14px' }}
