@@ -5,10 +5,12 @@ import { useFetchMe } from 'apis/users';
 import Header from 'components/layout/Header';
 import EmptyList from 'components/records/EmptyList';
 import TILItem from 'components/records/TILItem';
+import useMediaQuery from 'hooks/useMediaQuery';
 import Link from 'next/link';
 import React, { Fragment, useEffect, useMemo } from 'react';
 import { useInView } from 'react-intersection-observer';
 import { Main, PageWrapper } from 'styles/styled';
+import theme from 'styles/theme';
 import media from 'utils/media';
 
 const [PC_TILS_LOADING_CNT, MW_TILS_LOADING_CNT] = [20, 10];
@@ -19,8 +21,12 @@ const RecordsPage: React.VFC = () => {
   });
 
   const me = useFetchMe();
+  const { isMatched: isMobile, isCheckedScreenSize } = useMediaQuery(`(max-width: ${theme.size.mobile}px)`);
 
-  const { data, isFetchingNextPage, isSuccess, isLoading, hasNextPage, fetchNextPage } = useMyTils(PC_TILS_LOADING_CNT);
+  const { data, isFetchingNextPage, isSuccess, isLoading, hasNextPage, fetchNextPage } = useMyTils(
+    isMobile ? MW_TILS_LOADING_CNT : PC_TILS_LOADING_CNT,
+    isCheckedScreenSize
+  );
 
   // pages data --> til[] 변환
   const tilList = useMemo(() => {
