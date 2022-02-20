@@ -73,10 +73,12 @@ const RecordsPage: React.VFC = () => {
                   return (
                     <Fragment key={til.id}>
                       {showMonth && <Date>{`${nextYear}년 ${Number(nextMonth)}월`}</Date>}
-                      <Link href={`/records/${til.id}`}>
-                        <li>
-                          <TILItem {...til} />
-                        </li>
+                      <Link href={`/records/${til.id}`} passHref>
+                        <a href="replace">
+                          <li>
+                            <TILItem {...til} />
+                          </li>
+                        </a>
                       </Link>
                     </Fragment>
                   );

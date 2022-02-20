@@ -72,6 +72,11 @@ const globalStyle = css`
       cursor: default;
     }
   }
+
+  a {
+    all: unset;
+    cursor: pointer;
+  }
 `;
 
 export default globalStyle;

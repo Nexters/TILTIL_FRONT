@@ -20,7 +20,6 @@ type StyledProps = { dimmed?: boolean };
 
 const ReadRecordPage: React.VFC<Props> = ({
   isLoading,
-  id,
   title,
   createAt,
   improveContent,
@@ -83,7 +82,7 @@ const ReadRecordPage: React.VFC<Props> = ({
                 {questionContent && (
                   <TilItem>
                     <Label>
-                      <Tag size="large" category="good" status="active" />
+                      <Tag size="large" category="curious" status="active" />
                     </Label>
                     {questionContent}
                   </TilItem>
