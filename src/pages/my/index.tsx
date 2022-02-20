@@ -5,7 +5,7 @@ import { useFetchMe } from 'apis/users';
 import { DialogConfirm } from 'components/dialog/DialogConfirm';
 import Header from 'components/layout/Header';
 import { useRouter } from 'next/router';
-import React, { MouseEvent, useMemo, useState } from 'react';
+import React, { MouseEvent, useMemo } from 'react';
 import { useDialogStore } from 'states/dialogStore';
 import { PageWrapper } from 'styles/styled';
 
@@ -20,7 +20,7 @@ const MyPage: React.FC = () => {
   const dialog = useDialogStore();
 
   const handleLogout = async () => {
-    // localStorage.removeItem('accessToken');
+    document.cookie = 'accessToken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
     router.push(ROUTE.login);
   };
 
@@ -30,7 +30,7 @@ const MyPage: React.FC = () => {
         title: '닉네임변경',
         onClick: () => router.push(ROUTE.myNickname),
       },
-      { title: '서비스 소개', onClick: () => router.push(ROUTE.main) },
+      { title: '서비스 소개', onClick: () => router.push(ROUTE.landing) },
       {
         title: '로그아웃',
         onClick: () => {

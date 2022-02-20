@@ -8,10 +8,8 @@ import Header from 'components/layout/Header';
 import { Text } from 'components/Text';
 import { GetServerSidePropsContext } from 'next';
 import { useRouter } from 'next/router';
-import { meKeys } from 'queryKeys/meKeys';
 import React, { useEffect, useState } from 'react';
 import Lottie from 'react-lottie';
-import { QueryClient } from 'react-query';
 import { PageWrapper } from 'styles/styled';
 import theme from 'styles/theme';
 import isMobileDetect from 'utils/isMobileDetect';
@@ -52,12 +50,12 @@ const LoginPage: React.VFC<Props> = ({ isMobileAgent }) => {
   return (
     <RelativePageWrapper>
       <Header rightButton={['cancel']} />
-      <TopArea height={200 + ratio * 150}>
+      <TopArea height={245 + ratio * 150}>
         <DescriptionWrapper isMobile={isMobile} className="mx-3">
           <span>요즘 잘나가는 사람들의 회고 방법,</span>
           <Icon name="logo" />
         </DescriptionWrapper>
-        <IcebergWrapper>
+        <IcebergWrapper className="mt-6">
           <LottieWrapper>
             <Lottie
               style={{ margin: '0 14px' }}
@@ -155,7 +153,6 @@ const ButtonUpperText = styled(Text)`
 
 export async function getServerSideProps({ req, res, query }: GetServerSidePropsContext) {
   const accessToken = (query.token as string) ?? '';
-  const queryCache = new QueryClient();
   if (accessToken) {
     res.setHeader('Set-Cookie', `accessToken=${accessToken}; path=/; max-age=3600`);
     setAuthorization(accessToken);
@@ -163,7 +160,7 @@ export async function getServerSideProps({ req, res, query }: GetServerSideProps
     return {
       redirect: {
         permanent: false,
-        destination: accessToken ? `/${data.id}` : '',
+        destination: `/${data.id}`,
       },
     };
   }

@@ -1,6 +1,7 @@
 import { ROUTE } from 'constants/route';
 
 import styled from '@emotion/styled';
+import { useFetchMe } from 'apis/users';
 import { Icon, LeftButtonIconName, RightButtonIconName } from 'components/icon/Icon';
 import { useRouter } from 'next/router';
 import React, { ReactNode, useEffect, useMemo, useState } from 'react';
@@ -21,10 +22,11 @@ type WrapperProps = Required<Pick<HeaderProps, 'background'>>;
 const Header: React.VFC<Props> = ({ title, leftButton, rightButton, background = 'white' }) => {
   const router = useRouter();
   const [backgroundColor, setBackgroundColor] = useState<Background>(background);
+  const me = useFetchMe();
 
   const leftButtonHandlers = useMemo(
     () => ({
-      home: () => router.push(ROUTE.main),
+      home: () => router.push(`/${me?.data.id}`),
     }),
     []
   );

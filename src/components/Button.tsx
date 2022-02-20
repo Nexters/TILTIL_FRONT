@@ -31,13 +31,24 @@ const Wrapper = styled.button<WrapperProps>`
   border-radius: ${({ shape }) => (shape === 'round' ? '12px' : '0px')};
   background-color: ${({ theme }) => theme.colors.primary.default};
   color: ${({ theme }) => theme.colors.text.inverse};
+  justify-content: center;
 
   ${({ size, theme }) => {
     switch (size) {
+      case 'small': {
+        return css`
+          ${theme.typography.buttonS}
+        `;
+      }
+      case 'medium': {
+        return css`
+          ${theme.typography.buttonM};
+        `;
+      }
       default:
         return css`
           height: 56px;
-          ${theme.typography.h5};
+          ${theme.typography.buttonL};
         `;
     }
   }};
