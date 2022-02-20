@@ -384,7 +384,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
 
   open = {
     /**
-     * @description 클라이언트에서 참고할 에러 코드 - 20404, 유저를 찾을 수 없습니다.
+     * @description 클라이언트에서 참고할 에러 코드 - 404, 유저를 찾을 수 없습니다.
      *
      * @tags open-user
      * @name GetUserGreetingMessageUsingGet
@@ -393,7 +393,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @secure
      */
     getUserGreetingMessageUsingGet: (
-      userId: string,
+      userId: number,
       query?: { isShare?: boolean },
       params: RequestParams = {},
     ) =>
@@ -406,7 +406,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
       }),
 
     /**
-     * @description 클라이언트에서 참고할 에러 코드 - 20404, 유저를 찾을 수 없습니다.
+     * @description 클라이언트에서 참고할 에러 코드 - 404, 유저를 찾을 수 없습니다.
      *
      * @tags open-user
      * @name GetUserTilStatisticsUsingGet
@@ -414,7 +414,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @request GET:/open/users/{userId}/statistics/til
      * @secure
      */
-    getUserTilStatisticsUsingGet: (userId: string, params: RequestParams = {}) =>
+    getUserTilStatisticsUsingGet: (userId: number, params: RequestParams = {}) =>
       this.request<TilStatisticsResponse, void>({
         path: `/open/users/${userId}/statistics/til`,
         method: "GET",
@@ -423,7 +423,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
       }),
 
     /**
-     * @description 클라이언트에서 참고할 에러 코드 - 20404, 유저를 찾을 수 없습니다.
+     * @description 클라이언트에서 참고할 에러 코드 - 404, 유저를 찾을 수 없습니다.
      *
      * @tags open-til
      * @name GetRecentTilLogsUsingGet
@@ -431,7 +431,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @request GET:/open/users/{userId}/tils/logs/recent
      * @secure
      */
-    getRecentTilLogsUsingGet: (userId: string, params: RequestParams = {}) =>
+    getRecentTilLogsUsingGet: (userId: number, params: RequestParams = {}) =>
       this.request<TilRecentLogsResponse, void>({
         path: `/open/users/${userId}/tils/logs/recent`,
         method: "GET",
@@ -441,7 +441,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
   };
   tils = {
     /**
-     * @description 클라이언트에서 참고할 에러 코드 - 30401, TIL이 이미 존재합니다.
+     * @description 클라이언트에서 참고할 에러 코드 - 409, TIL이 이미 존재합니다.
      *
      * @tags auth-til
      * @name WriteTilUsingPost
@@ -477,7 +477,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
       }),
 
     /**
-     * @description 클라이언트에서 참고할 에러 코드 - 10400, 유효하지 않은 page/size입니다. page/size는 0 이하가 될 수 없습니다.
+     * @description 클라이언트에서 참고할 에러 코드 - 400, 유효하지 않은 page/size입니다. page/size는 0 이하가 될 수 없습니다.
      *
      * @tags auth-til
      * @name ReadMyTilsUsingGet
@@ -498,7 +498,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
       }),
 
     /**
-     * @description 클라이언트에서 참고할 에러 코드 - 10403, 해당 컨텐츠에 대한 접근 권한이 존재하지 않습니다. - 20404, 유저를 찾을 수 없습니다. - 30404, TIL이 존재하지 않습니다.
+     * @description 클라이언트에서 참고할 에러 코드 - 403, 해당 컨텐츠에 대한 접근 권한이 존재하지 않습니다. - 404, 유저를 찾을 수 없습니다. - 404, TIL이 존재하지 않습니다.
      *
      * @tags auth-til
      * @name ReadTilUsingGet
@@ -515,7 +515,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
       }),
 
     /**
-     * @description 클라이언트에서 참고할 에러 코드 - 10403, 해당 컨텐츠에 대한 접근 권한이 존재하지 않습니다. - 30404, TIL이 존재하지 않습니다.
+     * @description 클라이언트에서 참고할 에러 코드 - 403, 해당 컨텐츠에 대한 접근 권한이 존재하지 않습니다. - 404, TIL이 존재하지 않습니다.
      *
      * @tags auth-til
      * @name UpdateTilUsingPut
@@ -534,7 +534,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
       }),
 
     /**
-     * @description 클라이언트에서 참고할 에러 코드 - 10403, 해당 컨텐츠에 대한 접근 권한이 존재하지 않습니다. - 30404, TIL이 존재하지 않습니다.
+     * @description 클라이언트에서 참고할 에러 코드 - 403, 해당 컨텐츠에 대한 접근 권한이 존재하지 않습니다. - 404, TIL이 존재하지 않습니다.
      *
      * @tags auth-til
      * @name DeleteTilUsingDelete
@@ -552,7 +552,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
   };
   users = {
     /**
-     * @description 클라이언트에서 참고할 에러 코드 - 20404, 존재하지 않는 유저인 경우
+     * @description 클라이언트에서 참고할 에러 코드 - 404, 존재하지 않는 유저인 경우
      *
      * @tags auth-user
      * @name UpdateUsingPut
@@ -571,7 +571,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
       }),
 
     /**
-     * @description 클라이언트에서 참고할 에러 코드 - 20404, 존재하지 않는 유저인 경우
+     * @description 클라이언트에서 참고할 에러 코드 - 404, 존재하지 않는 유저인 경우
      *
      * @tags auth-user
      * @name UserUsingGet
