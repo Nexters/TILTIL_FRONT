@@ -1,6 +1,6 @@
 import React from 'react';
 
-const BlueBingbong = () => {
+const HighlightBingbong = () => {
   return (
     <svg width="159" height="38" viewBox="0 0 159 38" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path
@@ -39,4 +39,4 @@ const BlueBingbong = () => {
   );
 };
 
-export default BlueBingbong;
+export default HighlightBingbong;
