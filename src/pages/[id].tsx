@@ -22,7 +22,7 @@ interface Props {
 
 const MainPage = ({ isMobile, id }: Props) => {
   const me = useFetchMe();
-  const data = useFetchRecentTilLog(id);
+  const recent = useFetchRecentTilLog(id);
   const statistics = useFetchUserTilStatistics(id);
 
   return (
@@ -30,7 +30,7 @@ const MainPage = ({ isMobile, id }: Props) => {
       <Header rightButton={['share', 'user']} />
       <main>
         <GuideIllust name={me?.data.name} isMobile={isMobile} />
-        <MontlyLog />
+        <MontlyLog logs={recent?.data.tilLogs} total={recent?.data.sumOfTil} />
         <RecordStatistics statistics={statistics?.data} />
         <ButtonWrapper>
           <Link href="/records/new" passHref>
