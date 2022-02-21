@@ -5,7 +5,7 @@ import Header from 'components/layout/Header';
 import ReadRecordPage from 'components/records/detail/ReadRecordPage';
 import { GetServerSidePropsContext } from 'next';
 import { useRouter } from 'next/router';
-import React, { useEffect, useState, VFC } from 'react';
+import React, { VFC } from 'react';
 import { PageWrapper } from 'styles/styled';
 
 type RecordType = 'read' | 'modify';
@@ -21,14 +21,7 @@ const RecordPage: VFC<Props> = ({ recordId: id }) => {
   const recordId = Number(router.query?.recordId || id);
   const type = router.query?.type as RecordType;
 
-  const { data: tilDetail, isLoading, isError, refetch } = readTil(recordId);
-
-  // TODO: 서버 되고 디자인 코멘트 받으면 에러 처리
-  if (isError) {
-    // 404 redirect
-    // 403
-    return <>에러</>;
-  }
+  const { data: tilDetail, isLoading, refetch } = readTil(recordId);
 
   if (type === 'modify' && !isLoading) {
     return (

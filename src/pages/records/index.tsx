@@ -5,10 +5,13 @@ import { useFetchMe } from 'apis/users';
 import Header from 'components/layout/Header';
 import EmptyList from 'components/records/EmptyList';
 import TILItem from 'components/records/TILItem';
+import dayjs from 'dayjs';
+import useMediaQuery from 'hooks/useMediaQuery';
 import Link from 'next/link';
 import React, { Fragment, useEffect, useMemo } from 'react';
 import { useInView } from 'react-intersection-observer';
 import { Main, PageWrapper } from 'styles/styled';
+import theme from 'styles/theme';
 import media from 'utils/media';
 
 const [PC_TILS_LOADING_CNT, MW_TILS_LOADING_CNT] = [20, 10];
@@ -19,8 +22,12 @@ const RecordsPage: React.VFC = () => {
   });
 
   const me = useFetchMe();
+  const { isMatched: isMobile, isCheckedScreenSize } = useMediaQuery(`(max-width: ${theme.size.mobile}px)`);
 
-  const { data, isFetchingNextPage, isSuccess, isLoading, hasNextPage, fetchNextPage } = useMyTils(PC_TILS_LOADING_CNT);
+  const { data, isLoading, isFetching, isSuccess, isFetchingNextPage, hasNextPage, fetchNextPage } = useMyTils(
+    isMobile ? MW_TILS_LOADING_CNT : PC_TILS_LOADING_CNT,
+    isCheckedScreenSize
+  );
 
   // pages data --> til[] 변환
   const tilList = useMemo(() => {
@@ -28,7 +35,7 @@ const RecordsPage: React.VFC = () => {
     data?.pages.forEach((page) => page.tils?.forEach((til) => result.push(til)));
 
     return result;
-  }, [data?.pages.length]);
+  }, [isFetching]);
 
   useEffect(() => {
     if (inView && hasNextPage && !isFetchingNextPage) {
@@ -65,19 +72,23 @@ const RecordsPage: React.VFC = () => {
             <>
               <TILList>
                 {tilList.map((til, index) => {
-                  const [, prevMonth] = tilList[index - 1]?.date?.split('-') || [];
-                  const [nextYear, nextMonth] = til.date?.split('-') || [];
-
-                  const showMonth = prevMonth !== nextMonth; // month 변화가 있을 때 표시
+                  // YYYY.MM
+                  const prevDate = tilList[index - 1]?.date?.slice(0, 7);
+                  const currentDate = til.date?.slice(0, 7);
 
                   return (
                     <Fragment key={til.id}>
-                      {showMonth && <Date>{`${nextYear}년 ${Number(nextMonth)}월`}</Date>}
-                      <Link href={`/records/${til.id}`}>
-                        <li>
-                          <TILItem {...til} />
-                        </li>
-                      </Link>
+                      {prevDate !== currentDate && (
+                        <Date>{`${dayjs(currentDate).year()}년 ${dayjs(currentDate).month() + 1}월`}</Date>
+                      )}
+
+                      <li>
+                        <Link href={`/records/${til.id}`} passHref>
+                          <a href="replace">
+                            <TILItem {...til} />
+                          </a>
+                        </Link>
+                      </li>
                     </Fragment>
                   );
                 })}
@@ -111,10 +122,14 @@ const TILList = styled.ul`
 
   > li {
     margin-bottom: 24px;
+
+    ${media.mobile} {
+      grid-column-start: 1;
+      grid-column-end: 3;
+    }
   }
 
   ${media.mobile} {
-    grid-template-columns: repeat(3, 1fr);
     column-gap: 16px;
   }
 `;
@@ -127,7 +142,7 @@ const Date = styled.li`
   grid-column-end: 3;
 
   ${media.mobile} {
-    grid-column-end: 1;
+    grid-column-end: 3;
   }
 `;
 

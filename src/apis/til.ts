@@ -5,9 +5,10 @@ import { useDialogStore } from 'states/dialogStore';
 import { TilRequest } from './api';
 import api from './interceptor';
 
-export const useMyTils = (size: number) => {
+export const useMyTils = (size: number, isCheckedScreenSize: boolean) => {
   return useInfiniteQuery(tilKeys.lists(), ({ pageParam = 0 }) => getTilsPerPage(pageParam, size), {
     getNextPageParam: (lastPage) => (lastPage.hasNext ? lastPage.nextPage : undefined),
+    enabled: isCheckedScreenSize,
   });
 };
 
