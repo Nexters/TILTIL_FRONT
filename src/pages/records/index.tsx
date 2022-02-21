@@ -5,6 +5,7 @@ import { useFetchMe } from 'apis/users';
 import Header from 'components/layout/Header';
 import EmptyList from 'components/records/EmptyList';
 import TILItem from 'components/records/TILItem';
+import dayjs from 'dayjs';
 import useMediaQuery from 'hooks/useMediaQuery';
 import Link from 'next/link';
 import React, { Fragment, useEffect, useMemo } from 'react';
@@ -71,14 +72,15 @@ const RecordsPage: React.VFC = () => {
             <>
               <TILList>
                 {tilList.map((til, index) => {
-                  const [, prevMonth] = tilList[index - 1]?.date?.split('-') || [];
-                  const [nextYear, nextMonth] = til.date?.split('-') || [];
-
-                  const showMonth = prevMonth !== nextMonth; // month 변화가 있을 때 표시
+                  // YYYY.MM
+                  const prevDate = tilList[index - 1]?.date?.slice(0, 7);
+                  const currentDate = til.date?.slice(0, 7);
 
                   return (
                     <Fragment key={til.id}>
-                      {showMonth && <Date>{`${nextYear}년 ${Number(nextMonth)}월`}</Date>}
+                      {prevDate !== currentDate && (
+                        <Date>{`${dayjs(currentDate).year()}년 ${dayjs(currentDate).month() + 1}월`}</Date>
+                      )}
 
                       <li>
                         <Link href={`/records/${til.id}`} passHref>

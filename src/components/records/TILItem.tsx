@@ -36,7 +36,7 @@ const TILItem: React.VFC<TILItemProps> = ({
 
   return (
     <Wrapper className="p-2">
-      <Date>{date}</Date>
+      <Date>{date?.replace(/-/g, '.')}</Date>
       <Title>{title}</Title>
 
       <TagList>
