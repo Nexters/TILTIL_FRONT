@@ -1,5 +1,6 @@
+import { ROUTE } from 'constants/route';
+
 import styled from '@emotion/styled';
-import api, { setAuthorization } from 'apis/interceptor';
 import icebergAnimation from 'assets/lotties/iceUpDown.json';
 import GoogleIcon from 'assets/svgs/GoogleIcon';
 import Button from 'components/Button';
@@ -153,13 +154,11 @@ const ButtonUpperText = styled(Text)`
 export async function getServerSideProps({ req, res, query }: GetServerSidePropsContext) {
   const accessToken = (query.token as string) ?? '';
   if (accessToken) {
-    res.setHeader('Set-Cookie', `accessToken=${accessToken}; path=/; max-age=3600`);
-    setAuthorization(accessToken);
-    const { data } = await api.users.userUsingGet();
+    res.setHeader('Set-Cookie', `accessToken=${accessToken}; path=/; max-age=3600*24`);
     return {
       redirect: {
         permanent: false,
-        destination: `/${data.id}`,
+        destination: ROUTE.main,
       },
     };
   }

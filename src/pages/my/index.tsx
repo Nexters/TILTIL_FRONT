@@ -50,7 +50,7 @@ const MyPage: React.FC = () => {
 
   return (
     <PageWrapper>
-      <Header leftButton="home" me={me?.data} />
+      <Header leftButton="home" />
       <Contents>
         <UserNameWrapper className="my-2">
           <span>{me?.data.name} 님!</span>

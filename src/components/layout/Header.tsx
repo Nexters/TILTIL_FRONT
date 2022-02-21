@@ -15,21 +15,20 @@ export interface HeaderProps {
   leftButton: LeftButtonIconName;
   rightButton: RightButtonIconName[];
   background: Background;
-  me?: UserResponse;
 }
 
 type Props = Partial<HeaderProps>;
 type WrapperProps = Required<Pick<HeaderProps, 'background'>>;
 
-const Header: React.VFC<Props> = ({ title, leftButton, rightButton, background = 'white', me }) => {
+const Header: React.VFC<Props> = ({ title, leftButton, rightButton, background = 'white' }) => {
   const router = useRouter();
   const [backgroundColor, setBackgroundColor] = useState<Background>(background);
 
   const leftButtonHandlers = useMemo(
     () => ({
-      home: () => router.push(me ? `/${me.id}` : ROUTE.landing),
+      home: () => router.push(ROUTE.main),
     }),
-    [me]
+    []
   );
 
   const handleScroll = () => {
