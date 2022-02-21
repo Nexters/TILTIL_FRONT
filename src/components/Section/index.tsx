@@ -1,9 +1,10 @@
 import styled from '@emotion/styled';
-import EmptyIceCube from 'assets/svgs/EmptyIceCube';
+import fillingIcebergAnimation from 'assets/lotties/fillingIceberg.json';
 import { Icon } from 'components/icon/Icon';
 import InfiniteSlider from 'components/InfiniteSlider';
 import { Text } from 'components/Text';
 import React from 'react';
+import Lottie from 'react-lottie';
 import theme from 'styles/theme';
 import convertNewLineToJSX from 'utils/convertNewLineToJSX';
 import media from 'utils/media';
@@ -28,14 +29,12 @@ const Section: React.FC<SectionProps> & Components = ({ children }) => {
 const Main = () => {
   return (
     <MainWrapper>
-      <div>
-        <Text typography="h2">{convertNewLineToJSX('요즘 일잘러들이 선택한\n회고 방법')}</Text>
-        <Text className="mt-2" typography="h2" fontWeight="bold">
-          BING BONG
-        </Text>
-      </div>
+      <MainTitle>
+        <Text typography="h2">요즘 일잘러들이 선택한 회고 방법</Text>
+        <Icon className="mt-1" name="blueBingBong" />
+      </MainTitle>
       <MainIconWrapper>
-        <Icon name="thumbUpIcon" />
+        <Icon name="bingbongs" />
       </MainIconWrapper>
     </MainWrapper>
   );
@@ -75,7 +74,7 @@ const Helper = () => {
         당신의 암묵지를 키울 수 있도록
       </Text>
       <Text className="mt-1" typography="body5" color={theme.colors.text.subdued}>
-        Bng Bong과 함께라면 쉬워져요.
+        BingBong과 함께라면 쉬워져요.
       </Text>
       <HelperIconWrapper>
         <Icon name="togetherIcon" />
@@ -97,10 +96,13 @@ const Growth = () => {
         빙하 조각만큼 나도 성장 중!
       </Text>
       <GrowthIconwrapper>
-        <EmptyIceCube />
-        <EmptyIceCube />
-        <EmptyIceCube />
-        <EmptyIceCube />
+        <Lottie
+          options={{
+            loop: true,
+            autoplay: true,
+            animationData: fillingIcebergAnimation,
+          }}
+        />
       </GrowthIconwrapper>
     </GrowthWrapper>
   );
@@ -113,7 +115,7 @@ const Phrases = () => {
         {convertNewLineToJSX('그럼 우리 이제,\n성장하러 가볼까요?')}
       </Text>
       <Text className="mt-3" typography="subTitle2" textAlign="center">
-        {convertNewLineToJSX('처음에는 우리가 습관을 만들지만\n그 다음에는 습관이 우리를 만든다.\n--존 드라이든-')}
+        {convertNewLineToJSX('처음에는 우리가 습관을 만들지만\n그 다음에는 습관이 우리를 만든다.\n-존 드라이든-')}
       </Text>
     </PhraseWrapper>
   );
@@ -139,23 +141,28 @@ const DefaultSection = styled.section`
   align-items: center;
 `;
 const MainWrapper = styled(DefaultSection)`
-  justify-content: space-around;
-  align-items: inherit;
+  align-items: center;
   padding: 0px 22px;
   height: 696px;
   ${media.mobile} {
     height: 640px;
   }
   :first-of-type {
-    margin-top: 140px;
+    margin-top: 73px;
     ${media.mobile} {
-      margin-top: 84px;
+      margin-top: 56px;
     }
   }
 `;
+const MainTitle = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`;
 const MainIconWrapper = styled.div`
   display: flex;
-  justify-content: flex-end;
+  justify-content: center;
   margin-top: 72px;
 `;
 const SliderWrapper = styled(DefaultSection)`

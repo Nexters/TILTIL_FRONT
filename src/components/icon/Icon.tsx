@@ -21,6 +21,8 @@ import {
   FireIcon,
   GoodIcon,
   WriteIcon,
+  Bingbongs,
+  BlueBingBong,
 } from 'assets/svgs';
 import EditIcon from 'assets/svgs/EditIcon';
 import React, { VFC } from 'react';
@@ -59,6 +61,8 @@ const ICONS = {
   fire: FireIcon,
   good: GoodIcon,
   write: WriteIcon,
+  bingbongs: Bingbongs,
+  blueBingBong: BlueBingBong,
 } as const;
 
 export const Icon: VFC<IconProps> = ({ name, className, ...rest }) => {
