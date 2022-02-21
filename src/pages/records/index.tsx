@@ -23,7 +23,7 @@ const RecordsPage: React.VFC = () => {
   const me = useFetchMe();
   const { isMatched: isMobile, isCheckedScreenSize } = useMediaQuery(`(max-width: ${theme.size.mobile}px)`);
 
-  const { data, isFetchingNextPage, isSuccess, isLoading, hasNextPage, fetchNextPage } = useMyTils(
+  const { data, isLoading, isFetching, isSuccess, isFetchingNextPage, hasNextPage, fetchNextPage } = useMyTils(
     isMobile ? MW_TILS_LOADING_CNT : PC_TILS_LOADING_CNT,
     isCheckedScreenSize
   );
@@ -34,7 +34,7 @@ const RecordsPage: React.VFC = () => {
     data?.pages.forEach((page) => page.tils?.forEach((til) => result.push(til)));
 
     return result;
-  }, [data?.pages.length]);
+  }, [isFetching]);
 
   useEffect(() => {
     if (inView && hasNextPage && !isFetchingNextPage) {
@@ -79,13 +79,14 @@ const RecordsPage: React.VFC = () => {
                   return (
                     <Fragment key={til.id}>
                       {showMonth && <Date>{`${nextYear}년 ${Number(nextMonth)}월`}</Date>}
-                      <Link href={`/records/${til.id}`} passHref>
-                        <a href="replace">
-                          <li>
+
+                      <li>
+                        <Link href={`/records/${til.id}`} passHref>
+                          <a href="replace">
                             <TILItem {...til} />
-                          </li>
-                        </a>
-                      </Link>
+                          </a>
+                        </Link>
+                      </li>
                     </Fragment>
                   );
                 })}
@@ -119,10 +120,14 @@ const TILList = styled.ul`
 
   > li {
     margin-bottom: 24px;
+
+    ${media.mobile} {
+      grid-column-start: 1;
+      grid-column-end: 3;
+    }
   }
 
   ${media.mobile} {
-    grid-template-columns: repeat(3, 1fr);
     column-gap: 16px;
   }
 `;
@@ -135,7 +140,7 @@ const Date = styled.li`
   grid-column-end: 3;
 
   ${media.mobile} {
-    grid-column-end: 1;
+    grid-column-end: 3;
   }
 `;
 
