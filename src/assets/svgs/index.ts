@@ -24,4 +24,4 @@ export { default as FireIcon } from './FireIcon';
 export { default as GoodIcon } from './GoodIcon';
 export { default as WriteIcon } from './WriteIcon';
 export { default as Bingbongs } from './Bingbongs';
-export { default as BlueBingBong } from './BlueBingBong';
+export { default as BlueBingbong } from './BlueBingBong';
