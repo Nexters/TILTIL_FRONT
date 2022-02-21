@@ -387,23 +387,6 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @description 클라이언트에서 참고할 에러 코드 - 404, 유저를 찾을 수 없습니다.
      *
      * @tags open-user
-     * @name GetAnotherUserUsingGet
-     * @summary 다른 유저 정보 조회 API
-     * @request GET:/open/users/{userId}
-     * @secure
-     */
-    getAnotherUserUsingGet: (userId: number, params: RequestParams = {}) =>
-      this.request<UserResponse, void>({
-        path: `/open/users/${userId}`,
-        method: "GET",
-        secure: true,
-        ...params,
-      }),
-
-    /**
-     * @description 클라이언트에서 참고할 에러 코드 - 404, 유저를 찾을 수 없습니다.
-     *
-     * @tags open-user
      * @name GetUserGreetingMessageUsingGet
      * @summary 유저 인사 메시지(isShare는 default false)
      * @request GET:/open/users/{userId}/greeting-message
