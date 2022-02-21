@@ -2,6 +2,7 @@ import { ROUTE } from 'constants/route';
 
 import { Global, ThemeProvider } from '@emotion/react';
 import { AxiosError } from 'axios';
+import { NextPageContext } from 'next';
 import type { AppProps } from 'next/app';
 import { useRouter } from 'next/router';
 import React, { FC } from 'react';
@@ -9,12 +10,13 @@ import { Hydrate, QueryClient, QueryClientProvider } from 'react-query';
 import { ReactQueryDevtools } from 'react-query/devtools';
 import { RecoilRoot, useRecoilValue } from 'recoil';
 import { dialogStore } from 'states/dialogStore';
+import { sendAmplitudeData, useInitAmplitude } from 'utils/amplitude';
 
-import '../styles/fonts.css';
 import globalStyle from '../styles/globalStyle';
 import theme from '../styles/theme';
+import '../styles/fonts.css';
 
-function MyApp({ Component, pageProps }: AppProps) {
+function MyApp({ Component, pageProps }: AppProps<{ utmSource: string }>) {
   const router = useRouter();
   const [queryClient] = React.useState(
     () =>
@@ -46,6 +48,16 @@ function MyApp({ Component, pageProps }: AppProps) {
         },
       })
   );
+
+  const { query } = useRouter();
+
+  useInitAmplitude({
+    onInit: () => {
+      const { referrer } = document;
+      const utmSource = query?.utmSource ?? null;
+      sendAmplitudeData('랜딩페이지진입', { utmSource, referrer });
+    },
+  });
 
   return (
     <QueryClientProvider client={queryClient}>
@@ -81,6 +93,10 @@ const MyComponent: FC = ({ children }) => {
       </div>
     </>
   );
+};
+
+MyApp.getInitialProps = async ({ query }: NextPageContext) => {
+  return { query };
 };
 
 export default MyApp;

@@ -5,6 +5,39 @@ __metadata:
   version: 5
   cacheKey: 8
 
+"@amplitude/analytics-connector@npm:1.0.0":
+  version: 1.0.0
+  resolution: "@amplitude/analytics-connector@npm:1.0.0"
+  dependencies:
+    "@amplitude/ua-parser-js": 0.7.26
+  checksum: 41dab18bb37367995caf5adace7b4d5c9f0d7fd5c1dd76f04ee84a7aaf7d5e82ea33d56111450f7ec628471fc847e4b9d828f371503402529103fda0931e9b6e
+  languageName: node
+  linkType: hard
+
+"@amplitude/types@npm:^1.9.2":
+  version: 1.9.2
+  resolution: "@amplitude/types@npm:1.9.2"
+  checksum: fb4e4823f6fece840a219ff62835015407acc463297730ac13b5ef7e0d4f83f52e344b2cb6868d9c8592b6f9286454b0531f3ab9e4a6b845b247590fb51fdaee
+  languageName: node
+  linkType: hard
+
+"@amplitude/ua-parser-js@npm:0.7.26":
+  version: 0.7.26
+  resolution: "@amplitude/ua-parser-js@npm:0.7.26"
+  checksum: 38f6f297980b12f6991ea2550273ce85fc96d8d0180ae2e025a3a9439cb45d98623b8bed25915c3acfc047fa2a920c1d353e9aefad77b8cdb210d77622db7242
+  languageName: node
+  linkType: hard
+
+"@amplitude/utils@npm:^1.0.5":
+  version: 1.9.2
+  resolution: "@amplitude/utils@npm:1.9.2"
+  dependencies:
+    "@amplitude/types": ^1.9.2
+    tslib: ^1.9.3
+  checksum: 46f59a19c70c60da36a669dee743e759d774712d37df6e8294ea1f7e094498a95809511dafc1fb85423c5915fe7c44ff62b8f4f48c50b9a3fe7ae7eb993fe86d
+  languageName: node
+  linkType: hard
+
 "@babel/code-frame@npm:7.12.11":
   version: 7.12.11
   resolution: "@babel/code-frame@npm:7.12.11"
@@ -95,6 +128,15 @@ __metadata:
   dependencies:
     regenerator-runtime: ^0.13.4
   checksum: 47912f0aaacd1cab2e2552aaf3e6eaffbcaf2d5ac9b07a89a12ac0d42029cb92c070b0d16f825e4277c4a34677c54d8ffe85e1f7c6feb57de58f700eec67ce2f
+  languageName: node
+  linkType: hard
+
+"@babel/runtime@npm:^7.3.4":
+  version: 7.17.2
+  resolution: "@babel/runtime@npm:7.17.2"
+  dependencies:
+    regenerator-runtime: ^0.13.4
+  checksum: a48702d271ecc59c09c397856407afa29ff980ab537b3da58eeee1aeaa0f545402d340a1680c9af58aec94dfdcbccfb6abb211991b74686a86d03d3f6956cacd
   languageName: node
   linkType: hard
 
@@ -446,6 +488,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/amplitude-js@npm:^8.9.6":
+  version: 8.9.6
+  resolution: "@types/amplitude-js@npm:8.9.6"
+  checksum: 3f4cf5cf58b6087451a76dc6641bf779c33de5a619d05de30e54f9da5399c589093722e09e53da2d7047ccb5a2e42c968f7082e5ede2211e6b6f4ba1893eee4d
+  languageName: node
+  linkType: hard
+
 "@types/json-schema@npm:^7.0.7":
   version: 7.0.9
   resolution: "@types/json-schema@npm:7.0.9"
@@ -688,11 +737,13 @@ __metadata:
     "@emotion/react": ^11.7.1
     "@emotion/styled": ^11.6.0
     "@next/eslint-plugin-next": ^12.0.10
+    "@types/amplitude-js": ^8.9.6
     "@types/node": 17.0.8
     "@types/react": 17.0.38
     "@types/react-lottie": ^1.2.6
     "@typescript-eslint/eslint-plugin": ^4.22.0
     "@typescript-eslint/parser": ^4.22.0
+    amplitude-js: ^8.17.0
     axios: 0.21
     dayjs: ^1.10.7
     emotion: ^11.0.0
@@ -781,6 +832,20 @@ __metadata:
     require-from-string: ^2.0.2
     uri-js: ^4.2.2
   checksum: 90849ef03c4f4f7051d15f655120137b89e3205537d683beebd39d95f40c0ca00ea8476cd999602d2f433863e7e4bf1b81d1869d1e07f4dcf56d71b6430a605c
+  languageName: node
+  linkType: hard
+
+"amplitude-js@npm:^8.17.0":
+  version: 8.17.0
+  resolution: "amplitude-js@npm:8.17.0"
+  dependencies:
+    "@amplitude/analytics-connector": 1.0.0
+    "@amplitude/ua-parser-js": 0.7.26
+    "@amplitude/utils": ^1.0.5
+    "@babel/runtime": ^7.3.4
+    blueimp-md5: ^2.10.0
+    query-string: 5
+  checksum: 1bf1d5f2fa453d4c991dee3cd579a812f10e14476635a5d82c6f2404811bd7619bfdf506e90f25cfaf1f60ae4a78774bbebf73d6da274a409965e742d37b865b
   languageName: node
   linkType: hard
 
@@ -983,6 +1048,13 @@ __metadata:
   version: 5.2.2
   resolution: "big.js@npm:5.2.2"
   checksum: b89b6e8419b097a8fb4ed2399a1931a68c612bce3cfd5ca8c214b2d017531191070f990598de2fc6f3f993d91c0f08aa82697717f6b3b8732c9731866d233c9e
+  languageName: node
+  linkType: hard
+
+"blueimp-md5@npm:^2.10.0":
+  version: 2.19.0
+  resolution: "blueimp-md5@npm:2.19.0"
+  checksum: 28095dcbd2c67152a2938006e8d7c74c3406ba6556071298f872505432feb2c13241b0476644160ee0a5220383ba94cb8ccdac0053b51f68d168728f9c382530
   languageName: node
   linkType: hard
 
@@ -1328,6 +1400,13 @@ __metadata:
     supports-color:
       optional: true
   checksum: 14472d56fe4a94dbcfaa6dbed2dd3849f1d72ba78104a1a328047bb564643ca49df0224c3a17fa63533fd11dd3d4c8636cd861191232a2c6735af00cc2d4de16
+  languageName: node
+  linkType: hard
+
+"decode-uri-component@npm:^0.2.0":
+  version: 0.2.0
+  resolution: "decode-uri-component@npm:0.2.0"
+  checksum: f3749344ab9305ffcfe4bfe300e2dbb61fc6359e2b736812100a3b1b6db0a5668cba31a05e4b45d4d63dbf1a18dfa354cd3ca5bb3ededddabb8cd293f4404f94
   languageName: node
   linkType: hard
 
@@ -3144,7 +3223,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"object-assign@npm:^4.1.1":
+"object-assign@npm:^4.1.0, object-assign@npm:^4.1.1":
   version: 4.1.1
   resolution: "object-assign@npm:4.1.1"
   checksum: fcc6e4ea8c7fe48abfbb552578b1c53e0d194086e2e6bbbf59e0a536381a292f39943c6e9628af05b5528aa5e3318bb30d6b2e53cadaf5b8fe9e12c4b69af23f
@@ -3454,6 +3533,17 @@ __metadata:
   version: 6.9.7
   resolution: "qs@npm:6.9.7"
   checksum: 5bbd263332ccf320a1f36d04a2019a5834dc20bcb736431eaccde2a39dcba03fb26d2fd00174f5d7bc26aaad1cad86124b18440883ac042ea2a0fca6170c1bf1
+  languageName: node
+  linkType: hard
+
+"query-string@npm:5":
+  version: 5.1.1
+  resolution: "query-string@npm:5.1.1"
+  dependencies:
+    decode-uri-component: ^0.2.0
+    object-assign: ^4.1.0
+    strict-uri-encode: ^1.0.0
+  checksum: 4ac760d9778d413ef5f94f030ed14b1a07a1708dd13fd3bc54f8b9ef7b425942c7577f30de0bf5a7d227ee65a9a0350dfa3a43d1d266880882fb7ce4c434a4dd
   languageName: node
   linkType: hard
 
@@ -3960,6 +4050,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"strict-uri-encode@npm:^1.0.0":
+  version: 1.1.0
+  resolution: "strict-uri-encode@npm:1.1.0"
+  checksum: 9466d371f7b36768d43f7803f26137657559e4c8b0161fb9e320efb8edba3ae22f8e99d4b0d91da023b05a13f62ec5412c3f4f764b5788fac11d1fea93720bb3
+  languageName: node
+  linkType: hard
+
 "string-argv@npm:^0.3.1":
   version: 0.3.1
   resolution: "string-argv@npm:0.3.1"
@@ -4245,7 +4342,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tslib@npm:^1.8.1":
+"tslib@npm:^1.8.1, tslib@npm:^1.9.3":
   version: 1.14.1
   resolution: "tslib@npm:1.14.1"
   checksum: dbe628ef87f66691d5d2959b3e41b9ca0045c3ee3c7c7b906cc1e328b39f199bb1ad9e671c39025bd56122ac57dfbf7385a94843b1cc07c60a4db74795829acd

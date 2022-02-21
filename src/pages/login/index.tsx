@@ -41,6 +41,7 @@ const LoginPage: React.VFC<Props> = ({ isMobileAgent }) => {
 
   useEffect(() => {
     window.addEventListener('resize', handleResize);
+    handleResize();
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
