@@ -95,8 +95,4 @@ const MyComponent: FC = ({ children }) => {
   );
 };
 
-MyApp.getInitialProps = async ({ query }: NextPageContext) => {
-  return { query };
-};
-
 export default MyApp;

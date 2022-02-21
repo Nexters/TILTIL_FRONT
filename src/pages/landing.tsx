@@ -25,6 +25,7 @@ const LandingPage = ({ isMobile }: { isMobile: boolean }) => {
 
   useEffect(() => {
     window.addEventListener('resize', handleResize);
+    handleResize();
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
@@ -45,7 +46,7 @@ const LandingPage = ({ isMobile }: { isMobile: boolean }) => {
         <Section.Phrases />
       </Section>
       <Link href={ROUTE.main} passHref>
-        <Floating width={width}>오늘부터 암묵지 없애기</Floating>
+        <Floating width={width}>오늘부터 암묵지 키우기</Floating>
       </Link>
     </PageWrapper>
   );
