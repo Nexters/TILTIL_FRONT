@@ -12,3 +12,12 @@ export const useFetchUserTilStatistics = (userId: number) => {
   const { data } = useQuery(userKeys.statistics(userId), () => api.open.getUserTilStatisticsUsingGet(userId));
   return data;
 };
+
+export const useFetchGreetingMessage = (userId: number, isShare?: boolean) => {
+  const { data } = useQuery(userKeys.greeting(userId), () =>
+    api.open.getUserGreetingMessageUsingGet(userId, {
+      isShare,
+    })
+  );
+  return data;
+};
