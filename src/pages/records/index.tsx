@@ -45,7 +45,7 @@ const RecordsPage: React.VFC = () => {
 
   return (
     <PageWrapper background="default">
-      <Header title="나의 암묵지" leftButton="home" background="default" rightButton={['edit']} me={me?.data} />
+      <Header title="나의 암묵지" leftButton="home" background="default" rightButton={['edit']} />
 
       <RecordsMain padding="md">
         {(() => {

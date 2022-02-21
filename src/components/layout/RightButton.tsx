@@ -106,7 +106,7 @@ const RightButton: React.VFC<Props> = ({ button }) => {
         );
       },
       cancel: () => {
-        replace('/');
+        replace(ROUTE.landing);
       },
       edit: () => {
         push('/records/new');

@@ -33,7 +33,7 @@ const Custom404: React.VFC = () => {
             올바른 URL을 입력하였는지 확인해주세요.
           </Text>
 
-          <Link href={ROUTE.landing} passHref>
+          <Link href={ROUTE.main} passHref>
             <ButtonSmall backgroundColor={['primary', 'default']} textColor={['text', 'inverse']}>
               홈으로 가기
             </ButtonSmall>

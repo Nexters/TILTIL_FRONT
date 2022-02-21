@@ -31,7 +31,7 @@ const ReadRecordPage: React.VFC<Props> = ({
 
   return (
     <PageWrapper background="default">
-      <Header title="암묵지 읽기" leftButton="home" rightButton={['more']} background="default" me={me?.data} />
+      <Header title="암묵지 읽기" leftButton="home" rightButton={['more']} background="default" />
 
       <ReadMain>
         <MainHeader dimmed={isLoading}>

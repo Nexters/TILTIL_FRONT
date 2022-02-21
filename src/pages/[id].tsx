@@ -1,5 +1,4 @@
 import styled from '@emotion/styled';
-import { TilRecentLogsResponse, TilStatisticsResponse } from 'apis/api';
 import api from 'apis/interceptor';
 import { useFetchRecentTilLog, useFetchUserTilStatistics } from 'apis/opens';
 import { useFetchMe } from 'apis/users';
@@ -21,7 +20,7 @@ interface Props {
   id: number;
 }
 
-const Profile = ({ isMobile, id }: Props) => {
+const MainPage = ({ isMobile, id }: Props) => {
   const me = useFetchMe();
   const data = useFetchRecentTilLog(id);
   const statistics = useFetchUserTilStatistics(id);
@@ -61,9 +60,6 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     return data;
   });
 
-  // const { data: logs } = await api.open.getRecentTilLogsUsingGet(userId);
-  // const { data: statistics } = await api.open.getUserTilStatisticsUsingGet(userId);
-
   return {
     props: {
       dehydratedState: dehydrate(queryClient),
@@ -73,4 +69,4 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
   };
 }
 
-export default Profile;
+export default MainPage;

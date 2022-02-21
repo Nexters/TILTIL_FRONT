@@ -15,7 +15,7 @@ class FrontApi extends Api<unknown> {
   constructor({ securityWorker, secure, format, ...axiosConfig }: ApiConfig<unknown> = {}) {
     super({ securityWorker, secure, format, ...axiosConfig });
     this.instance.interceptors.request.use(
-      function (config) {
+      (config) => {
         const accessToken = getCookie('accessToken');
         // Do something before request is sent
         if (accessToken) {
@@ -24,7 +24,7 @@ class FrontApi extends Api<unknown> {
         }
         return config;
       },
-      function (error) {
+      (error) => {
         // Do something with request error
         return Promise.reject(error);
       }
