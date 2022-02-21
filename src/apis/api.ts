@@ -135,7 +135,7 @@ export interface TilRequest {
   /** 궁금한 점(1000자) */
   questionContent?: string;
 
-  /** 제목(24자) */
+  /** 제목(20자) */
   title?: string;
 
   /** 잘한 점(1000자) */
