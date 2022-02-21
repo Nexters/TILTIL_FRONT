@@ -1,7 +1,6 @@
 import styled from '@emotion/styled';
 import api from 'apis/interceptor';
-import { useFetchRecentTilLog, useFetchUserTilStatistics } from 'apis/opens';
-import { useFetchMe } from 'apis/users';
+import { useFetchGreetingMessage, useFetchRecentTilLog, useFetchUserTilStatistics } from 'apis/opens';
 import Button from 'components/Button';
 import GuideIllust from 'components/GuideIllust';
 import Header from 'components/layout/Header';
@@ -18,10 +17,11 @@ import isMobileDetect from 'utils/isMobileDetect';
 interface Props {
   isMobile: boolean;
   id: number;
+  isShared: boolean;
 }
 
-const MainPage = ({ isMobile, id }: Props) => {
-  const me = useFetchMe();
+const MainPage = ({ isMobile, id, isShared }: Props) => {
+  const greeting = useFetchGreetingMessage(id, isShared);
   const recent = useFetchRecentTilLog(id);
   const statistics = useFetchUserTilStatistics(id);
 
@@ -29,7 +29,7 @@ const MainPage = ({ isMobile, id }: Props) => {
     <PageWrapper background="default">
       <Header rightButton={['share', 'user']} />
       <main>
-        <GuideIllust name={me?.data.name} isMobile={isMobile} />
+        <GuideIllust greeting={greeting?.data} isMobile={isMobile} />
         <MontlyLog logs={recent?.data.tilLogs} total={recent?.data.sumOfTil} />
         <RecordStatistics statistics={statistics?.data} />
         <ButtonWrapper>
@@ -51,6 +51,10 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
   const isMobile = isMobileDetect(context.req);
   const queryClient = new QueryClient();
   const userId = Number(context.query.id);
+  await queryClient.prefetchQuery(userKeys.greeting(userId), async () => {
+    const { data } = await api.open.getUserGreetingMessageUsingGet(userId);
+    return data;
+  });
   await queryClient.prefetchQuery(userKeys.recentLog(userId), async () => {
     const { data } = await api.open.getRecentTilLogsUsingGet(userId);
     return data;
@@ -65,6 +69,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
       dehydratedState: dehydrate(queryClient),
       isMobile,
       id: userId,
+      isShared: Boolean(context.query.mine),
     },
   };
 }

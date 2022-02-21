@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import { GreetingMessageResponse } from 'apis/api';
 import React from 'react';
 import theme from 'styles/theme';
 import { PartialPick } from 'types/common';
@@ -9,23 +10,29 @@ import { Text } from './Text';
 
 interface GuideIllustProps {
   isMobile: boolean;
-  name: string;
+  greeting?: GreetingMessageResponse;
 }
 
 type Props = PartialPick<GuideIllustProps, 'isMobile'>;
 
-const GuideIllust = ({ isMobile, name = '최다예' }: Props) => {
+const GuideIllust = ({ isMobile, greeting }: Props) => {
   return (
     <Wrapper>
       <GradientWrapper>
         <Icon name={isMobile ? 'cloudWithMountainM' : 'cloudWithMountainD'} />
       </GradientWrapper>
       <TextWrapper>
+        <SignupDaysWrapper>
+          <Text typography="body1" fontWeight="bold">
+            {greeting?.signUpDays}일째
+          </Text>
+          <Text typography="body2">암묵지 만드는 중</Text>
+        </SignupDaysWrapper>
         <Text typography="h2" color={theme.colors.text.highlight}>
-          {name}님
+          {greeting?.nickname}님
         </Text>
         <Text typography="h1" color={theme.colors.text.highlight}>
-          오늘 배운 것을 기록해 볼까요?
+          {greeting?.content}
         </Text>
       </TextWrapper>
     </Wrapper>
@@ -50,6 +57,15 @@ const GradientWrapper = styled.div`
     radial-gradient(74.61% 74.61% at 1.25% 100%, rgba(58, 161, 255, 0.3) 0%, rgba(58, 161, 255, 0) 100%);
   border-radius: 0px;
   transform: matrix(1, 0, 0, -1, 0, 0);
+`;
+
+const SignupDaysWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+
+  span + span {
+    margin-left: 4px;
+  }
 `;
 
 const TextWrapper = styled.div`

@@ -21,11 +21,10 @@ const CalandarGrapth = ({ logs }: Props) => {
   return (
     <Wrapper>
       {React.Children.toArray(
-        lists.map((list) => (
-          // eslint-disable-next-line react/jsx-key
-          <Line>
-            {list?.map(({ id, count }) => (
-              <IconWrapper key={id}>
+        lists.map((list, index) => (
+          <Line key={index}>
+            {list?.map(({ count }, idx) => (
+              <IconWrapper key={idx}>
                 <CountIcsIcon count={count ?? 0} />
               </IconWrapper>
             ))}
