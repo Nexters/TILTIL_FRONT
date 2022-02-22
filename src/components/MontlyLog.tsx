@@ -3,6 +3,8 @@ import { TilLogResponse } from 'apis/api';
 import Link from 'next/link';
 import React from 'react';
 import theme from 'styles/theme';
+import { PartialPick } from 'types/common';
+import media from 'utils/media';
 
 import ButtonSmall from './ButtonSmall';
 import CalandarGrapth from './CalandarGrapth';
@@ -13,38 +15,41 @@ interface MontlyTilsProps {
   total: number;
   logs: TilLogResponse[];
   range: string;
+  isMobile: boolean;
 }
 
-type Props = Partial<MontlyTilsProps>;
+type Props = PartialPick<MontlyTilsProps, 'isMobile'>;
 
-const MontlyLog = ({ total = 11, logs = dummy }: Props) => {
+const MontlyLog = ({ total = 11, logs = dummy, isMobile }: Props) => {
   const startAt = logs[0].date;
   const endAt = logs[logs.length - 1].date;
   return (
-    <MontlyTils className="mt-5">
-      <MontlyTitle className="mb-3 mb-half">
-        <Count>
-          <Text className="mr-1 ml-half" typography="body6">
-            지금까지 모은 빙하 조각
+    <>
+      <MontlyTils className="mt-5">
+        <MontlyTitle className="mb-3 mb-half">
+          <Count>
+            <Text className="mr-1 ml-half" typography="body6">
+              지금까지 모은 빙하 조각
+            </Text>
+            <Text typography="h5" color={theme.colors.text.highlight}>
+              {total} 개
+            </Text>
+          </Count>
+          <Link href="/records" passHref>
+            <ButtonSmall backgroundColor={['primary', 'extraLight']} textColor={['primary', 'light']}>
+              리스트 보기
+            </ButtonSmall>
+          </Link>
+        </MontlyTitle>
+        <CalandarGrapth logs={logs} isMobile={isMobile} />
+        <Note>
+          <Icon className="mr-half" name="info" />
+          <Text typography="caption1" color={theme.colors.text.placeholder}>
+            {startAt} ~ {endAt}
           </Text>
-          <Text typography="h5" color={theme.colors.text.highlight}>
-            {total} 개
-          </Text>
-        </Count>
-        <Link href="/records" passHref>
-          <ButtonSmall backgroundColor={['primary', 'extraLight']} textColor={['primary', 'light']}>
-            리스트 보기
-          </ButtonSmall>
-        </Link>
-      </MontlyTitle>
-      <CalandarGrapth logs={logs} />
-      <Note>
-        <Icon className="mr-half" name="info" />
-        <Text typography="caption1" color={theme.colors.text.placeholder}>
-          {startAt} ~ {endAt}
-        </Text>
-      </Note>
-    </MontlyTils>
+        </Note>
+      </MontlyTils>
+    </>
   );
 };
 
@@ -55,7 +60,10 @@ const MontlyTils = styled.section`
   justify-content: center;
   align-items: center;
   padding: 0px 48px;
-  overflow: scroll;
+
+  ${media.mobile} {
+    padding: 0px 24px;
+  }
 `;
 
 const MontlyTitle = styled.div`

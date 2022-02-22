@@ -2,21 +2,33 @@ import styled from '@emotion/styled';
 import { TilLogResponse } from 'apis/api';
 import { CountIcsIcon } from 'assets/svgs';
 import React from 'react';
+import { PartialPick } from 'types/common';
 import media from 'utils/media';
 
+type Params = Props;
+function spliceLogDeviceDetect({ logs, isMobile }: Params) {
+  const point = isMobile ? 6 : 8;
+  let start = 0;
+  let end = point;
+  const lists = Array(isMobile ? 6 : 4).fill(null);
+
+  lists.forEach((_, i) => {
+    lists[i] = logs?.slice(start, end);
+    start = end;
+    end += i % 2 ? point : point - 1;
+  });
+
+  return lists as TilLogResponse[][];
+}
 interface CalandarGrapthProps {
   logs: TilLogResponse[];
+  isMobile: boolean;
 }
 
-type Props = Partial<CalandarGrapthProps>;
+type Props = PartialPick<CalandarGrapthProps, 'isMobile'>;
 
-const CalandarGrapth = ({ logs }: Props) => {
-  const line0 = logs?.slice(0, 8);
-  const line1 = logs?.slice(8, 15);
-  const line2 = logs?.slice(15, 23);
-  const line3 = logs?.slice(23, 30);
-
-  const lists = [line0, line1, line2, line3];
+const CalandarGrapth = ({ logs, isMobile }: Props) => {
+  const lists = spliceLogDeviceDetect({ logs, isMobile });
 
   return (
     <Wrapper>
@@ -41,7 +53,7 @@ const Wrapper = styled.div`
   height: 258px;
 
   ${media.mobile} {
-    /* TODOS */
+    height: 325px;
   }
 `;
 
@@ -61,10 +73,12 @@ const Line = styled.div`
   :nth-of-type(4) {
     top: -84px;
   }
+  :nth-of-type(5) {
+    top: -102px;
+  }
 `;
 
 const IconWrapper = styled.div`
-  overflow: hidden;
   :not(:last-of-type) {
     margin-right: 16px;
   }

@@ -30,7 +30,7 @@ const MainPage = ({ isMobile, id, isShared }: Props) => {
       <Header rightButton={['share', 'user']} />
       <main>
         <GuideIllust greeting={greeting?.data} isMobile={isMobile} />
-        <MontlyLog logs={recent?.data.tilLogs} total={recent?.data.sumOfTil} />
+        <MontlyLog logs={recent?.data.tilLogs} total={recent?.data.sumOfTil} isMobile={isMobile} />
         <RecordStatistics statistics={statistics?.data} />
         <ButtonWrapper>
           <Link href="/records/new" passHref>
