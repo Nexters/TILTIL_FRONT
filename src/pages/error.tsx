@@ -10,7 +10,7 @@ import React from 'react';
 import colors from 'styles/colors';
 import { Main, PageWrapper } from 'styles/styled';
 
-const Custom404: React.VFC = () => {
+const ErrorPage: React.VFC = () => {
   return (
     <PageWrapper>
       <Header
@@ -71,4 +71,4 @@ export const Text = styled.p`
   text-align: center;
 `;
 
-export default Custom404;
+export default ErrorPage;

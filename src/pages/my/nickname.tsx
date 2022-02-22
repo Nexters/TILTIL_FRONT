@@ -6,11 +6,14 @@ import Button from 'components/Button';
 import Input from 'components/Input';
 import Header from 'components/layout/Header';
 import { useRouter } from 'next/router';
+import { userKeys } from 'queryKeys/userKeys';
 import React, { ChangeEvent, useEffect, useState } from 'react';
+import { useQueryClient } from 'react-query';
 import { useDialogStore } from 'states/dialogStore';
 import { PageWrapper } from 'styles/styled';
 
 const NicknamePage: React.FC = () => {
+  const queryClient = useQueryClient();
   const me = useFetchMe();
   const [nickname, setNickname] = useState('');
   const updateUserMutation = useUpdateUserMutation();
@@ -25,6 +28,7 @@ const NicknamePage: React.FC = () => {
     updateUserMutation.mutate(nickname, {
       onSuccess: () => {
         dialog.toast('닉네임을 변경했어요!');
+        queryClient.invalidateQueries(userKeys.me());
         router.push(ROUTE.my);
       },
     });
