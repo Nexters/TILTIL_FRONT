@@ -16,7 +16,7 @@ export async function getServerSideProps({ req }: GetServerSidePropsContext) {
     return {
       redirect: {
         permanent: false,
-        destination: `/${data.id}?mine=true`,
+        destination: `/${data.id}`,
       },
     };
   } catch (error) {

@@ -1,6 +1,7 @@
+import { ROUTE } from 'constants/route';
+
 import { TilRequest } from 'apis/api';
 import { useCanWriteTilUsingGet, useTilCreateMutation } from 'apis/til';
-import { useFetchMe } from 'apis/users';
 import { Dialog } from 'components/dialog/Dialog';
 import { DialogContent, DialogDescription, DialogTitle } from 'components/dialog/DialogConfirm';
 import { Form } from 'components/Form';
@@ -15,7 +16,6 @@ const NewRecord = () => {
   const { data: CanWriteTilUsing } = useCanWriteTilUsingGet();
   const { open } = useDialogStore();
   const router = useRouter();
-  const me = useFetchMe();
 
   useEffect(() => {
     if (CanWriteTilUsing?.data?.isSuccess === false) {
@@ -32,7 +32,7 @@ const NewRecord = () => {
               </DialogDescription>
             </DialogContent>
           )}
-          onClose={() => router.replace(me?.data.id ? `/${me.data.id}` : '/')}
+          onClose={() => router.replace(ROUTE.main)}
           noCloseButton
         />
       );
