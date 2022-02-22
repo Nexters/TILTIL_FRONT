@@ -6,6 +6,8 @@ import Link from 'next/link';
 import React from 'react';
 import { useDialogStore } from 'states/dialogStore';
 import theme from 'styles/theme';
+import { PartialPick } from 'types/common';
+import media from 'utils/media';
 
 import ButtonSmall from './ButtonSmall';
 import CalandarGrapth from './CalandarGrapth';
@@ -17,85 +19,88 @@ interface MontlyTilsProps {
   total: number;
   logs: TilLogResponse[];
   range: string;
+  isMobile: boolean;
 }
 
-type Props = Partial<MontlyTilsProps>;
+type Props = PartialPick<MontlyTilsProps, 'isMobile'>;
 
-const MontlyLog = ({ total = 11, logs = dummy }: Props) => {
+const MontlyLog = ({ total = 11, logs = dummy, isMobile }: Props) => {
   const { open } = useDialogStore();
 
   const startAt = logs[0].date;
   const endAt = logs[logs.length - 1].date;
 
   return (
-    <MontlyTils className="mt-5">
-      <MontlyTitle className="mb-3 mb-half">
-        <Count>
-          <Text className="mr-1 ml-half" typography="body6">
-            지금까지 모은 빙하 조각
+    <>
+      <MontlyTils className="mt-5">
+        <MontlyTitle className="mb-3 mb-half">
+          <Count>
+            <Text className="mr-1 ml-half" typography="body6">
+              지금까지 모은 빙하 조각
+            </Text>
+            <Text typography="h5" color={theme.colors.text.highlight}>
+              {total} 개
+            </Text>
+          </Count>
+          <Link href="/records" passHref>
+            <ButtonSmall backgroundColor={['primary', 'extraLight']} textColor={['primary', 'light']}>
+              리스트 보기
+            </ButtonSmall>
+          </Link>
+        </MontlyTitle>
+        <CalandarGrapth logs={logs} isMobile={isMobile} />
+        <Note>
+          <button
+            type="button"
+            onClick={() =>
+              open(
+                <Dialog
+                  message=""
+                  RenderContent={() => (
+                    <DialogContent>
+                      <Text typography="body3" color={theme.colors.text.highlight} fontWeight={700}>
+                        빙하 조각은 이렇게 채워져요!
+                      </Text>
+                      <CommitList>
+                        <IceCubesIcon
+                          width={180}
+                          style={{
+                            position: 'relative',
+                            transform: 'translateX(7px)',
+                          }}
+                        />
+                      </CommitList>
+                      <Text typography="caption1" color={theme.colors.icon.idle} style={{ marginBottom: 12 }}>
+                        암묵지를 쓸 때 많은 카테고리를 채울수록
+                        <br />
+                        빙하 조각 색상이 진해져요!
+                      </Text>
+                      <ZeroCommit stroke={theme.colors.ui.disabled} />
+                      <Text typography="caption1" color={theme.colors.icon.idle} className="mt-1 mb-4">
+                        쓰지 않은 날은 슬픈 표정의 빙하 조각이 추가돼요.
+                      </Text>
+                      <Text typography="body3" color={theme.colors.text.highlight} fontWeight={700} className="mb-1">
+                        날짜 표시는 어떻게 되나요?
+                      </Text>
+                      <Text typography="caption1" color={theme.colors.icon.idle}>
+                        첫 가입부터 30일까지 순차적으로 채워지고
+                        <br />
+                        30일이 초과되면 표시되는 날짜가 하루씩 밀려요.
+                      </Text>
+                    </DialogContent>
+                  )}
+                />
+              )
+            }
+          >
+            <Icon className="mr-half" name="info" />
+          </button>
+          <Text typography="caption1" color={theme.colors.text.placeholder}>
+            {startAt} ~ {endAt}
           </Text>
-          <Text typography="h5" color={theme.colors.text.highlight}>
-            {total} 개
-          </Text>
-        </Count>
-        <Link href="/records" passHref>
-          <ButtonSmall backgroundColor={['primary', 'extraLight']} textColor={['primary', 'light']}>
-            리스트 보기
-          </ButtonSmall>
-        </Link>
-      </MontlyTitle>
-      <CalandarGrapth logs={logs} />
-      <Note>
-        <button
-          type="button"
-          onClick={() =>
-            open(
-              <Dialog
-                message=""
-                RenderContent={() => (
-                  <DialogContent>
-                    <Text typography="body3" color={theme.colors.text.highlight} fontWeight={700}>
-                      빙하 조각은 이렇게 채워져요!
-                    </Text>
-                    <CommitList>
-                      <IceCubesIcon
-                        width={180}
-                        style={{
-                          position: 'relative',
-                          transform: 'translateX(7px)',
-                        }}
-                      />
-                    </CommitList>
-                    <Text typography="caption1" color={theme.colors.icon.idle} style={{ marginBottom: 12 }}>
-                      암묵지를 쓸 때 많은 카테고리를 채울수록
-                      <br />
-                      빙하 조각 색상이 진해져요!
-                    </Text>
-                    <ZeroCommit stroke={theme.colors.ui.disabled} />
-                    <Text typography="caption1" color={theme.colors.icon.idle} className="mt-1 mb-4">
-                      쓰지 않은 날은 슬픈 표정의 빙하 조각이 추가돼요.
-                    </Text>
-                    <Text typography="body3" color={theme.colors.text.highlight} className="mb-1">
-                      날짜 표시는 어떻게 되나요?
-                    </Text>
-                    <Text typography="caption1" color={theme.colors.icon.idle}>
-                      첫 가입부터 30일까지 순차적으로 채워지고
-                      <br />
-                      30일이 초과되면 표시되는 날짜가 하루씩 밀려요.
-                    </Text>
-                  </DialogContent>
-                )}
-              />
-            )
-          }
-        >
-          <Icon className="mr-half" name="info" />
-        </button>
-        <Text typography="caption1" color={theme.colors.text.placeholder}>
-          {startAt} ~ {endAt}
-        </Text>
-      </Note>
-    </MontlyTils>
+        </Note>
+      </MontlyTils>
+    </>
   );
 };
 
@@ -106,7 +111,10 @@ const MontlyTils = styled.section`
   justify-content: center;
   align-items: center;
   padding: 0px 48px;
-  overflow: scroll;
+
+  ${media.mobile} {
+    padding: 0px 24px;
+  }
 `;
 
 const MontlyTitle = styled.div`

@@ -4,7 +4,6 @@ import { ROUTE } from 'constants/route';
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import { TilDetailResponse } from 'apis/api';
-import { useFetchMe } from 'apis/users';
 import { ButtonLine } from 'components/ButtonSmall';
 import Header from 'components/layout/Header';
 import Tag from 'components/Tag';
@@ -27,8 +26,6 @@ const ReadRecordPage: React.VFC<Props> = ({
   learnContent,
   wellContent,
 }) => {
-  const me = useFetchMe();
-
   return (
     <PageWrapper background="default">
       <Header title="암묵지 읽기" leftButton="home" rightButton={['more']} background="default" />

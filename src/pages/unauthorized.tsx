@@ -12,9 +12,9 @@ import ButtonSmall from '../components/ButtonSmall';
 import { Icon } from '../components/icon/Icon';
 import Header from '../components/layout/Header';
 
-import * as S from './404';
+import * as S from './error';
 
-const Custom403 = () => {
+const UnauthorizedPage = () => {
   return (
     <PageWrapper>
       <Header
@@ -63,4 +63,4 @@ const Text = styled(S.Text)`
   width: min(344px, 100%);
 `;
 
-export default Custom403;
+export default UnauthorizedPage;

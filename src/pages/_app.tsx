@@ -33,14 +33,11 @@ function MyApp({ Component, pageProps }: AppProps<{ utmSource: string }>) {
                   break;
                 }
                 case 403: {
-                  router.replace(ROUTE[403]);
-                  break;
-                }
-                case 404: {
-                  router.replace(ROUTE[404]);
+                  router.replace(ROUTE.unauthorized);
                   break;
                 }
                 default:
+                  router.replace(ROUTE.error);
               }
             },
           },

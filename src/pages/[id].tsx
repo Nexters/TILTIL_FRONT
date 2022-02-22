@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import api from 'apis/interceptor';
+import api, { setAuthorization } from 'apis/interceptor';
 import { useFetchGreetingMessage, useFetchRecentTilLog, useFetchUserTilStatistics } from 'apis/opens';
 import Button from 'components/Button';
 import GuideIllust from 'components/GuideIllust';
@@ -30,7 +30,7 @@ const MainPage = ({ isMobile, id, isShared }: Props) => {
       <Header rightButton={['share', 'user']} />
       <main>
         <GuideIllust greeting={greeting?.data} isMobile={isMobile} />
-        <MontlyLog logs={recent?.data.tilLogs} total={recent?.data.sumOfTil} />
+        <MontlyLog logs={recent?.data.tilLogs} total={recent?.data.sumOfTil} isMobile={isMobile} />
         <RecordStatistics statistics={statistics?.data} />
         <ButtonWrapper>
           <Link href="/records/new" passHref>
@@ -47,12 +47,12 @@ const ButtonWrapper = styled.div`
   margin: 0 24px 24px 24px;
 `;
 
-export async function getServerSideProps(context: GetServerSidePropsContext) {
-  const isMobile = isMobileDetect(context.req);
+export async function getServerSideProps({ req, query }: GetServerSidePropsContext) {
+  const isMobile = isMobileDetect(req);
   const queryClient = new QueryClient();
-  const userId = Number(context.query.id);
+  const userId = Number(query.id);
+
   await queryClient.prefetchQuery(userKeys.greeting(userId), async () => {
-    if (!userId) return null;
     const { data } = await api.open.getUserGreetingMessageUsingGet(userId);
     return data;
   });
@@ -65,14 +65,30 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     return data;
   });
 
-  return {
-    props: {
-      dehydratedState: dehydrate(queryClient),
-      isMobile,
-      id: userId,
-      isShared: Boolean(context.query.mine),
-    },
+  const props = {
+    dehydratedState: dehydrate(queryClient),
+    isMobile,
+    id: userId,
   };
+
+  try {
+    const { accessToken } = req.cookies;
+    setAuthorization(accessToken);
+    const { data } = await api.users.userUsingGet();
+    return {
+      props: {
+        ...props,
+        isShared: data.id !== userId,
+      },
+    };
+  } catch (error) {
+    return {
+      props: {
+        ...props,
+        isShared: true,
+      },
+    };
+  }
 }
 
 export default MainPage;
