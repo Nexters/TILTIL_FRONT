@@ -11,8 +11,8 @@ export const ROUTE = {
   myNickname: '/my/nickname',
 
   // Error Page
-  403: '/403',
-  404: '/404',
+  unauthorized: '/unauthorized',
+  error: '/error',
 } as const;
 
 export type Route = ValueOf<typeof ROUTE>;
