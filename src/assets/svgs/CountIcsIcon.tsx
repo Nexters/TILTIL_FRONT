@@ -8,7 +8,7 @@ const Zero = 0;
 const ONE = 1;
 const TWO = 2;
 const Three = 3;
-const Disable = -1;
+const Four = -1;
 
 const CountIcsIcon = ({ count }: Props) => {
   return <IcePiece count={count} />;
@@ -16,12 +16,12 @@ const CountIcsIcon = ({ count }: Props) => {
 
 const IcePiece = ({ count }: Props) =>
   ({
-    [Zero]: <ZeroCommit />,
-    [ONE]: <OneCommit />,
-    [TWO]: <TwoCommit />,
-    [Three]: <ThreeCommit />,
-    [Disable]: <DisableCommit />,
-  }[count] ?? <></>);
+    [Zero]: <DisableCommit />,
+    [ONE]: <ZeroCommit />,
+    [TWO]: <OneCommit />,
+    [Three]: <TwoCommit />,
+    [Four]: <ThreeCommit />,
+  }[count] ?? <DisableCommit />);
 
 const ZeroCommit = () => {
   return (
