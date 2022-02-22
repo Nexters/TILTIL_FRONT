@@ -1,8 +1,6 @@
 import { ROUTE } from 'constants/route';
 
 import styled from '@emotion/styled';
-import { UserResponse } from 'apis/api';
-import { useFetchMe } from 'apis/users';
 import { Icon, LeftButtonIconName, RightButtonIconName } from 'components/icon/Icon';
 import { useRouter } from 'next/router';
 import React, { ReactNode, useEffect, useMemo, useState } from 'react';

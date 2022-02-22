@@ -1,7 +1,6 @@
 import styled from '@emotion/styled';
 import { TilSimpleResponse } from 'apis/api';
 import { useMyTils } from 'apis/til';
-import { useFetchMe } from 'apis/users';
 import Header from 'components/layout/Header';
 import EmptyList from 'components/records/EmptyList';
 import TILItem from 'components/records/TILItem';
@@ -21,7 +20,6 @@ const RecordsPage: React.VFC = () => {
     delay: 200,
   });
 
-  const me = useFetchMe();
   const { isMatched: isMobile, isCheckedScreenSize } = useMediaQuery(`(max-width: ${theme.size.mobile}px)`);
 
   const { data, isLoading, isFetching, isSuccess, isFetchingNextPage, hasNextPage, fetchNextPage } = useMyTils(
