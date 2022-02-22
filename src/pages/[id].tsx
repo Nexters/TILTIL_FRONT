@@ -52,6 +52,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
   const queryClient = new QueryClient();
   const userId = Number(context.query.id);
   await queryClient.prefetchQuery(userKeys.greeting(userId), async () => {
+    if (!userId) return null;
     const { data } = await api.open.getUserGreetingMessageUsingGet(userId);
     return data;
   });
