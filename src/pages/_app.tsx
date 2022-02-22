@@ -2,7 +2,6 @@ import { ROUTE } from 'constants/route';
 
 import { Global, ThemeProvider } from '@emotion/react';
 import { AxiosError } from 'axios';
-import { NextPageContext } from 'next';
 import type { AppProps } from 'next/app';
 import { useRouter } from 'next/router';
 import React, { FC } from 'react';

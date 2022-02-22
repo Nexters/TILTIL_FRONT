@@ -14,10 +14,15 @@ export const useFetchUserTilStatistics = (userId: number) => {
 };
 
 export const useFetchGreetingMessage = (userId: number, isShare?: boolean) => {
-  const { data } = useQuery(userKeys.greeting(userId), () =>
-    api.open.getUserGreetingMessageUsingGet(userId, {
-      isShare,
-    })
+  const { data } = useQuery(
+    userKeys.greeting(userId),
+    () =>
+      api.open.getUserGreetingMessageUsingGet(userId, {
+        isShare,
+      }),
+    {
+      enabled: Boolean(userId),
+    }
   );
   return data;
 };
