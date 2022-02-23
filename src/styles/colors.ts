@@ -1,5 +1,3 @@
-import { platform } from 'os';
-
 import { css } from '@emotion/react';
 
 const palette = {
