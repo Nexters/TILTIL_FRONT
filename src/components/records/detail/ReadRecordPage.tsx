@@ -166,6 +166,7 @@ const TilItem = styled.li<StyledProps>`
   position: relative;
   margin-bottom: 60px;
   padding: 24px 16px 16px;
+  word-break: break-all;
 
   border-radius: 12px;
   background-color: ${({ theme: { colors } }) => colors.ui.inputField};
