@@ -57,7 +57,7 @@ export async function getServerSideProps({ req, query }: GetServerSidePropsConte
   const queryClient = new QueryClient();
   const userId = Number(query.id);
 
-  // skip data fetching if CSR
+  // skip data prefetching if CSR
   if (req.url?.startsWith('/_next')) {
     return {
       props: {
@@ -68,7 +68,7 @@ export async function getServerSideProps({ req, query }: GetServerSidePropsConte
     };
   }
 
-  // data prefetching in SSR
+  // data prefetching if SSR
   await queryClient.prefetchQuery(userKeys.greeting(userId), async () => {
     const { data } = await api.open.getUserGreetingMessageUsingGet(userId);
     return data;
