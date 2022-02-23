@@ -4,8 +4,8 @@ import { useQuery } from 'react-query';
 import api from './interceptor';
 
 export const useFetchRecentTilLog = (userId: number) => {
-  const { data } = useQuery(userKeys.recentLogs(), () => api.open.getRecentTilLogsUsingGet(userId));
-  return data;
+  const { data, isLoading } = useQuery(userKeys.recentLogs(), () => api.open.getRecentTilLogsUsingGet(userId));
+  return { data, isLoading };
 };
 
 export const useFetchUserTilStatistics = (userId: number) => {

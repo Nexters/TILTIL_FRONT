@@ -1,9 +1,11 @@
 import styled from '@emotion/styled';
 import { TilLogResponse } from 'apis/api';
+import loading from 'assets/lotties/loading.json';
 import { IceCubesIcon } from 'assets/svgs';
 import { ZeroCommit } from 'assets/svgs/CountIcsIcon';
 import Link from 'next/link';
 import React from 'react';
+import Lottie from 'react-lottie';
 import { useDialogStore } from 'states/dialogStore';
 import theme from 'styles/theme';
 import { PartialPick } from 'types/common';
@@ -20,11 +22,12 @@ interface MontlyTilsProps {
   logs: TilLogResponse[];
   range: string;
   isMobile: boolean;
+  isLoading: boolean;
 }
 
 type Props = PartialPick<MontlyTilsProps, 'isMobile'>;
 
-const MontlyLog = ({ total = 11, logs = dummy, isMobile }: Props) => {
+const MontlyLog = ({ total = 11, logs = dummy, isMobile, isLoading }: Props) => {
   const { open } = useDialogStore();
 
   const startAt = logs[0].date;
@@ -33,6 +36,21 @@ const MontlyLog = ({ total = 11, logs = dummy, isMobile }: Props) => {
   return (
     <>
       <MontlyTils className="mt-5">
+        {isLoading && (
+          <Lottie
+            options={{
+              animationData: loading,
+              autoplay: true,
+              loop: true,
+            }}
+            style={{
+              position: 'absolute',
+              zIndex: 1000,
+              width: 110,
+              height: 100,
+            }}
+          />
+        )}
         <MontlyTitle className="mb-3 mb-half">
           <Count>
             <Text className="mr-1 ml-half" typography="body6">
@@ -48,7 +66,7 @@ const MontlyLog = ({ total = 11, logs = dummy, isMobile }: Props) => {
             </ButtonSmall>
           </Link>
         </MontlyTitle>
-        <CalandarGrapth logs={logs} isMobile={isMobile} />
+        <CalandarGrapth logs={logs} isMobile={isMobile} isLoading={isLoading} />
         <Note>
           <button
             type="button"
@@ -105,6 +123,7 @@ const MontlyLog = ({ total = 11, logs = dummy, isMobile }: Props) => {
 };
 
 const MontlyTils = styled.section`
+  position: relative;
   flex: 1;
   display: flex;
   flex-direction: column;

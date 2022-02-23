@@ -23,11 +23,12 @@ function spliceLogDeviceDetect({ logs, isMobile }: Params) {
 interface CalandarGrapthProps {
   logs: TilLogResponse[];
   isMobile: boolean;
+  isLoading: boolean;
 }
 
 type Props = PartialPick<CalandarGrapthProps, 'isMobile'>;
 
-const CalandarGrapth = ({ logs, isMobile }: Props) => {
+const CalandarGrapth = ({ logs, isMobile, isLoading }: Props) => {
   const lists = spliceLogDeviceDetect({ logs, isMobile });
 
   return (
@@ -37,7 +38,7 @@ const CalandarGrapth = ({ logs, isMobile }: Props) => {
           <Line key={index}>
             {list?.map(({ count }, idx) => (
               <IconWrapper key={idx}>
-                <CountIcsIcon count={count ?? 0} />
+                <CountIcsIcon count={isLoading ? -1 : count ?? 0} />
               </IconWrapper>
             ))}
           </Line>

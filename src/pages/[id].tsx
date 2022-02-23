@@ -27,7 +27,7 @@ const MainPage = ({ isMobile, id, isShared, isCSR }: Props) => {
   const isSharedLink = isCSR ? !me || me?.data.id !== Number(id) : isShared;
 
   const greeting = useFetchGreetingMessage(id, isSharedLink);
-  const recent = useFetchRecentTilLog(id);
+  const { data: recent, isLoading: isLoadingLog } = useFetchRecentTilLog(id);
   const statistics = useFetchUserTilStatistics(id);
 
   return (
@@ -35,7 +35,12 @@ const MainPage = ({ isMobile, id, isShared, isCSR }: Props) => {
       <Header rightButton={['share', 'user']} background="transparent" />
       <main>
         <GuideIllust greeting={greeting?.data} isMobile={isMobile} />
-        <MontlyLog logs={recent?.data.tilLogs} total={recent?.data.sumOfTil} isMobile={isMobile} />
+        <MontlyLog
+          logs={recent?.data.tilLogs}
+          total={recent?.data.sumOfTil}
+          isMobile={isMobile}
+          isLoading={isLoadingLog}
+        />
         <RecordStatistics statistics={statistics?.data} />
         <ButtonWrapper>
           <Link href="/records/new" passHref>
