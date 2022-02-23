@@ -3,9 +3,10 @@ import { useMutation, useQuery } from 'react-query';
 
 import api from './interceptor';
 
-export const useFetchMe = () => {
+export const useFetchMe = (enabled = true) => {
   const { data } = useQuery(userKeys.me(), () => api.users.userUsingGet(), {
     staleTime: Infinity,
+    enabled,
   });
   return data;
 };

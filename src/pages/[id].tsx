@@ -1,6 +1,7 @@
 import styled from '@emotion/styled';
 import api, { setAuthorization } from 'apis/interceptor';
 import { useFetchGreetingMessage, useFetchRecentTilLog, useFetchUserTilStatistics } from 'apis/opens';
+import { useFetchMe } from 'apis/users';
 import Button from 'components/Button';
 import GuideIllust from 'components/GuideIllust';
 import Header from 'components/layout/Header';
@@ -18,10 +19,14 @@ interface Props {
   isMobile: boolean;
   id: number;
   isShared: boolean;
+  isCSR: boolean;
 }
 
-const MainPage = ({ isMobile, id, isShared }: Props) => {
-  const greeting = useFetchGreetingMessage(id, isShared);
+const MainPage = ({ isMobile, id, isShared, isCSR }: Props) => {
+  const me = useFetchMe(isCSR);
+  const isSharedLink = isCSR ? !me || me?.data.id !== Number(id) : isShared;
+
+  const greeting = useFetchGreetingMessage(id, isSharedLink);
   const recent = useFetchRecentTilLog(id);
   const statistics = useFetchUserTilStatistics(id);
 
@@ -52,6 +57,18 @@ export async function getServerSideProps({ req, query }: GetServerSidePropsConte
   const queryClient = new QueryClient();
   const userId = Number(query.id);
 
+  // skip data fetching if CSR
+  if (req.url?.startsWith('/_next')) {
+    return {
+      props: {
+        isMobile,
+        id: userId,
+        isCSR: true,
+      },
+    };
+  }
+
+  // data prefetching in SSR
   await queryClient.prefetchQuery(userKeys.greeting(userId), async () => {
     const { data } = await api.open.getUserGreetingMessageUsingGet(userId);
     return data;
@@ -69,6 +86,7 @@ export async function getServerSideProps({ req, query }: GetServerSidePropsConte
     dehydratedState: dehydrate(queryClient),
     isMobile,
     id: userId,
+    isCSR: false,
   };
 
   try {
