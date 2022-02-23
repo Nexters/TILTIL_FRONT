@@ -63,6 +63,7 @@ const colors = {
     global: palette.blueGray200,
     cancel: palette.gray200,
     pressed: palette.blue550,
+    transparent: 'transparent',
   },
 
   ui: {
