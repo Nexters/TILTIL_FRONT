@@ -1,8 +1,8 @@
 import React from 'react';
 
-const IceCubesIcon = () => {
+const IceCubesIcon: React.VFC<React.SVGProps<SVGSVGElement>> = (props) => {
   return (
-    <svg width="272" height="92" viewBox="0 0 272 92" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <svg width="272" height="92" viewBox="0 0 272 92" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
       <path
         d="M96.6197 87.3787C95.4716 89.4107 92.5449 89.4111 91.3962 87.3794L68.8348 47.4744C68.3168 46.5582 68.3168 45.4375 68.8349 44.5213L91.3963 4.62004C92.545 2.5885 95.4715 2.58892 96.6196 4.62078L119.166 44.5221C119.684 45.4379 119.684 46.5579 119.166 47.4737L96.6197 87.3787Z"
         fill="#8BDCFF"
