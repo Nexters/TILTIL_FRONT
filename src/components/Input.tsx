@@ -30,12 +30,11 @@ const Wrapper = styled.div<WrapperProps>`
 
   input {
     display: block;
-    flex-grow: 1;
     background-color: inherit;
     border: 0;
     ${({ theme }) => theme.typography.body2};
     color: ${({ theme }) => theme.colors.text.idle};
-    flex: 1 1;
+    width: 100%;
   }
 `;
 
@@ -43,6 +42,7 @@ const LengthWrapper = styled.span`
   color: ${({ theme }) => theme.colors.text.placeholder};
   ${({ theme }) => theme.typography.body4};
   text-align: right;
+  white-space: nowrap;
 `;
 
 export default Input;
