@@ -1,9 +1,12 @@
 import React from 'react';
 
+import EmptyIceCube from './EmptyIceCube';
+
 interface Props {
   count: number;
 }
 
+const Empty = -1;
 const Zero = 0;
 const ONE = 1;
 const TWO = 2;
@@ -15,6 +18,7 @@ const CountIcsIcon = ({ count }: Props) => {
 
 const IcePiece = ({ count }: Props) =>
   ({
+    [Empty]: <EmptyIceCube width={45} height={80} />,
     [Zero]: <ZeroCommit />,
     [ONE]: <OneCommit />,
     [TWO]: <TwoCommit />,
