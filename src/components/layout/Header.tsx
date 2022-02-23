@@ -5,6 +5,7 @@ import { Icon, LeftButtonIconName, RightButtonIconName } from 'components/icon/I
 import { useRouter } from 'next/router';
 import React, { ReactNode, useEffect, useMemo, useState } from 'react';
 import { Background } from 'types/styled';
+import media from 'utils/media';
 
 import RightButton from './RightButton';
 
@@ -73,21 +74,28 @@ const Header: React.VFC<Props> = ({ title, leftButton, rightButton, background =
 };
 
 const Wrapper = styled.header<WrapperProps>`
-  position: sticky;
+  position: fixed;
   top: 0px;
+  left: 50%;
+  transform: translateX(-50%);
+
   display: flex;
   justify-content: center;
   align-items: center;
 
+  width: ${({ theme: { size } }) => size.desktop}px;
   height: ${({ theme: { header } }) => header.desktop}px;
   padding: 0 ${({ theme: { padding } }) => padding.md}px;
   background-color: ${({ theme: { colors }, background }) => colors.background[background]};
+  z-index: ${({ theme: { zIndex } }) => zIndex.header};
+
+  ${media.tablet} {
+    width: 100%;
+  }
 
   button {
     display: flex;
   }
-
-  z-index: ${({ theme: { zIndex } }) => zIndex.header};
 `;
 
 const LeftButton = styled.button`

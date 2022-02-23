@@ -90,6 +90,7 @@ const LoginPage: React.VFC<Props> = ({ isMobileAgent }) => {
 const RelativePageWrapper = styled(PageWrapper)`
   display: flex;
   flex-direction: column;
+  overflow-y: hidden;
 `;
 
 const DescriptionWrapper = styled.div<DescriptionWrapperProps>`
@@ -126,6 +127,8 @@ const BottomArea = styled.div`
   display: flex;
   align-items: flex-end;
   background: linear-gradient(180deg, rgba(129, 194, 255, 0.33) 0%, rgba(7, 136, 255, 0.65) 100%);
+  z-index: 1;
+
   div {
     width: 100%;
     display: flex;

@@ -27,7 +27,7 @@ const MainPage = ({ isMobile, id, isShared }: Props) => {
 
   return (
     <PageWrapper background="default">
-      <Header rightButton={['share', 'user']} />
+      <Header rightButton={['share', 'user']} background="transparent" />
       <main>
         <GuideIllust greeting={greeting?.data} isMobile={isMobile} />
         <MontlyLog logs={recent?.data.tilLogs} total={recent?.data.sumOfTil} isMobile={isMobile} />

@@ -1,5 +1,3 @@
-import { platform } from 'os';
-
 import { css } from '@emotion/react';
 
 const palette = {
@@ -63,6 +61,7 @@ const colors = {
     global: palette.blueGray200,
     cancel: palette.gray200,
     pressed: palette.blue550,
+    transparent: 'transparent',
   },
 
   ui: {

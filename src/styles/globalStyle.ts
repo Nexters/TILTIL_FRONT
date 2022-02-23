@@ -48,6 +48,8 @@ const globalStyle = css`
     margin: 0;
     padding: 0;
     border: 0;
+    width: 100%;
+    height: 100%;
   }
 
   #__next {
