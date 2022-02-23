@@ -40,12 +40,12 @@ const TILItem: React.VFC<TILItemProps> = ({
       <Title>{title}</Title>
 
       <TagList>
-        {hasWellContent && (
+        {hasLearnContent && (
           <li>
             <Tag category="learn" status="active" />
           </li>
         )}
-        {hasLearnContent && (
+        {hasWellContent && (
           <li>
             <Tag category="good" status="active" />
           </li>
