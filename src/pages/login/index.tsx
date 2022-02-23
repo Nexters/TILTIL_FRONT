@@ -90,6 +90,7 @@ const LoginPage: React.VFC<Props> = ({ isMobileAgent }) => {
 const RelativePageWrapper = styled(PageWrapper)`
   display: flex;
   flex-direction: column;
+  overflow-y: hidden;
 `;
 
 const DescriptionWrapper = styled.div<DescriptionWrapperProps>`
