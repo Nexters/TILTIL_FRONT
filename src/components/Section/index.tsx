@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
 import fillingIcebergAnimation from 'assets/lotties/fillingIceberg.json';
+import HTMLRenderer from 'components/HTMLRenderer';
 import { Icon } from 'components/icon/Icon';
 import InfiniteSlider from 'components/InfiniteSlider';
 import { Text } from 'components/Text';
@@ -16,7 +17,7 @@ interface SectionProps {
 interface Components {
   Main: () => JSX.Element;
   Slider: () => JSX.Element;
-  IceMountain: () => JSX.Element;
+  Iceberg: () => JSX.Element;
   Helper: () => JSX.Element;
   Growth: () => JSX.Element;
   Phrases: () => JSX.Element;
@@ -62,8 +63,38 @@ const Slider = () => {
   );
 };
 
-const IceMountain = () => {
-  return <></>;
+const Iceberg = () => {
+  return (
+    <IcebergWrapper>
+      <IcebergTop>
+        <IcebergTopContent>
+          <HTMLRenderer
+            html="<span><b>암묵지</b>란,</span>"
+            components={{
+              b: (props) => <Text {...props} typography="h1" color={theme.colors.text.highlight} />,
+              span: (props) => <Text {...props} typography="h2" color={theme.colors.text.idle} />,
+            }}
+          />
+          <Text className="mt-1" textAlign="center" typography="body2">
+            {convertNewLineToJSX('문서로 눈으로 쉽게 보일 수 있는\n지식, 정보가 아닌')}
+          </Text>
+        </IcebergTopContent>
+        <Icon name="icebergTop" />
+      </IcebergTop>
+      <IcebergBottom>
+        <Icon name="icebergBottom" />
+        <IcebergBottomContent>
+          <HTMLRenderer
+            html="<div>오랜 기간 축적된 경험과<br/>학습을 통해 얻게된<br/><b>내공과 연륜</b>을 뜻해요.</div>"
+            components={{
+              div: (props) => <Text {...props} typography="body2" textAlign="center" />,
+              b: (props) => <Text {...props} fontWeight="normal" display="inline" />,
+            }}
+          />
+        </IcebergBottomContent>
+      </IcebergBottom>
+    </IcebergWrapper>
+  );
 };
 
 const Helper = () => {
@@ -77,8 +108,8 @@ const Helper = () => {
         BingBong과 함께라면 쉬워져요.
       </Text>
       <HelperIconWrapper>
-        <Icon name="togetherIcon" />
         <Icon name="easyWriteIcon" />
+        <Icon name="togetherIcon" />
         <Icon name="togetherIcon" />
       </HelperIconWrapper>
     </HelperWrapper>
@@ -125,7 +156,7 @@ Section.Main = Main;
 
 Section.Slider = Slider;
 
-Section.IceMountain = IceMountain;
+Section.Iceberg = Iceberg;
 
 Section.Helper = Helper;
 
@@ -204,5 +235,43 @@ const PhraseWrapper = styled(DefaultSection)`
     height: 396px;
   }
 `;
+const IcebergWrapper = styled(DefaultSection)`
+  height: 744px;
+  ${media.mobile} {
+    height: 804px;
+  }
+`;
+const IcebergTop = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  height: 410px;
+  width: 100%;
+`;
+const IcebergTopContent = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 
+  margin-top: 147px;
+`;
+const IcebergBottom = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  height: 396px;
+  width: 100%;
+  background: linear-gradient(180deg, rgba(129, 194, 255, 0.33) 0%, rgba(7, 136, 255, 0.65) 100%);
+`;
+const IcebergBottomContent = styled.div`
+  position: absolute;
+  margin-top: 59px;
+
+  ${media.mobile} {
+    margin-bottom: 48px;
+  }
+`;
 export { Section };

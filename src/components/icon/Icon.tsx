@@ -23,6 +23,9 @@ import {
   WriteIcon,
   Bingbongs,
   HighlightBingbong,
+  IcebergTop,
+  IcebergBottom,
+  Cloud,
 } from 'assets/svgs';
 import EditIcon from 'assets/svgs/EditIcon';
 import React, { VFC } from 'react';
@@ -63,6 +66,9 @@ const ICONS = {
   write: WriteIcon,
   bingbongs: Bingbongs,
   blueBingBong: HighlightBingbong,
+  icebergTop: IcebergTop,
+  icebergBottom: IcebergBottom,
+  cloud: Cloud,
 } as const;
 
 export const Icon: VFC<IconProps> = ({ name, className, ...rest }) => {

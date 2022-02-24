@@ -25,3 +25,6 @@ export { default as GoodIcon } from './GoodIcon';
 export { default as WriteIcon } from './WriteIcon';
 export { default as Bingbongs } from './Bingbongs';
 export { default as HighlightBingbong } from './HighlightBingbong';
+export { default as IcebergBottom } from './IcebergBottom';
+export { default as IcebergTop } from './IcebergTop';
+export { default as Cloud } from './Cloud';

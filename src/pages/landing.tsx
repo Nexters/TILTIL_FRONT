@@ -41,6 +41,7 @@ const LandingPage = ({ isMobile }: { isMobile: boolean }) => {
       <Section onClick={() => {}}>
         <Section.Main />
         <Section.Slider />
+        <Section.Iceberg />
         <Section.Helper />
         <Section.Growth />
         <Section.Phrases />
