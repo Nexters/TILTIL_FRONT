@@ -12,6 +12,7 @@ import Link from 'next/link';
 import React from 'react';
 import { Main, PageWrapper } from 'styles/styled';
 import theme from 'styles/theme';
+import convertNewLineToJSX from 'utils/convertNewLineToJSX';
 import media from 'utils/media';
 
 type Props = TilDetailResponse & { isLoading: boolean };
@@ -57,7 +58,7 @@ const ReadRecordPage: React.VFC<Props> = ({
                     <Label>
                       <Tag size="large" category="learn" status="active" />
                     </Label>
-                    {learnContent}
+                    {convertNewLineToJSX(learnContent)}
                   </TilItem>
                 )}
                 {wellContent && (
@@ -65,7 +66,7 @@ const ReadRecordPage: React.VFC<Props> = ({
                     <Label>
                       <Tag size="large" category="good" status="active" />
                     </Label>
-                    {wellContent}
+                    {convertNewLineToJSX(wellContent)}
                   </TilItem>
                 )}
                 {improveContent && (
@@ -73,7 +74,7 @@ const ReadRecordPage: React.VFC<Props> = ({
                     <Label>
                       <Tag size="large" category="improve" status="active" />
                     </Label>
-                    {improveContent}
+                    {convertNewLineToJSX(improveContent)}
                   </TilItem>
                 )}
                 {questionContent && (
@@ -81,7 +82,7 @@ const ReadRecordPage: React.VFC<Props> = ({
                     <Label>
                       <Tag size="large" category="curious" status="active" />
                     </Label>
-                    {questionContent}
+                    {convertNewLineToJSX(questionContent)}
                   </TilItem>
                 )}
               </>
