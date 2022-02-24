@@ -56,6 +56,11 @@ const GradientWrapper = styled.div`
   background: radial-gradient(43.7% 86.49% at 100% 100%, rgba(193, 225, 255, 0.3) 0%, rgba(193, 225, 255, 0) 100%),
     radial-gradient(74.61% 74.61% at 1.25% 100%, rgba(58, 161, 255, 0.3) 0%, rgba(58, 161, 255, 0) 100%);
   border-radius: 0px;
+
+  ${media.mobile} {
+    justify-content: flex-end;
+    align-items: flex-end;
+  }
 `;
 
 const SIcon = styled(Icon)`
