@@ -10,12 +10,12 @@ function spliceLogDeviceDetect({ logs, isMobile }: Params) {
   const point = isMobile ? 6 : 8;
   let start = 0;
   let end = point;
+  const sub = isMobile ? 0 : 1;
   const lists = Array(isMobile ? 6 : 4).fill(null);
-
   lists.forEach((_, i) => {
     lists[i] = logs?.slice(start, end);
     start = end;
-    end += i % 2 ? point : point - 1;
+    end += i % 2 ? point : point - sub;
   });
 
   return lists as TilLogResponse[][];
@@ -38,7 +38,7 @@ const CalandarGrapth = ({ logs, isMobile, isLoading }: Props) => {
           <Line key={index}>
             {list?.map(({ count }, idx) => (
               <IconWrapper key={idx}>
-                <CountIcsIcon count={isLoading ? -1 : count ?? 0} />
+                <CountIcsIcon count={isLoading ? -1 : Number(count) - 1 ?? 0} />
               </IconWrapper>
             ))}
           </Line>
@@ -75,13 +75,17 @@ const Line = styled.div`
     top: -84px;
   }
   :nth-of-type(5) {
-    top: -102px;
+    top: -112px;
   }
 `;
 
 const IconWrapper = styled.div`
   :not(:last-of-type) {
     margin-right: 16px;
+
+    ${media.mobile} {
+      margin-right: 12px;
+    }
   }
 `;
 
