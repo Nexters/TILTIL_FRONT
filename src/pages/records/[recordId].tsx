@@ -1,6 +1,7 @@
 import { TilRequest } from 'apis/api';
 import { readTil, useTilEditMutation } from 'apis/til';
 import { Form } from 'components/Form';
+import Head from 'components/Head';
 import Header from 'components/layout/Header';
 import ReadRecordPage from 'components/records/detail/ReadRecordPage';
 import { GetServerSidePropsContext } from 'next';
@@ -26,6 +27,8 @@ const RecordPage: VFC<Props> = ({ recordId: id }) => {
   if (type === 'modify' && !isLoading) {
     return (
       <PageWrapper>
+        <Head subTitle="암묵지 쌓기" />
+
         <Header title="암묵지 쌓기" />
         <Form
           tilDetailResponse={tilDetail?.data}

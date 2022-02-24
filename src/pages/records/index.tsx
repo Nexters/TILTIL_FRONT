@@ -1,6 +1,7 @@
 import styled from '@emotion/styled';
 import { TilSimpleResponse } from 'apis/api';
 import { useMyTils } from 'apis/til';
+import Head from 'components/Head';
 import Header from 'components/layout/Header';
 import EmptyList from 'components/records/EmptyList';
 import TILItem from 'components/records/TILItem';
@@ -43,8 +44,9 @@ const RecordsPage: React.VFC = () => {
 
   return (
     <PageWrapper background="default">
-      <Header title="나의 암묵지" leftButton="home" background="default" rightButton={['edit']} />
+      <Head subTitle="나의 암묵지" />
 
+      <Header title="나의 암묵지" leftButton="home" background="default" rightButton={['edit']} />
       <RecordsMain padding="md">
         {(() => {
           if (isLoading) {

@@ -4,6 +4,7 @@ import styled from '@emotion/styled';
 import icebergAnimation from 'assets/lotties/iceUpDown.json';
 import GoogleIcon from 'assets/svgs/GoogleIcon';
 import Button from 'components/Button';
+import Head from 'components/Head';
 import { Icon } from 'components/icon/Icon';
 import Header from 'components/layout/Header';
 import { Text } from 'components/Text';
@@ -51,6 +52,8 @@ const LoginPage: React.VFC<Props> = ({ isMobileAgent }) => {
 
   return (
     <RelativePageWrapper>
+      <Head subTitle="로그인" />
+
       <Header rightButton={['cancel']} />
       <TopArea height={245 + ratio * 150}>
         <DescriptionWrapper isMobile={isMobile} className="mx-3">

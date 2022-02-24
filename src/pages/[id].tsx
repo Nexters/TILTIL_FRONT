@@ -4,6 +4,7 @@ import { useFetchGreetingMessage, useFetchRecentTilLog, useFetchUserTilStatistic
 import { useFetchMe } from 'apis/users';
 import Button from 'components/Button';
 import GuideIllust from 'components/GuideIllust';
+import Head from 'components/Head';
 import Header from 'components/layout/Header';
 import MontlyLog from 'components/MontlyLog';
 import RecordStatistics from 'components/RecordStatistics';
@@ -32,6 +33,8 @@ const MainPage = ({ isMobile, id, isShared, isCSR }: Props) => {
 
   return (
     <PageWrapper background="default">
+      <Head description="친구가 암묵지를 공유했어요! 구경하러 가볼까요?" image="/images/share-og-image.png" />
+
       <Header rightButton={['share', 'user']} background="transparent" />
       <main>
         <GuideIllust greeting={greeting?.data} isMobile={isMobile} />

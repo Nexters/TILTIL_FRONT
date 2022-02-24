@@ -5,6 +5,7 @@ import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import { TilDetailResponse } from 'apis/api';
 import { ButtonLine } from 'components/ButtonSmall';
+import Head from 'components/Head';
 import Header from 'components/layout/Header';
 import Tag from 'components/Tag';
 import dayjs from 'dayjs';
@@ -29,8 +30,9 @@ const ReadRecordPage: React.VFC<Props> = ({
 }) => {
   return (
     <PageWrapper background="default">
-      <Header title="암묵지 읽기" leftButton="home" rightButton={['more']} background="default" />
+      <Head subTitle="암묵지 읽기" />
 
+      <Header title="암묵지 읽기" leftButton="home" rightButton={['more']} background="default" />
       <ReadMain>
         <MainHeader dimmed={isLoading}>
           <div>{dayjs(createAt).format('YYYY.MM.DD')}</div>

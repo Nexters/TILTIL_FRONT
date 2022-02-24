@@ -2,6 +2,7 @@ import { ROUTE } from 'constants/route';
 
 import styled from '@emotion/styled';
 import { LockIcon } from 'assets/svgs';
+import Head from 'components/Head';
 import Link from 'next/link';
 import React from 'react';
 import colors from 'styles/colors';
@@ -17,6 +18,8 @@ import * as S from './error';
 const UnauthorizedPage = () => {
   return (
     <PageWrapper>
+      <Head />
+
       <Header
         title={
           <S.Title>
