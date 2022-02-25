@@ -5,6 +5,7 @@ import { useCanWriteTilUsingGet, useTilCreateMutation } from 'apis/til';
 import { Dialog } from 'components/dialog/Dialog';
 import { DialogContent, DialogDescription, DialogTitle } from 'components/dialog/DialogConfirm';
 import { Form } from 'components/Form';
+import Head from 'components/Head';
 import Header from 'components/layout/Header';
 import { useRouter } from 'next/router';
 import React, { useEffect } from 'react';
@@ -41,6 +42,8 @@ const NewRecord = () => {
 
   return (
     <PageWrapper>
+      <Head subTitle="암묵지 쌓기" />
+
       <Header title="암묵지 쌓기" />
       <Form
         onSubmit={async (tilRequest: TilRequest) => {

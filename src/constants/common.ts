@@ -6,3 +6,6 @@ export const CATEGORY_TEXT = {
   improve: '개선할 점',
   curious: '궁금한 점',
 } as const;
+
+export const DOMAIN = 'https://bing-bong.today';
+export const BINGBONG = 'Bingbong(빙봉)';

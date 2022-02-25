@@ -3,6 +3,7 @@ import { ROUTE } from 'constants/route';
 import styled from '@emotion/styled';
 import { ErrorIcon } from 'assets/svgs';
 import ButtonSmall from 'components/ButtonSmall';
+import Head from 'components/Head';
 import { Icon } from 'components/icon/Icon';
 import Header from 'components/layout/Header';
 import Link from 'next/link';
@@ -13,6 +14,8 @@ import { Main, PageWrapper } from 'styles/styled';
 const ErrorPage: React.VFC = () => {
   return (
     <PageWrapper>
+      <Head />
+
       <Header
         title={
           <Title>

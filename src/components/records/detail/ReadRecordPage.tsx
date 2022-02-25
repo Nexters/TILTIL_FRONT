@@ -5,6 +5,7 @@ import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import { TilDetailResponse } from 'apis/api';
 import { ButtonLine } from 'components/ButtonSmall';
+import Head from 'components/Head';
 import Header from 'components/layout/Header';
 import Tag from 'components/Tag';
 import dayjs from 'dayjs';
@@ -12,6 +13,7 @@ import Link from 'next/link';
 import React from 'react';
 import { Main, PageWrapper } from 'styles/styled';
 import theme from 'styles/theme';
+import convertNewLineToJSX from 'utils/convertNewLineToJSX';
 import media from 'utils/media';
 
 type Props = TilDetailResponse & { isLoading: boolean };
@@ -28,8 +30,9 @@ const ReadRecordPage: React.VFC<Props> = ({
 }) => {
   return (
     <PageWrapper background="default">
-      <Header title="암묵지 읽기" leftButton="home" rightButton={['more']} background="default" />
+      <Head subTitle="암묵지 읽기" />
 
+      <Header title="암묵지 읽기" leftButton="home" rightButton={['more']} background="default" />
       <ReadMain>
         <MainHeader dimmed={isLoading}>
           <div>{dayjs(createAt).format('YYYY.MM.DD')}</div>
@@ -57,7 +60,7 @@ const ReadRecordPage: React.VFC<Props> = ({
                     <Label>
                       <Tag size="large" category="learn" status="active" />
                     </Label>
-                    {learnContent}
+                    {convertNewLineToJSX(learnContent)}
                   </TilItem>
                 )}
                 {wellContent && (
@@ -65,7 +68,7 @@ const ReadRecordPage: React.VFC<Props> = ({
                     <Label>
                       <Tag size="large" category="good" status="active" />
                     </Label>
-                    {wellContent}
+                    {convertNewLineToJSX(wellContent)}
                   </TilItem>
                 )}
                 {improveContent && (
@@ -73,7 +76,7 @@ const ReadRecordPage: React.VFC<Props> = ({
                     <Label>
                       <Tag size="large" category="improve" status="active" />
                     </Label>
-                    {improveContent}
+                    {convertNewLineToJSX(improveContent)}
                   </TilItem>
                 )}
                 {questionContent && (
@@ -81,7 +84,7 @@ const ReadRecordPage: React.VFC<Props> = ({
                     <Label>
                       <Tag size="large" category="curious" status="active" />
                     </Label>
-                    {questionContent}
+                    {convertNewLineToJSX(questionContent)}
                   </TilItem>
                 )}
               </>

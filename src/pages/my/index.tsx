@@ -3,6 +3,7 @@ import { ROUTE } from 'constants/route';
 import styled from '@emotion/styled';
 import { useFetchMe } from 'apis/users';
 import { DialogConfirm } from 'components/dialog/DialogConfirm';
+import Head from 'components/Head';
 import Header from 'components/layout/Header';
 import { useRouter } from 'next/router';
 import React, { MouseEvent, useMemo } from 'react';
@@ -50,6 +51,8 @@ const MyPage: React.FC = () => {
 
   return (
     <PageWrapper>
+      <Head subTitle="마이 페이지" />
+
       <Header leftButton="home" />
       <Contents>
         <UserNameWrapper className="my-2">

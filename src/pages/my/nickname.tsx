@@ -3,6 +3,7 @@ import { ROUTE } from 'constants/route';
 import styled from '@emotion/styled';
 import { useFetchMe, useUpdateUserMutation } from 'apis/users';
 import Button from 'components/Button';
+import Head from 'components/Head';
 import Input from 'components/Input';
 import Header from 'components/layout/Header';
 import { useRouter } from 'next/router';
@@ -40,6 +41,8 @@ const NicknamePage: React.FC = () => {
 
   return (
     <PageWrapper>
+      <Head subTitle="닉네임 변경" />
+
       <Header leftButton="home" title="닉네임 변경" />
       <Contents>
         <Label className="mx-2">닉네임</Label>

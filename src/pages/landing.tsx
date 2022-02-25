@@ -2,6 +2,7 @@ import { ROUTE } from 'constants/route';
 
 import styled from '@emotion/styled';
 import Button from 'components/Button';
+import Head from 'components/Head';
 import Header from 'components/layout/Header';
 import { Section } from 'components/Section';
 import { Text } from 'components/Text';
@@ -31,6 +32,8 @@ const LandingPage = ({ isMobile }: { isMobile: boolean }) => {
 
   return (
     <PageWrapper ref={ref}>
+      <Head />
+
       <Header
         title={
           <Title>
