@@ -39,7 +39,7 @@ const UnauthorizedPage = () => {
             다른 페이지를 이용해주세요.
           </Text>
 
-          <Link href={ROUTE.main} passHref>
+          <Link href={ROUTE.users} passHref>
             <ButtonSmall backgroundColor={['primary', 'default']} textColor={['text', 'inverse']}>
               홈으로 가기
             </ButtonSmall>

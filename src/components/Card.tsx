@@ -20,7 +20,7 @@ const Card: React.VFC<Props> = ({ title, iconName, description, categories }) =>
   return (
     <Wrapper className="p-2">
       <Icon className="mb-1" name={iconName} />
-      <Title typography="caption1" className="mt-2">
+      <Title typography="body2" className="mt-2">
         {title}
       </Title>
       {categories ? (

@@ -1,8 +1,9 @@
 import { ValueOf } from 'types/common';
 
 export const ROUTE = {
-  main: '/',
-  landing: '/landing',
+  users: '/users',
+  users_detail: '/users/[id]',
+  landing: '/',
   login: '/login',
   records: '/records',
   records_detail: '/records/[recordId]',
