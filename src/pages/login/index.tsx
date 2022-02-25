@@ -165,7 +165,7 @@ export async function getServerSideProps({ req, res, query }: GetServerSideProps
     return {
       redirect: {
         permanent: false,
-        destination: ROUTE.main,
+        destination: ROUTE.users,
       },
     };
   }

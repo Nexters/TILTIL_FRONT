@@ -27,9 +27,6 @@ const GuideIllust = ({ isMobile, greeting }: Props) => {
             </Text>
             <Text typography="body2">암묵지 만드는 중</Text>
           </SignupDaysWrapper>
-          <Text typography="h2" color={theme.colors.text.highlight}>
-            {greeting?.nickname}님
-          </Text>
           <Text typography="h1" color={theme.colors.text.highlight}>
             {greeting?.content}
           </Text>

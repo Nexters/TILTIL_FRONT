@@ -33,7 +33,7 @@ const NewRecord = () => {
               </DialogDescription>
             </DialogContent>
           )}
-          onClose={() => router.replace(ROUTE.main)}
+          onClose={() => router.replace(ROUTE.users)}
           noCloseButton
         />
       );

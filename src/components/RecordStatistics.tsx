@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
 import { TilStatisticsResponse } from 'apis/api';
+import { EmptyIcon } from 'assets/svgs';
 import React from 'react';
 import colors from 'styles/colors';
 import theme from 'styles/theme';
@@ -38,19 +39,27 @@ const RecordStatistics: React.VFC<Props> = ({ statistics = {} }) => {
         <Icon name="chart" />
         <Text typography="h3">나의 암묵지 정보</Text>
       </TitleWrapper>
-      <CardsWrapper className="my-3">
-        <Card iconName="fire" title="연속으로" description={`${statistics.mostWriteDay}일 달성`} />
-        <Card
-          iconName="good"
-          title="자주 쓰는 요일"
-          description={statistics.mostDay?.map((key) => DAY_OF_WEEKS[key]).join(' ')}
-        />
-        <Card
-          iconName="write"
-          title="많이 키운 암묵지는"
-          categories={statistics.mostTilCategories?.map((key) => CATEGORIES[key])}
-        />
-      </CardsWrapper>
+      {statistics?.mostWriteDay ? (
+        <CardsWrapper className="my-3">
+          <Card iconName="fire" title="연속으로" description={`${statistics.mostWriteDay}일 달성`} />
+          <Card
+            iconName="good"
+            title="자주 쓰는 요일"
+            description={statistics.mostDay?.map((key) => DAY_OF_WEEKS[key]).join(' ')}
+          />
+          <Card
+            iconName="write"
+            title="많이 키운 암묵지는"
+            categories={statistics.mostTilCategories?.map((key) => CATEGORIES[key])}
+          />
+        </CardsWrapper>
+      ) : (
+        <EmptyWrapper>
+          <EmptyIcon />
+          <Text typography="body5">아직 암묵지 정보가 없어요.</Text>
+          <Text typography="body5">오늘의 암묵지를 작성해 보세요.</Text>
+        </EmptyWrapper>
+      )}
     </Wrapper>
   );
 };
@@ -79,6 +88,17 @@ const CardsWrapper = styled.div`
   div + div {
     margin-left: 16px;
   }
+`;
+
+const EmptyWrapper = styled.div`
+  margin: 24px 0 22px 0;
+  height: 150px;
+  display: flex;
+  flex-direction: column;
+  background-color: ${theme.colors.background.white};
+  align-items: center;
+  justify-content: center;
+  color: ${theme.colors.text.placeholder};
 `;
 
 export default RecordStatistics;

@@ -23,7 +23,7 @@ interface Props {
   isCSR: boolean;
 }
 
-const MainPage = ({ isMobile, id, isShared, isCSR }: Props) => {
+const UserPage = ({ isMobile, id, isShared, isCSR }: Props) => {
   const me = useFetchMe(isCSR);
   const isSharedLink = isCSR ? !me || me?.data.id !== Number(id) : isShared;
 
@@ -43,6 +43,7 @@ const MainPage = ({ isMobile, id, isShared, isCSR }: Props) => {
           total={recent?.data.sumOfTil}
           isMobile={isMobile}
           isLoading={isLoadingLog}
+          hasRecordsViewButton={!isSharedLink}
         />
         <RecordStatistics statistics={statistics?.data} />
         <ButtonWrapper>
@@ -117,4 +118,4 @@ export async function getServerSideProps({ req, query }: GetServerSidePropsConte
   }
 }
 
-export default MainPage;
+export default UserPage;

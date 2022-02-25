@@ -25,7 +25,7 @@ const Header: React.VFC<Props> = ({ title, leftButton, rightButton, background =
 
   const leftButtonHandlers = useMemo(
     () => ({
-      home: () => router.push(ROUTE.main),
+      home: () => router.push(ROUTE.users),
     }),
     []
   );

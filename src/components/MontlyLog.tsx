@@ -23,11 +23,12 @@ interface MontlyTilsProps {
   range: string;
   isMobile: boolean;
   isLoading: boolean;
+  hasRecordsViewButton: boolean;
 }
 
 type Props = PartialPick<MontlyTilsProps, 'isMobile'>;
 
-const MontlyLog = ({ total = 11, logs = dummy, isMobile, isLoading }: Props) => {
+const MontlyLog = ({ total = 11, logs = dummy, isMobile, isLoading, hasRecordsViewButton = true }: Props) => {
   const { open } = useDialogStore();
 
   const startAt = logs[0].date;
@@ -60,11 +61,13 @@ const MontlyLog = ({ total = 11, logs = dummy, isMobile, isLoading }: Props) => 
               {total} 개
             </Text>
           </Count>
-          <Link href="/records" passHref>
-            <ButtonSmall backgroundColor={['primary', 'extraLight']} textColor={['primary', 'light']}>
-              리스트 보기
-            </ButtonSmall>
-          </Link>
+          {hasRecordsViewButton && (
+            <Link href="/records" passHref>
+              <ButtonSmall backgroundColor={['primary', 'extraLight']} textColor={['primary', 'light']}>
+                리스트 보기
+              </ButtonSmall>
+            </Link>
+          )}
         </MontlyTitle>
         <CalandarGrapth logs={logs} isMobile={isMobile} isLoading={isLoading} />
         <Note>
