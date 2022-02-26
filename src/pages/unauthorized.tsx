@@ -13,7 +13,7 @@ import ButtonSmall from '../components/ButtonSmall';
 import { Icon } from '../components/icon/Icon';
 import Header from '../components/layout/Header';
 
-import * as S from './error';
+import * as S from './404';
 
 const UnauthorizedPage = () => {
   return (
