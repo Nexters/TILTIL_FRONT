@@ -35,6 +35,10 @@ const Wrapper = styled.div<WrapperProps>`
     ${({ theme }) => theme.typography.body2};
     color: ${({ theme }) => theme.colors.text.idle};
     width: 100%;
+
+    ::placeholder {
+      color: ${({ theme }) => theme.colors.text.placeholder};
+    }
   }
 `;
 

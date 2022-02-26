@@ -2,7 +2,6 @@ import styled from '@emotion/styled';
 import { TilDetailResponse, TilRequest } from 'apis/api';
 import { Text } from 'components/Text';
 import dayjs from 'dayjs';
-import { tilKeys } from 'queryKeys/tilKeys';
 import { FC, useEffect, useState } from 'react';
 import colors from 'styles/colors';
 import theme from 'styles/theme';
@@ -16,28 +15,33 @@ type TilData = Pick<TilDetailResponse, 'learnContent' | 'wellContent' | 'improve
 
 type ContentKey = keyof TilData;
 
-const tagList: { text: string; category: keyof typeof colors.category; contentKey: ContentKey }[] = [
-  {
-    text: '잘한 점',
-    category: 'learn',
-    contentKey: 'learnContent',
-  },
-  {
-    text: '배운 점',
-    category: 'good',
-    contentKey: 'wellContent',
-  },
-  {
-    text: '개선할 점',
-    category: 'improve',
-    contentKey: 'improveContent',
-  },
-  {
-    text: '궁금한 점',
-    category: 'curious',
-    contentKey: 'questionContent',
-  },
-];
+const tagList: { text: string; category: keyof typeof colors.category; contentKey: ContentKey; placeholder: string }[] =
+  [
+    {
+      text: '잘한 점',
+      category: 'learn',
+      contentKey: 'learnContent',
+      placeholder: '오늘 공부했거나 일하면서 배운게 있나요?\n잊어버리지 말고 기록해봐요!',
+    },
+    {
+      text: '배운 점',
+      category: 'good',
+      contentKey: 'wellContent',
+      placeholder: '오늘도 수고한 당신을 위해 칭찬 한마디 남겨봐요!\n사소한 거라도 괜찮아요!',
+    },
+    {
+      text: '개선할 점',
+      category: 'improve',
+      contentKey: 'improveContent',
+      placeholder: '오늘 혹시 부족하다 느낀 것이 있으신가요?\n더 성장한 내일을 위해 기록해봐요!',
+    },
+    {
+      text: '궁금한 점',
+      category: 'curious',
+      contentKey: 'questionContent',
+      placeholder: '풀리지 않은 궁금점이 있나요?\n기록해두었다가 한번 알아봐요!',
+    },
+  ];
 
 interface Props {
   onSubmit: (tilRequest: TilRequest) => Promise<void>;
@@ -87,6 +91,7 @@ export const Form: FC<Props> = ({ onSubmit, tilDetailResponse }) => {
         <Input
           className="mt-1"
           value={title}
+          placeholder="오늘의 회고"
           onChange={(e) => {
             setTitle(e.target.value);
           }}
@@ -122,6 +127,7 @@ export const Form: FC<Props> = ({ onSubmit, tilDetailResponse }) => {
           className="mt-2 flex-grow-1"
           maxLength={1000}
           value={content[activeCategory]}
+          placeholder={tagList.filter((tag) => tag.contentKey === activeCategory)[0].placeholder}
           onChange={(e) => {
             const newContent = { ...content };
             newContent[activeCategory] = e.target.value;

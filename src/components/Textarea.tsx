@@ -1,4 +1,3 @@
-import { ClassNames } from '@emotion/react';
 import styled from '@emotion/styled';
 import { InputHTMLAttributes } from 'react';
 import colors from 'styles/colors';
@@ -28,11 +27,16 @@ const Wrapper = styled.div<WrapperProps>`
   padding: 16px;
 
   textarea {
+    ${({ theme: { typography } }) => typography.body2}
     width: 100%;
     resize: none;
     outline: none;
     border: none;
     background-color: ${({ theme, background: key }) => theme.colors.background[key]};
+
+    ::placeholder {
+      color: ${({ theme }) => theme.colors.text.placeholder};
+    }
   }
 `;
 
