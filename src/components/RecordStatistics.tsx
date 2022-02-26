@@ -11,6 +11,7 @@ import { Text } from './Text';
 
 interface Props {
   statistics?: TilStatisticsResponse;
+  isMobile: boolean;
 }
 
 type CategoryName = keyof typeof colors.category;
@@ -32,9 +33,9 @@ const CATEGORIES: { [key: string]: CategoryName } = {
   QUESTION: 'curious',
 };
 
-const RecordStatistics: React.VFC<Props> = ({ statistics = {} }) => {
+const RecordStatistics: React.VFC<Props> = ({ statistics = {}, isMobile }) => {
   return (
-    <Wrapper className="mx-6 mt-3">
+    <Wrapper className={isMobile ? 'ml-6 mt-3' : 'ml-3 mt-3'}>
       <TitleWrapper>
         <Icon name="chart" />
         <Text typography="h3">나의 암묵지 정보</Text>
@@ -48,6 +49,7 @@ const RecordStatistics: React.VFC<Props> = ({ statistics = {} }) => {
             description={statistics.mostDay?.map((key) => DAY_OF_WEEKS[key]).join(' ')}
           />
           <Card
+            className={isMobile ? 'mr-6' : 'mr-3'}
             iconName="write"
             title="많이 키운 암묵지는"
             categories={statistics.mostTilCategories?.map((key) => CATEGORIES[key])}

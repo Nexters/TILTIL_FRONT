@@ -10,15 +10,16 @@ import { Text } from './Text';
 type CategoryName = keyof typeof colors.category;
 
 interface Props {
+  className?: string;
   iconName: IconName;
   title: string;
   description?: string;
   categories?: CategoryName[];
 }
 
-const Card: React.VFC<Props> = ({ title, iconName, description, categories }) => {
+const Card: React.VFC<Props> = ({ className, title, iconName, description, categories }) => {
   return (
-    <Wrapper className="p-2">
+    <Wrapper className={`${className} p-2`}>
       <Icon className="mb-1" name={iconName} />
       <Title typography="body2" className="mt-2">
         {title}

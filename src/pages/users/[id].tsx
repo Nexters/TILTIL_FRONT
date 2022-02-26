@@ -47,7 +47,7 @@ const UserPage = ({ isMobile, id, isShared, isCSR }: Props) => {
           isLoading={isLoadingLog}
           hasRecordsViewButton={!isSharedLink}
         />
-        <RecordStatistics statistics={statistics?.data} />
+        <RecordStatistics statistics={statistics?.data} isMobile={isMobile} />
         <ButtonWrapper>
           <Link href="/records/new" passHref>
             <Button fullWidth>오늘도 암묵지 키우기</Button>
