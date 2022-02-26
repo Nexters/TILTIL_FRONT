@@ -35,13 +35,13 @@ const CATEGORIES: { [key: string]: CategoryName } = {
 
 const RecordStatistics: React.VFC<Props> = ({ statistics = {}, isMobile }) => {
   return (
-    <Wrapper className={isMobile ? 'ml-6 mt-3' : 'ml-3 mt-3'}>
-      <TitleWrapper>
+    <Wrapper className="mt-3">
+      <TitleWrapper className={isMobile ? 'ml-6' : 'ml-3'}>
         <Icon name="chart" />
         <Text typography="h3">나의 암묵지 정보</Text>
       </TitleWrapper>
       {statistics?.mostWriteDay ? (
-        <CardsWrapper className="my-3">
+        <CardsWrapper className={isMobile ? 'ml-6 my-3' : 'ml-3 my-3'}>
           <Card iconName="fire" title="연속으로" description={`${statistics.mostWriteDay}일 달성`} />
           <Card
             iconName="good"
@@ -56,7 +56,7 @@ const RecordStatistics: React.VFC<Props> = ({ statistics = {}, isMobile }) => {
           />
         </CardsWrapper>
       ) : (
-        <EmptyWrapper>
+        <EmptyWrapper className={isMobile ? 'mx-6' : 'mx-3'}>
           <EmptyIcon />
           <Text typography="body5">아직 암묵지 정보가 없어요.</Text>
           <Text typography="body5">오늘의 암묵지를 작성해 보세요.</Text>
