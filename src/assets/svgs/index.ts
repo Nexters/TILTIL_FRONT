@@ -28,3 +28,4 @@ export { default as HighlightBingbong } from './HighlightBingbong';
 export { default as IcebergBottom } from './IcebergBottom';
 export { default as IcebergTop } from './IcebergTop';
 export { default as Cloud } from './Cloud';
+export { default as Comportable } from './Comportable';

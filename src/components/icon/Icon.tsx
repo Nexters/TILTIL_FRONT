@@ -26,6 +26,7 @@ import {
   IcebergTop,
   IcebergBottom,
   Cloud,
+  Comportable,
 } from 'assets/svgs';
 import EditIcon from 'assets/svgs/EditIcon';
 import React, { VFC } from 'react';
@@ -69,6 +70,7 @@ const ICONS = {
   icebergTop: IcebergTop,
   icebergBottom: IcebergBottom,
   cloud: Cloud,
+  comportable: Comportable,
 } as const;
 
 export const Icon: VFC<IconProps> = ({ name, className, ...rest }) => {

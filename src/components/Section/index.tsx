@@ -109,7 +109,7 @@ const Helper = () => {
       </Text>
       <HelperIconWrapper>
         <Icon name="easyWriteIcon" />
-        <Icon name="togetherIcon" />
+        <Icon name="comportable" />
         <Icon name="togetherIcon" />
       </HelperIconWrapper>
     </HelperWrapper>
