@@ -97,6 +97,7 @@ const EmptyWrapper = styled.div`
   height: 150px;
   display: flex;
   flex-direction: column;
+  border-radius: 10px;
   background-color: ${theme.colors.background.white};
   align-items: center;
   justify-content: center;
