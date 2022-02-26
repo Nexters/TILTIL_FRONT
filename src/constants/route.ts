@@ -13,7 +13,7 @@ export const ROUTE = {
 
   // Error Page
   unauthorized: '/unauthorized',
-  error: '/error',
+  error: '/404',
 } as const;
 
 export type Route = ValueOf<typeof ROUTE>;
