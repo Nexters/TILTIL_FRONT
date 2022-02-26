@@ -1,3 +1,5 @@
+import { SHARE_OG_IMAGE } from 'constants/common';
+
 import styled from '@emotion/styled';
 import api, { setAuthorization } from 'apis/interceptor';
 import { useFetchGreetingMessage, useFetchRecentTilLog, useFetchUserTilStatistics } from 'apis/opens';
@@ -33,7 +35,7 @@ const UserPage = ({ isMobile, id, isShared, isCSR }: Props) => {
 
   return (
     <PageWrapper background="default">
-      <Head description="친구가 암묵지를 공유했어요! 구경하러 가볼까요?" image="/images/share-og-image.png" />
+      <Head description="친구가 암묵지를 공유했어요! 구경하러 가볼까요?" image={SHARE_OG_IMAGE} />
 
       <Header rightButton={['share', 'user']} background="transparent" />
       <main>

@@ -1,4 +1,4 @@
-import { BINGBONG, DOMAIN } from 'constants/common';
+import { BINGBONG, COMMON_OG_IMAGE, DOMAIN } from 'constants/common';
 
 import NextHead from 'next/head';
 import React from 'react';
@@ -17,11 +17,10 @@ const Head: React.FC<Props> = ({
   subTitle,
   description = '요즘 일잘러들이 선택한 회고 방법',
   url = DOMAIN,
-  image = '/images/common-og-image.png',
+  image = COMMON_OG_IMAGE,
   children,
 }) => {
   const ogTitle = subTitle ? `${subTitle} | ${title}` : title;
-  const ogImage = `${DOMAIN}${image}`;
 
   return (
     <NextHead>
@@ -39,7 +38,7 @@ const Head: React.FC<Props> = ({
         name="keywords"
         content="회고, 회고 방법, TIL, 기록, 암묵지, 성장, 일기, 일잘러, 넥스터즈, Nexters, 사람은 같은 실수를 반복한다"
       />
-      <meta property="og:image" content={ogImage} />
+      <meta property="og:image" content={image} />
 
       <meta property="og:site_name" content={BINGBONG} />
       <meta property="og:type" content="website" />
@@ -48,7 +47,7 @@ const Head: React.FC<Props> = ({
       <meta name="twitter:card" content="summary_large_image" />
       <meta name="twitter:title" content={title} />
       <meta name="twitter:description" content={description} />
-      <meta name="twitter:image" content={ogImage} />
+      <meta name="twitter:image" content={image} />
 
       {children}
     </NextHead>
